@@ -11,9 +11,9 @@ totalYSteps = 0
 
 def moveSteps(x,y):
     for i in range(x):
-        kit.stepper1.onestep(direction=stepper.FORWARD, style=stepper.INTERLEAVE)
+        kit.stepper1.onestep(direction=stepper.FORWARD, style=stepper.DOUBLE)
     for i in range(y):
-        kit.stepper2.onestep(direction=stepper.FORWARD, style=stepper.INTERLEAVE)
+        kit.stepper2.onestep(direction=stepper.FORWARD, style=stepper.DOUBLE)
 
 def moveTo(x, y , currentX , currentY):
     if (x < currentX):
