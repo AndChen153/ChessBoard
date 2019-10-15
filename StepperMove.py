@@ -1,8 +1,10 @@
 from adafruit_motor import stepper
 from adafruit_motorkit import MotorKit
+kit = MotorKit()
 
 #stepper 1 controls the x axis and stepper 2 controls the y axis
 #0,0 is bottom left corner of board on white side
+
 
 totalXSteps = 0
 totalYSteps = 0
@@ -49,7 +51,7 @@ def zero():
     for i in range(totalXSteps):
         kit.stepper1.onestep(direction=stepper.BACKWARD, style=stepper.INTERLEAVE)
 
-    for i in ragne(totalYSteps):
+    for i in range(totalYSteps):
         kit.stepper2.onestep(direction=stepper.BACKWARD, style=stepper.INTERLEAVE)
 
 

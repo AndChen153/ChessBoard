@@ -47,15 +47,16 @@ def microstepOneRotation(motorNum):
         for i in range(3200):
             kit.stepper2.onestep(direction=stepper.FORWARD , style=stepper.MICROSTEP)
 
-'''for i in range(3):
+for i in range(3):
     doubleStepOneRotation(2)
 
     doubleStepOneRotation(2)
     doubleStepOneRotation(2)
-    doubleStepOneRotationB(2)
+    interleaveOneRotationB(2)
+    #doubleStepOneRotationB(2)
 
-    doubleStepOneRotationB(2)
-    doubleStepOneRotationB(2)
-'''
+    #doubleStepOneRotationB(2)
+    #doubleStepOneRotationB(2)
+
 
 stopMotors()
