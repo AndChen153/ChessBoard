@@ -77,3 +77,6 @@ def takePiece(pieceColor):
             kit.stepper2.onestep(direction=stepper.FORWARD, style=stepper.INTERLEAVE)
 
     
+moveSteps(200,200)
+kit.stepper1.release()
+kit.stepper2.release()
