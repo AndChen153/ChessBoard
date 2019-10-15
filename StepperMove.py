@@ -7,7 +7,7 @@ from adafruit_motorkit import MotorKit
 totalXSteps = 0
 totalYSteps = 0
 
-def moveSteps(x,y)
+def moveSteps(x,y):
     for i in range(x):
         kit.stepper1.onestep(direction=stepper.FORWARD, style=stepper.INTERLEAVE)
     for i in range(y)
