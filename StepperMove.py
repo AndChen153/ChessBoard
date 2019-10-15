@@ -1,4 +1,4 @@
-import from adafruit_motor import stepper
+from adafruit_motor import stepper
 from adafruit_motorkit import MotorKit
 
 #stepper 1 controls the x axis and stepper 2 controls the y axis
