@@ -61,7 +61,7 @@ def zero():
 #true is white false is black
 def takePiece(pieceColor):
     #move peice to grid line back and to the left to take it off the board without disturbing other peices
-    for i in range(50)
+    for i in range(50):
         kit.stepper1.onestep(direction=stepper.BACKWARD, style=stepper.INTERLEAVE)
         kit.stepper2.onestep(direction=stepper.BACKWARD, style=stepper.INTERLEAVE)
 
