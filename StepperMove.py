@@ -21,7 +21,7 @@ def stepper_worker(stepper, numsteps, direction, style):
    print("Done")
 
 while (True):
-   if not st1.isAlive():
+    if not st1.isAlive():
 
       randomdir = 0#random.randint(0, 1)
       print("Stepper 1"),
@@ -38,7 +38,7 @@ while (True):
       st1 = threading.Thread(target=stepper_worker, args=(S1, 200, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.SINGLE,))
       st1.start()
 
-   if not st2.isAlive():
+    if not st2.isAlive():
       print("Stepper 2"),
       randomdir = 0#random.randint(0, 1)
       if (randomdir == 0):
@@ -53,7 +53,6 @@ while (True):
 
       st2 = threading.Thread(target=stepper_worker, args=(S2, randomsteps, dir, stepstyles[1],))
       st2.start()
-
     time.sleep(0.1)
 
 kit.stepper1.release()
