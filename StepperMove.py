@@ -43,7 +43,7 @@ while True:
             print("backward")
         randomsteps = 1000 #random.randint(10, 50)
         print("%d steps" % randomsteps)
-        st1 = threading.Thread(target=stepper_worker, args=(kit.stepper1, randomsteps, move_dir, stepstyles[2], ))
+        st1 = threading.Thread(target=stepper_worker, args=(kit.stepper1, 1000, STEPPER.FORWARD, STEPPER.INTERLEAVE, ))
         st1.start()
 
     if not st2.isAlive():
@@ -57,7 +57,7 @@ while True:
             print("backward")
         randomsteps = 1000 #random.randint(10, 50)
         print("%d steps" % randomsteps)
-        st2 = threading.Thread(target=stepper_worker, args=(kit.stepper2, randomsteps, move_dir, stepstyles[2], ))
+        st2 = threading.Thread(target=stepper_worker, args=(kit.stepper2, 1000, STEPPER.FORWARD, STEPPER.INTERLEAVE, ))
         st2.start()
         print("st2 is alive =" , st2.isAlive())
 
