@@ -1,5 +1,6 @@
-from adafruit_motor import stepper
+#from adafruit_motor import stepper
 from adafruit_motorkit import MotorKit
+
 kit = MotorKit()
 
 #stepper 1 controls the x axis and stepper 2 controls the y axis
@@ -79,6 +80,9 @@ def takePiece(pieceColor):
             kit.stepper2.onestep(direction=stepper.FORWARD, style=stepper.INTERLEAVE)
 
     
-moveSteps(500,500)
+ 
+for i in range(100):
+    kit.stepper1.onestep()
+    kit.stepper2.onestep()
 kit.stepper1.release()
 kit.stepper2.release()
