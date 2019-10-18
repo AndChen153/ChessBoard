@@ -1,3 +1,7 @@
+import time
+import atexit
+import threading
+import random
 from adafruit_motor import stepper as STEPPER
 from adafruit_motorkit import MotorKit
 
