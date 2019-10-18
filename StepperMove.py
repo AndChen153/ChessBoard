@@ -12,10 +12,14 @@ kit = MotorKit()
 st1 = threading.Thread()
 st2 = threading.Thread()
 
+def turnOffMotors():
+   mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
+   mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
+
 atexit.register(turnOffMotors)
 
 S1 = mh.getStepper(200, 1)     # 200 steps/rev, motor port #1
-S2 = mh.getStepper(200, 2)     # 200 steps/rev, motor port #1
+S2 = mh.getStepper(200, 2)     # 200 steps/rev, motor port #2
 
 stepstyles = [Adafruit_MotorHAT.SINGLE, Adafruit_MotorHAT.DOUBLE, Adafruit_MotorHAT.INTERLEAVE, Adafruit_MotorHAT.MICROSTEP]
 
