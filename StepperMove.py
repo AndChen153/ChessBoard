@@ -12,56 +12,56 @@ kit = MotorKit()
 st1 = threading.Thread()
 st2 = threading.Thread()
 
+
+# recommended for auto-disabling motors on shutdown!
 def turnOffMotors():
-   mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
-   mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
+    kit.stepper1.release()
+    kit.stepper2.release()
+
 
 atexit.register(turnOffMotors)
 
-S1 = mh.getStepper(200, 1)     # 200 steps/rev, motor port #1
-S2 = mh.getStepper(200, 2)     # 200 steps/rev, motor port #2
+stepstyles = [STEPPER.SINGLE, STEPPER.DOUBLE, STEPPER.INTERLEAVE, STEPPER.MICROSTEP]
 
-stepstyles = [Adafruit_MotorHAT.SINGLE, Adafruit_MotorHAT.DOUBLE, Adafruit_MotorHAT.INTERLEAVE, Adafruit_MotorHAT.MICROSTEP]
 
 def stepper_worker(stepper, numsteps, direction, style):
-   print("Steppin!")
-   stepper.step(numsteps, direction, style)
-   print("Done")
+    #print("Steppin!")
+    for _ in range(numsteps):
+        stepper.onestep(direction=direction, style=style)
+    #print("Done")
 
-while (True):
+
+while True:
     if not st1.isAlive():
-
-      randomdir = 0#random.randint(0, 1)
-      print("Stepper 1"),
-      if (randomdir == 0):
-         dir = Adafruit_MotorHAT.FORWARD
-         print("forward"),
-      else:
-         dir = Adafruit_MotorHAT.BACKWARD
-         print("backward"),
-      randomsteps = 200
-
-      print("%d steps" % randomsteps)
-      #st1 = threading.Thread(target=stepper_worker, args=(S1, randomsteps, dir, stepstyles[1],))
-      st1 = threading.Thread(target=stepper_worker, args=(S1, 200, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.SINGLE,))
-      st1.start()
+        randomdir = 0  #random.randint(0, 1)
+        print("Stepper 1")
+        if randomdir == 0:
+            move_dir = STEPPER.FORWARD
+            print("forward")
+        else:
+            move_dir = STEPPER.BACKWARD
+            print("backward")
+        randomsteps = 200 #random.randint(10, 50)
+        print("%d steps" % randomsteps)
+        st1 = threading.Thread(target=stepper_worker, args=(kit.stepper1, randomsteps, move_dir, stepstyles[0], ))
+        st1.start()
 
     if not st2.isAlive():
-      print("Stepper 2"),
-      randomdir = 0#random.randint(0, 1)
-      if (randomdir == 0):
-         dir = Adafruit_MotorHAT.FORWARD
-         print("forward"),
-      else:
-         dir = Adafruit_MotorHAT.BACKWARD
-         print("backward"),
+        print("Stepper 2")
+        randomdir = 0  #random.randint(0, 1)
+        if randomdir == 0:
+            move_dir = STEPPER.FORWARD
+            print("forward")
+        else:
+            move_dir = STEPPER.BACKWARD
+            print("backward")
+        randomsteps = 200 #random.randint(10, 50)
+        print("%d steps" % randomsteps)
+        st2 = threading.Thread(target=stepper_worker, args=(kit.stepper2, randomsteps, move_dir, stepstyles[0], ))
+        st2.start()
+        print("st2 is alive =" , st2.isAlive())
 
-      randomsteps = 200      
-      print("%d steps" % randomsteps)
-
-      st2 = threading.Thread(target=stepper_worker, args=(S2, randomsteps, dir, stepstyles[1],))
-      st2.start()
-    time.sleep(0.1)
+    time.sleep(0.1) # Small delay to stop from constantly polling threads
 
 kit.stepper1.release()
 kit.stepper2.release()
