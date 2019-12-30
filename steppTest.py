@@ -64,8 +64,9 @@ while (True):
         st2.start()'''
 
 while (True):
-    myStepper1.step(500, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.DOUBLE)
-    myStepper2.step(500, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.DOUBLE)
-    myStepper1.step(500, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.DOUBLE)
-    myStepper2.step(500, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.DOUBLE)
+    myStepper1.step(600, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.DOUBLE)
+    myStepper2.step(600, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.DOUBLE)
+    myStepper1.step(600, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.DOUBLE)
+    myStepper2.step(600, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.DOUBLE)
+    
         
