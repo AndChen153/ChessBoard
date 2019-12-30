@@ -33,17 +33,26 @@ myStepper2 = mh.getStepper(200, 2)      # 200 steps/rev, motor port #1
 myStepper1.setSpeed(45)          # 30 RPM
 myStepper2.setSpeed(45)          # 30 RPM
 
+a=0
 
-st1 = threading.Thread(target=stepper_worker, args=(myStepper1, 300, Adafruit_MotorHAT.FORWARD, stepstyles[2]))
-st1.start()
+while (True):
+    if (a==0):
+        st1 = threading.Thread(target=stepper_worker, args=(myStepper1, 300, Adafruit_MotorHAT.FORWARD, stepstyles[2]))
+        st1.start()
 
-st2 = threading.Thread(target=stepper_worker, args=(myStepper2, 300, Adafruit_MotorHAT.FORWARD, stepstyles[2]))
-st2.start()
+        st2 = threading.Thread(target=stepper_worker, args=(myStepper2, 300, Adafruit_MotorHAT.FORWARD, stepstyles[2]))
+        st2.start()
+        a=a+1
 
-if not st1.isAlive():
-    st1 = threading.Thread(target=stepper_worker, args=(myStepper1, 300, Adafruit_MotorHAT.BACKWARD, stepstyles[2]))
-    st1.start()
+    elif (a==1):
 
-if not st2.isAlive():
-    st2 = threading.Thread(target=stepper_worker, args=(myStepper2, 300, Adafruit_MotorHAT.BACKWARD, stepstyles[2]))
-    st2.start()
+        if not st1.isAlive():
+            st1 = threading.Thread(target=stepper_worker, args=(myStepper1, 300, Adafruit_MotorHAT.BACKWARD, stepstyles[2]))
+            st1.start()
+
+
+        if not st2.isAlive():
+            st2 = threading.Thread(target=stepper_worker, args=(myStepper2, 300, Adafruit_MotorHAT.BACKWARD, stepstyles[2]))
+            st2.start()
+            a=0
+        
