@@ -63,8 +63,9 @@ while (True):
         st2 = threading.Thread(target=stepper_worker, args=(myStepper2, 300, dir, stepstyles[2]))
         st2.start()'''
 
-myStepper1.step(10, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.DOUBLE)
-myStepper1.step(10, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.DOUBLE)
+myStepper1.step(30, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.SINGLE)
+myStepper1.step(30, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.SINGLE)
+print("set")
 
 while (True):
     myStepper1.step(600, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.DOUBLE)
