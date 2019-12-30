@@ -18,7 +18,7 @@ def turnOffMotors():
     mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
     mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
     mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
-    
+
 atexit.register(turnOffMotors)
 
 stepstyles = [Adafruit_MotorHAT.SINGLE, Adafruit_MotorHAT.DOUBLE, Adafruit_MotorHAT.INTERLEAVE, Adafruit_MotorHAT.MICROSTEP]
@@ -39,9 +39,9 @@ st1.start()
 st2 = threading.Thread(target=stepper_worker, args=(myStepper2, 300, Adafruit_MotorHAT.FORWARD, stepstyles[2]))
 st2.start()'''
 
+'''
 direction1=True
 direction2=True
-
 while (True):
     if not st1.isAlive():
         if direction1:
@@ -61,5 +61,11 @@ while (True):
             dir=Adafruit_MotorHAT.BACKWARD
             direction2=True
         st2 = threading.Thread(target=stepper_worker, args=(myStepper2, 300, dir, stepstyles[2]))
-        st2.start()
+        st2.start()'''
+
+while (True):
+    myStepper1.step(300, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.INTERLEAVE)
+    myStepper2.step(300, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.INTERLEAVE)
+    myStepper1.step(300, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.INTERLEAVE)
+    myStepper2.step(300, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.INTERLEAVE)
         
