@@ -24,7 +24,7 @@ stepstyles = [Adafruit_MotorHAT.SINGLE, Adafruit_MotorHAT.DOUBLE, Adafruit_Motor
 #                   0                               1                           2                           3
 
 def stepper_worker(stepper, numsteps, direction, style):
-    print("Steppin!" + stepper)
+    print("Steppin!")
     stepper.step(numsteps, direction, style)
     #print("Done")
 
