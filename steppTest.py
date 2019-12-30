@@ -20,7 +20,7 @@ myStepper.setSpeed(60)             #  RPM (proportional to seconds per step)
 
 myStepper.step(100, Adafruit_MotorHAT.FORWARD,  Adafruit_MotorHAT.INTERLEAVE)
 
-#turnOffMotors()
+turnOffMotors()
 
 myStepper.step(100, Adafruit_MotorHAT.FORWARD,  Adafruit_MotorHAT.INTERLEAVE)
 
