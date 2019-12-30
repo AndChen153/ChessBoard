@@ -1,7 +1,12 @@
-from adafruit_motor import stepper
-from adafruit_motorkit import MotorKit
-kit = MotorKit()
+from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor, Adafruit_StepperMotor
 
 
-kit.stepper1.release()
-kit.stepper2.release()
+
+mh = Adafruit_MotorHAT()
+
+# recommended for auto-disabling motors on shutdown!
+
+mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
+mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
+mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
+mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
