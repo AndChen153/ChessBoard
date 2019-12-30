@@ -2,9 +2,15 @@ from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor, Adafruit_Step
 
 import time
 import atexit
+import threading
+
 
 # create a default object, no changes to I2C address or frequency
 mh = Adafruit_MotorHAT()
+
+# create empty threads (these will hold the stepper 1 and 2 threads)
+st1 = threading.Thread()
+st2 = threading.Thread()
 
 # recommended for auto-disabling motors on shutdown!
 def turnOffMotors():
@@ -14,43 +20,22 @@ def turnOffMotors():
     mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
 atexit.register(turnOffMotors)
 
+stepstyles = [Adafruit_MotorHAT.SINGLE, Adafruit_MotorHAT.DOUBLE, Adafruit_MotorHAT.INTERLEAVE, Adafruit_MotorHAT.MICROSTEP]
+#                   0                               1                           2                           3
 
-myStepper = mh.getStepper(200, 1)  # 200 steps/rev, motor port #1
-myStepper.setSpeed(30)             #  RPM (proportional to seconds per step)
+def stepper_worker(stepper, numsteps, direction, style):
+    print("Steppin!" + stepper)
+    stepper.step(numsteps, direction, style)
+    #print("Done")
 
-myStepper2 = mh.getStepper(200, 2)  # 200 steps/rev, motor port #1
-myStepper2.setSpeed(30)             #  RPM (proportional to seconds per step)
+myStepper1 = mh.getStepper(200, 1)      # 200 steps/rev, motor port #1
+myStepper2 = mh.getStepper(200, 2)      # 200 steps/rev, motor port #1
+myStepper1.setSpeed(60)          # 30 RPM
+myStepper2.setSpeed(60)          # 30 RPM
 
-myStepper.step(100, Adafruit_MotorHAT.FORWARD,  Adafruit_MotorHAT.DOUBLE)
 
-time.sleep(0.5)
+st1 = threading.Thread(target=stepper_worker, args=(myStepper1, 100, Adafruit_MotorHAT.FORWARD, stepstyles[2]))
+st1.start()
 
-myStepper.step(100, Adafruit_MotorHAT.FORWARD,  Adafruit_MotorHAT.DOUBLE)
-
-time.sleep(0.5)
-
-myStepper.step(100, Adafruit_MotorHAT.BACKWARD,  Adafruit_MotorHAT.DOUBLE)
-
-time.sleep(0.5)
-
-myStepper2.step(100, Adafruit_MotorHAT.BACKWARD,  Adafruit_MotorHAT.DOUBLE)
-
-time.sleep(0.5)
-
-myStepper2.step(100, Adafruit_MotorHAT.FORWARD,  Adafruit_MotorHAT.DOUBLE)
-'''while (True):
-    print("Single coil steps")
-    myStepper.step(100, Adafruit_MotorHAT.FORWARD,  Adafruit_MotorHAT.SINGLE)
-    myStepper.step(100, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.SINGLE)
-
-    #print("Double coil steps")
-    myStepper.step(100, Adafruit_MotorHAT.FORWARD,  Adafruit_MotorHAT.DOUBLE)
-    #myStepper.step(100, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.DOUBLE)
-
-    print("Interleaved coil steps")
-    myStepper.step(100, Adafruit_MotorHAT.FORWARD,  Adafruit_MotorHAT.INTERLEAVE)
-    myStepper.step(100, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.INTERLEAVE)
-
-    print("Microsteps")
-    myStepper.step(100, Adafruit_MotorHAT.FORWARD,  Adafruit_MotorHAT.MICROSTEP)
-    myStepper.step(100, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.MICROSTEP)'''
+st2 = threading.Thread(target=stepper_worker, args=(myStepper2, 100, Adafruit_MotorHAT.FORWARD, stepstyles[2]))
+st2.start()
