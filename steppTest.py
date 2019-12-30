@@ -64,13 +64,17 @@ while (True):
         st2.start()'''
 
 myStepper1.step(30, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.SINGLE)
+time.sleep (0.1)
 myStepper1.step(30, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.SINGLE)
+time.sleep (0.1)
 print("set")
 
 while (True):
-    myStepper1.step(600, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.DOUBLE)
-    myStepper2.step(600, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.DOUBLE)
-    myStepper1.step(600, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.DOUBLE)
-    myStepper2.step(600, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.DOUBLE)
+    myStepper1.step(600, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.INTERLEAVE)
+    myStepper2.step(600, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.INTERLEAVE)
+    time.sleep (0.1)
+    myStepper1.step(600, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.INTERLEAVE) 
+    myStepper2.step(600, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.INTERLEAVE)
+    time.sleep (0.1)
     
         
