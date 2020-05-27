@@ -45,10 +45,10 @@ def stepper_worker(stepper, numsteps, direction, style):
 while (True):
     x=input("steps? \n")
     direction = input("direction? \n")
-    
-    for i in range(int(int(x)/10)):
-        stepper_worker(XAxisStepper, int(10), int(direction), 2)
-        time.sleep(0.1)
+    stepper_worker(XAxisStepper, int(x), int(direction), 2)
+
+    '''for i in range(int(int(x)/10)):
+        time.sleep(0.1)'''
 
     turnOffMotors()
 
