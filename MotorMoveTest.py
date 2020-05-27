@@ -37,7 +37,7 @@ def stepper_worker(stepper, numsteps, direction, style):
     stepper.step(numsteps, direction, style)
     print("Done \n")
 
-
+#both motors have to be moving at the same time to eliminate the weird motor stopping issue
 
 while (True):
     x=input("X steps? \n")
