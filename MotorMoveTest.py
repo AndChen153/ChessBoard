@@ -14,10 +14,10 @@ mh = Adafruit_MotorHAT()
 st1 = threading.Thread()
 st2 = threading.Thread()
 
-XAxisStepper = mh.getStepper(200, 1)      # 200 steps/rev, motor port #1
-YAxisStepper = mh.getStepper(200, 2)      # 200 steps/rev, motor port #1
+XAxisStepper = mh.getStepper(100, 1)      # 200 steps/rev, motor port #1
+YAxisStepper = mh.getStepper(100, 2)      # 200 steps/rev, motor port #1
 XAxisStepper.setSpeed(50)
-YAxisStepper.setSpeed(20)
+YAxisStepper.setSpeed(50)
 
 
 # turns off motors at exit of program
