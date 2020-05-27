@@ -2,10 +2,9 @@
 
 from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_StepperMotor
 import time
-
-import time
 import atexit
 import threading
+import random
 
 # create a default object, no changes to I2C address or frequency
 mh = Adafruit_MotorHAT()
@@ -45,10 +44,8 @@ def stepper_worker(stepper, numsteps, direction, style):
 while (True):
     x=input("steps? \n")
     direction = input("direction? \n")
-    stepper_worker(XAxisStepper, int(x), int(direction), 2)
-
-    '''for i in range(int(int(x)/10)):
-        time.sleep(0.1)'''
+    st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, x, direction, 2,))
+    st1.start()
 
     turnOffMotors()
 
