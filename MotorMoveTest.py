@@ -6,7 +6,6 @@ import time
 import atexit
 import threading
 
-
 # create a default object, no changes to I2C address or frequency
 mh = Adafruit_MotorHAT()
 
@@ -18,6 +17,16 @@ myStepper1 = mh.getStepper(200, 1)      # 200 steps/rev, motor port #1
 myStepper2 = mh.getStepper(200, 2)      # 200 steps/rev, motor port #1
 myStepper1.setSpeed(60)          # 30 RPM
 myStepper2.setSpeed(60)          # 30 RPM
+
+
+# turns off motors at exit of program
+def turnOffMotors():
+    mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
+    mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
+    mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
+    mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
+atexit.register(turnOffMotors)
+
 
 stepStyles = [Adafruit_MotorHAT.SINGLE, Adafruit_MotorHAT.DOUBLE, Adafruit_MotorHAT.INTERLEAVE, Adafruit_MotorHAT.MICROSTEP]
 #                   0                               1                           2                           3
@@ -56,13 +65,3 @@ while (True):
     time.sleep (0.1)'''
     
         
-
-
-
-# turns off motors at exit of program
-def turnOffMotors():
-    mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
-    mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
-    mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
-    mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
-atexit.register(turnOffMotors)
