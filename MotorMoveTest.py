@@ -15,8 +15,8 @@ st2 = threading.Thread()
 
 XAxisStepper = mh.getStepper(200, 1)      # 200 steps/rev, motor port #1
 YAxisStepper = mh.getStepper(200, 2)      # 200 steps/rev, motor port #1
-XAxisStepper.setSpeed(120)          # 30 RPM
-YAxisStepper.setSpeed(120)          # 30 RPM
+XAxisStepper.setSpeed(300)
+YAxisStepper.setSpeed(300)
 
 
 # turns off motors at exit of program
