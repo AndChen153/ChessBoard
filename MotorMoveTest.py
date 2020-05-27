@@ -44,7 +44,7 @@ def stepper_worker(stepper, numsteps, direction, style):
 while (True):
     x=input("steps? \n")
     direction = input("direction? \n")
-    dir=stepDirection[direction]
+    dir=stepDirection[int(direction)]
     st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(x), dir, stepStyles[2],))
     st1.start()
 
