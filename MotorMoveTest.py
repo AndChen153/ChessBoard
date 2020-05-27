@@ -44,9 +44,9 @@ def stepper_worker(stepper, numsteps, direction, style):
 while (True):
     x=input("steps? \n")
     direction = input("direction? \n")
-
-    stepper_worker(XAxisStepper, int(x/2), int(direction), 2)
-    stepper_worker(XAxisStepper, int(x/2), int(direction), 2)
+    
+    for i in range(x/10):
+        stepper_worker(XAxisStepper, int(10), int(direction), 2)
 
     turnOffMotors()
 
