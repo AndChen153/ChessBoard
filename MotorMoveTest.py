@@ -1,6 +1,6 @@
 #to find the number of steps for each square on the chessboard
 
-from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_StepperMotor
+from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor, Adafruit_StepperMotor
 import time
 import atexit
 import threading
@@ -11,7 +11,7 @@ mh = Adafruit_MotorHAT()
 
 # create empty threads (these will hold the stepper 1 and 2 threads)
 st1 = threading.Thread()
-#st2 = threading.Thread()
+st2 = threading.Thread()
 
 # turns off motors at exit of program
 def turnOffMotors():
