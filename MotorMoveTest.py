@@ -40,15 +40,23 @@ def stepper_worker(stepper, numsteps, direction, style):
 
 
 while (True):
+    x=input("X steps? \n")
+    directionx = input("direction? \n")
+    dirx=stepDirection[int(directionx)]
+
+    y=input("y steps? \n")
+    directiony = input("direction? \n")
+    diry=stepDirection[int(directiony)]
+
     if not st1.isAlive():
-        x=input("steps? \n")
-        direction = input("direction? \n")
-        dir=stepDirection[int(direction)]
-        st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(x), dir, stepStyles[2],))
+        st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(x), dirx, stepStyles[2],))
         st1.start()
+    if not st2.isAlive():
+        st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, int(y), diry, stepStyles[2],))
+        st2.start()
 
     time.sleep(0.1)
-    turnOffMotors()
+    #turnOffMotors()
 
 
 
