@@ -11,13 +11,7 @@ mh = Adafruit_MotorHAT()
 
 # create empty threads (these will hold the stepper 1 and 2 threads)
 st1 = threading.Thread()
-st2 = threading.Thread()
-
-XAxisStepper = mh.getStepper(100, 1)      # 200 steps/rev, motor port #1
-YAxisStepper = mh.getStepper(100, 2)      # 200 steps/rev, motor port #1
-XAxisStepper.setSpeed(50)
-YAxisStepper.setSpeed(50)
-
+#st2 = threading.Thread()
 
 # turns off motors at exit of program
 def turnOffMotors():
@@ -27,6 +21,10 @@ def turnOffMotors():
     mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
 atexit.register(turnOffMotors)
 
+XAxisStepper = mh.getStepper(200, 1)      # 200 steps/rev, motor port #1
+YAxisStepper = mh.getStepper(200, 2)      # 200 steps/rev, motor port #1
+XAxisStepper.setSpeed(60)
+YAxisStepper.setSpeed(60)
 
 stepStyles = [Adafruit_MotorHAT.SINGLE, Adafruit_MotorHAT.DOUBLE, Adafruit_MotorHAT.INTERLEAVE, Adafruit_MotorHAT.MICROSTEP]
 #                   0                               1                           2                           3
@@ -42,12 +40,14 @@ def stepper_worker(stepper, numsteps, direction, style):
 
 
 while (True):
-    x=input("steps? \n")
-    direction = input("direction? \n")
-    dir=stepDirection[int(direction)]
-    st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(x), dir, stepStyles[2],))
-    st1.start()
+    if not st1.isAlive():
+        x=input("steps? \n")
+        direction = input("direction? \n")
+        dir=stepDirection[int(direction)]
+        st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(x), dir, stepStyles[2],))
+        st1.start()
 
+    time.sleep(0.1)
     turnOffMotors()
 
 
