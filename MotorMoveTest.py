@@ -26,7 +26,7 @@ stepDirection = [Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.BACKWARD]
 #                   0                               1
 
 def stepper_worker(stepper, numsteps, direction, style):
-    print("Steppin!"+ str(numsteps) + stepDirection[direction] + stepStyles[style])
+    print("Steppin!")
     stepper.step(numsteps, stepDirection[int(direction)], stepStyles[int(style)])
     print("Done")
 
