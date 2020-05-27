@@ -14,9 +14,9 @@ st1 = threading.Thread()
 st2 = threading.Thread()
 
 XAxisStepper = mh.getStepper(200, 1)      # 200 steps/rev, motor port #1
-#YAxisStepper = mh.getStepper(200, 2)      # 200 steps/rev, motor port #1
+YAxisStepper = mh.getStepper(200, 2)      # 200 steps/rev, motor port #1
 XAxisStepper.setSpeed(50)
-#YAxisStepper.setSpeed(20)
+YAxisStepper.setSpeed(20)
 
 
 # turns off motors at exit of program
@@ -42,10 +42,10 @@ def stepper_worker(stepper, numsteps, direction, style):
 
 
 while (True):
-    x=input("x axis? \n")
+    x=input("steps? \n")
     direction = input("direction? \n")
 
-    stepper_worker(XAxisStepper, int(x), int(direction), 2)
+    stepper_worker(YAxisStepper, int(x), int(direction), 2)
 
     turnOffMotors()
 
