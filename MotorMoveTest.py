@@ -45,7 +45,8 @@ while (True):
     x=input("steps? \n")
     direction = input("direction? \n")
 
-    stepper_worker(XAxisStepper, int(x), int(direction), 2)
+    stepper_worker(XAxisStepper, int(x/2), int(direction), 2)
+    stepper_worker(XAxisStepper, int(x/2), int(direction), 2)
 
     turnOffMotors()
 
