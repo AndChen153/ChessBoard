@@ -13,10 +13,10 @@ mh = Adafruit_MotorHAT()
 st1 = threading.Thread()
 st2 = threading.Thread()
 
-myStepper1 = mh.getStepper(200, 1)      # 200 steps/rev, motor port #1
-myStepper2 = mh.getStepper(200, 2)      # 200 steps/rev, motor port #1
-myStepper1.setSpeed(60)          # 30 RPM
-myStepper2.setSpeed(60)          # 30 RPM
+XAxisStepper = mh.getStepper(200, 1)      # 200 steps/rev, motor port #1
+YAxisStepper = mh.getStepper(200, 2)      # 200 steps/rev, motor port #1
+XAxisStepper.setSpeed(120)          # 30 RPM
+YAxisStepper.setSpeed(120)          # 30 RPM
 
 
 # turns off motors at exit of program
@@ -37,31 +37,25 @@ stepDirection = [Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.BACKWARD]
 def stepper_worker(stepper, numsteps, direction, style):
     print("Steppin!")
     stepper.step(numsteps, stepDirection[int(direction)], stepStyles[int(style)])
-    print("Done")
-
-'''myStepper1.step(30, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.DOUBLE)
-time.sleep (0.1)
-myStepper1.step(30, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.DOUBLE)
-time.sleep (0.1)
-print("set")'''
+    print("Done \n")
 
 
 while (True):
     x=input("x axis?")
     direction = input("direction?")
 
-    stepper_worker(myStepper1, int(x), int(direction), 1)
+    stepper_worker(XAxisStepper, int(x), int(direction), 1)
 
     turnOffMotors()
 
 
 
     '''
-    myStepper2.step(600, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.INTERLEAVE)
-    myStepper1.step(600, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.INTERLEAVE)
+    YAxisStepper.step(600, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.INTERLEAVE)
+    XAxisStepper.step(600, Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.INTERLEAVE)
     time.sleep (0.1)
-    myStepper1.step(600, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.INTERLEAVE) 
-    myStepper2.step(600, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.INTERLEAVE)
+    XAxisStepper.step(600, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.INTERLEAVE) 
+    YAxisStepper.step(600, Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.INTERLEAVE)
     time.sleep (0.1)'''
     
         
