@@ -48,7 +48,7 @@ while (True):
     
     for i in range(int(int(x)/10)):
         stepper_worker(XAxisStepper, int(10), int(direction), 2)
-        time.sleep(0.05)
+        time.sleep(0.01)
 
     turnOffMotors()
 
