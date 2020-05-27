@@ -41,7 +41,7 @@ while (True):
     x=input("x axis?")
     direction = input("direction?")
 
-    stepper_worker(myStepper1, x, direction, 2)
+    stepper_worker(myStepper1, int(x), int(direction), 2)
 
     turnOffMotors()
 
