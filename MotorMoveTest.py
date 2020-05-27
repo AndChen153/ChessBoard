@@ -36,7 +36,7 @@ stepDirection = [Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.BACKWARD]
 
 def stepper_worker(stepper, numsteps, direction, style):
     print("Steppin!")
-    stepper.step(numsteps, stepDirection[int(direction)], stepStyles[int(style)])
+    stepper.step(numsteps, direction, style)
     print("Done \n")
 
 
@@ -44,7 +44,8 @@ def stepper_worker(stepper, numsteps, direction, style):
 while (True):
     x=input("steps? \n")
     direction = input("direction? \n")
-    st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, x, direction, 2,))
+    dir=stepDirection[direction]
+    st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(x), dir, stepStyles[2],))
     st1.start()
 
     turnOffMotors()
