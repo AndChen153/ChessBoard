@@ -45,7 +45,7 @@ while (True):
         else:
             dir = Adafruit_MotorHAT.BACKWARD
             print("backward"),
-        randomsteps = random.randint(10,50)
+        randomsteps = random.randint(100,500)
         print("%d steps" % randomsteps)
         st1 = threading.Thread(target=stepper_worker, args=(myStepper1, randomsteps, dir, stepstyles[2],))
         st1.start()
@@ -60,7 +60,7 @@ while (True):
             dir = Adafruit_MotorHAT.BACKWARD
             print("backward"),
 
-        randomsteps = random.randint(10,50)
+        randomsteps = random.randint(100,500)
         print("%d steps" % randomsteps)
 
         st2 = threading.Thread(target=stepper_worker, args=(myStepper2, randomsteps, dir, stepstyles[2],))
