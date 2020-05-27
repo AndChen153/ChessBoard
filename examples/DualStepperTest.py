@@ -47,7 +47,7 @@ while (True):
             print("backward"),
         randomsteps = random.randint(10,50)
         print("%d steps" % randomsteps)
-        st1 = threading.Thread(target=stepper_worker, args=(myStepper1, randomsteps, dir, stepstyles[random.randint(0,3)],))
+        st1 = threading.Thread(target=stepper_worker, args=(myStepper1, randomsteps, dir, stepstyles[2],))
         st1.start()
 
     if not st2.isAlive():
@@ -63,7 +63,7 @@ while (True):
         randomsteps = random.randint(10,50)
         print("%d steps" % randomsteps)
 
-        st2 = threading.Thread(target=stepper_worker, args=(myStepper2, randomsteps, dir, stepstyles[random.randint(0,3)],))
+        st2 = threading.Thread(target=stepper_worker, args=(myStepper2, randomsteps, dir, stepstyles[2],))
         st2.start()
     
     time.sleep(0.1)  # Small delay to stop from constantly polling threads (see: https://forums.adafruit.com/viewtopic.php?f=50&t=104354&p=562733#p562733)
