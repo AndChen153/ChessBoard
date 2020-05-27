@@ -45,7 +45,7 @@ def stepper_worker(stepper, numsteps, direction, style):
 while (True):
     x=input("steps? \n")
     direction = input("direction? \n")
-    stepper_worker(XAxisStepper, int(x), int(direction), 2)
+    stepper_worker(XAxisStepper, int(x), int(direction), 3)
 
     '''for i in range(int(int(x)/10)):
         time.sleep(0.1)'''
