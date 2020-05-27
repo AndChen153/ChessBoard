@@ -1,6 +1,7 @@
 #to find the number of steps for each square on the chessboard
 
 from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_StepperMotor
+import time
 
 import time
 import atexit
@@ -47,6 +48,7 @@ while (True):
     
     for i in range(int(int(x)/10)):
         stepper_worker(XAxisStepper, int(10), int(direction), 2)
+        time.sleep(0.05)
 
     turnOffMotors()
 
