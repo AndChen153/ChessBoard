@@ -1,6 +1,6 @@
 # ChessBoard
 I am building a automated chess board that moves pieces by itself through voice commands
-running on raspberry pi 3/4(maybe)
+running on raspberry pi 3 and adafruit stepper motor hat with nema 17 stepper motors
 ## Automated Chess Board Controlled
 * uses stepper motors to control x and y axis and an electromagnet to move pieces
 * google voice api to use voice control
