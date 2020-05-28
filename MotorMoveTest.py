@@ -22,7 +22,7 @@ def turnOffMotors():
 atexit.register(turnOffMotors)
 
 XAxisStepper = mh.getStepper(200, 1)      # 200 steps/rev, motor port #1
-YAxisStepper = mh.getStepper(200, 2)      # 200 steps/rev, motor port #1
+YAxisStepper = mh.getStepper(200, 2)      # 200 steps/rev, motor port #2
 XAxisStepper.setSpeed(60)
 YAxisStepper.setSpeed(60)
 
