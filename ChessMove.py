@@ -93,8 +93,8 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
 
         #straight
         if not st1.isAlive():
-        st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xTemp, dirx, stepStyles[2],))
-        st1.start()
+            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xTemp, dirx, stepStyles[2],))
+            st1.start()
         jiggle()
     
     elif yPlaces > xPlaces:
