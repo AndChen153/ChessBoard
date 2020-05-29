@@ -11,8 +11,17 @@ import sys
 mh = Adafruit_MotorHAT()
 
 # create empty threads (these will hold the stepper 1 and 2 threads) so both motors can be ran at the same time
-st1 = threading.Thread()    #x axis
-st2 = threading.Thread()    #y axis
+st1 = threading.Thread()
+st2 = threading.Thread()
+
+# turns off motors at exit of program
+def turnOffMotors():
+    mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
+    mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
+    mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
+    mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
+atexit.register(turnOffMotors)
+
 
 
 XAxisStepper = mh.getStepper(200, 1)      # 200 steps/rev (1.8 degrees per step), motor port #1
@@ -26,16 +35,10 @@ stepStyles = [Adafruit_MotorHAT.SINGLE, Adafruit_MotorHAT.DOUBLE, Adafruit_Motor
 stepDirection = [Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.BACKWARD]
 #                   0                               1
 
+
 #number of steps per spaces on the chessboard
 steps=150
 
-# turns off motors at exit of program
-def turnOffMotors():
-    mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
-    mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
-    mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
-    mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
-atexit.register(turnOffMotors)
 
 #runs motors
 def stepper_worker(stepper, numsteps, direction, style):
@@ -44,7 +47,7 @@ def stepper_worker(stepper, numsteps, direction, style):
     print("Done \n")
 
 #to prevent weird motor movements (stops moving halfway) while only moving one motor
-def jiggle():
+'''def jiggle():
     if st1.isAlive():
         st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 20, stepDirection[0], stepStyles[2],))
         st2.start()
@@ -55,7 +58,7 @@ def jiggle():
         st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 20, stepDirection[0], stepStyles[2],))
         st1.start()
         st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 20, stepDirection[1], stepStyles[2],))
-        st1.start()
+        st1.start()'''
 
 #direction -> 0 is forward 1 is backward
 def translation(xPlaces, xDirection, yPlaces, yDirection):
@@ -66,14 +69,13 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
 
     #moving in a diagonal
     if xPlaces == yPlaces:
-        if not st1.isAlive():
-            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xPlaces, dirx, stepStyles[2],))
-            st1.start()
-        if not st2.isAlive():
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yPlaces, diry, stepStyles[2],))
-            st2.start()
+        st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xPlaces, dirx, stepStyles[2],))
+        st1.start()
+        st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yPlaces, diry, stepStyles[2],))
+        st2.start()
 
     #un-diagonal movement
+    '''
     elif xPlaces > yPlaces:
         xTemp = xPlaces - yPlaces
         #diagonal
@@ -105,6 +107,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
             st2.start()
         if st1.isAlive():
             jiggle("x")
+    '''
 
     turnOffMotors()
 
