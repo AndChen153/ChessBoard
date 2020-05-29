@@ -126,7 +126,7 @@ if len(sys.argv)>3:
 
 
 for i in range (3):
-    translation(1,1,1,1)
+    translation(3,1,1,1)
     time.sleep(0.1)
 
 
