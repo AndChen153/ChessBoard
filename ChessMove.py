@@ -50,6 +50,7 @@ print('setup complete')
 def jiggle():
     global st1
     global st2
+    print('jiggle')
     while st1.isAlive():
         if not st2.isAlive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 20, stepDirection[0], stepStyles[2],))
