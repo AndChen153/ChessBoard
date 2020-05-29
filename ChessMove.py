@@ -77,7 +77,6 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
         st1.start()
         st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yPlaces, diry, stepStyles[1],))
         st2.start()
-        time.sleep(0.01)
 
     #un-diagonal movement
     elif xPlaces > yPlaces:
@@ -86,30 +85,24 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
         
         st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, yPlaces, dirx, stepStyles[2],))
         st1.start()
-        time.sleep(0.01)
         st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yPlaces, diry, stepStyles[2],))
         st2.start()
-        time.sleep(0.01)
         #straight
         jiggle()
         st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xTemp, dirx, stepStyles[2],))
         st1.start()
-        time.sleep(0.01)
     
     elif yPlaces > xPlaces:
         yTemp = yPlaces-xPlaces
         #diagonal
         st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xPlaces, dirx, stepStyles[2],))
         st1.start()
-        time.sleep(0.01)
         st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper,xPlaces, diry, stepStyles[2],))
         st2.start()
-        time.sleep(0.01)
         #straight
         jiggle()
         st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yTemp, diry, stepStyles[2],))
         st2.start()
-        time.sleep(0.01)
 
     turnOffMotors()
 
@@ -121,7 +114,7 @@ if len(sys.argv)>3:
 
 
 for i in range (3):
-    translation(1,0,0,0)
+    translation(1,0,1,0)
     time.sleep(0.1)
 
 
