@@ -69,9 +69,9 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
 
     #moving in a diagonal
     if xPlaces == yPlaces:
-        st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xPlaces, dirx, stepStyles[2],))
+        st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xPlaces, dirx, stepStyles[1],))
         st1.start()
-        st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yPlaces, diry, stepStyles[2],))
+        st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yPlaces, diry, stepStyles[1],))
         st2.start()
 
     #un-diagonal movement
