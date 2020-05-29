@@ -46,20 +46,20 @@ def stepper_worker(stepper, numsteps, direction, style):
 #to prevent weird motor movements (stops moving halfway) while only moving one motor
 def jiggle(stepper):
     if stepper == "x":
-        if not st1.isAlive():
-            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 5, stepDirection[0], stepStyles[2],))
-            st1.start()
-        if not st1.isAlive():
-            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 5, stepDirection[1], stepStyles[2],))
-            st1.start()
-
-    elif stepper == "y":
-        if not st2.isAlive():
+        if st1.isAlive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 5, stepDirection[0], stepStyles[2],))
             st2.start()
-        if not st2.isAlive():
+        if st1.isAlive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 5, stepDirection[1], stepStyles[2],))
             st2.start()
+
+    elif stepper == "y":
+        if st2.isAlive():
+            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 5, stepDirection[0], stepStyles[2],))
+            st1.start()
+        if st2.isAlive():
+            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 5, stepDirection[1], stepStyles[2],))
+            st1.start()
 
 #direction -> 0 is forward 1 is backward
 def translation(xPlaces, xDirection, yPlaces, yDirection):
@@ -115,6 +115,11 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
 #sys.argv=(xPlaces, xDirection, yPlaces, yDirection)
 #            0          1           2          3
 translation(sys.argv[0],sys.argv[1],sys.argv[2],sys.argv[3])
+
+
+st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 300, stepDirection[1], stepStyles[2],))
+st1.start()
+jiggle("x")
 
 '''
 if not st1.isAlive():
