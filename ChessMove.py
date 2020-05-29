@@ -95,18 +95,18 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
 
         #diagonal
         if not st1.isAlive():
-            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, yPlaces, dirx, stepStyles[2],))
+            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, yPlaces, dirx, stepStyles[1],))
             st1.start()
         if not st2.isAlive():
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yPlaces, diry, stepStyles[2],))
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yPlaces, diry, stepStyles[1],))
             st2.start()
 
         #straight
-        while not (st1.done() and st2.done()):
+        while st1.isAlive() and st2.isAlive():
             print("waiting..")
             time.sleep(1)
         if not st1.isAlive():
-            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xTemp, dirx, stepStyles[2],))
+            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xTemp, dirx, stepStyles[1],))
             st1.start()
             time.sleep(0.1)
             jiggle()
@@ -118,18 +118,18 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
 
         #diagonal
         if not st1.isAlive():
-            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xPlaces, dirx, stepStyles[2],))
+            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xPlaces, dirx, stepStyles[1],))
             st1.start()
         if not st2.isAlive():
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper,xPlaces, diry, stepStyles[2],))
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper,xPlaces, diry, stepStyles[1],))
             st2.start()
 
         #straight
-        while not (st1.done() and st2.done()):
+        while st1.isAlive() and st2.isAlive():
             print("waiting..")
             time.sleep(1)
         if not st2.isAlive():
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yTemp, diry, stepStyles[2],))
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yTemp, diry, stepStyles[1],))
             st2.start()
             time.sleep(0.1)
             jiggle()
