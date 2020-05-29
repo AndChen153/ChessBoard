@@ -22,7 +22,11 @@ def turnOffMotors():
     mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
 atexit.register(turnOffMotors)
 
-
+#runs motors
+def stepper_worker(stepper, numsteps, direction, style):
+    print("Steppin!")
+    stepper.step(numsteps, direction, style)
+    print("Done \n")
 
 XAxisStepper = mh.getStepper(200, 1)      # 200 steps/rev (1.8 degrees per step), motor port #1
 YAxisStepper = mh.getStepper(200, 2)      # 200 steps/rev (1.8 degrees per step), motor port #2
@@ -51,12 +55,6 @@ st1.start()
 
 time.sleep(5)
 print('setup complete')
-
-#runs motors
-def stepper_worker(stepper, numsteps, direction, style):
-    print("Steppin!")
-    stepper.step(numsteps, direction, style)
-    print("Done \n")
 
 #to prevent weird motor movements (stops moving halfway) while only moving one motor
 def jiggle():
