@@ -50,17 +50,19 @@ print('setup complete')
 def jiggle():
     global st1
     global st2
-    while st1.isAlive():
-        st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 20, stepDirection[0], stepStyles[2],))
-        st2.start()
-        st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 20, stepDirection[1], stepStyles[2],))
-        st2.start()
+    if st1.isAlive():
+        while st1.isAlive():
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 20, stepDirection[0], stepStyles[2],))
+            st2.start()
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 20, stepDirection[1], stepStyles[2],))
+            st2.start()
 
-    while st2.isAlive():
-        st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 20, stepDirection[0], stepStyles[2],))
-        st1.start()
-        st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 20, stepDirection[1], stepStyles[2],))
-        st1.start()
+    elif st2.isAlive():
+        while st2.isAlive():
+            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 20, stepDirection[0], stepStyles[2],))
+            st1.start()
+            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 20, stepDirection[1], stepStyles[2],))
+            st1.start()
 
 #direction -> 0 is forward 1 is backward
 def translation(xPlaces, xDirection, yPlaces, yDirection):
