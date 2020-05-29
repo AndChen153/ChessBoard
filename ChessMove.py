@@ -29,7 +29,7 @@ YAxisStepper = mh.getStepper(200, 2)      # 200 steps/rev (1.8 degrees per step)
 XAxisStepper.setSpeed(5000)
 YAxisStepper.setSpeed(5000)
 
-
+#use double or interleave(half the distnace double moves)
 stepStyles = [Adafruit_MotorHAT.SINGLE, Adafruit_MotorHAT.DOUBLE, Adafruit_MotorHAT.INTERLEAVE, Adafruit_MotorHAT.MICROSTEP]
 #                   0                               1                           2                           3
 stepDirection = [Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.BACKWARD]
@@ -47,18 +47,18 @@ def stepper_worker(stepper, numsteps, direction, style):
     print("Done \n")
 
 #to prevent weird motor movements (stops moving halfway) while only moving one motor
-'''def jiggle():
-    if st1.isAlive():
+def jiggle():
+    while st1.isAlive():
         st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 20, stepDirection[0], stepStyles[2],))
         st2.start()
         st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 5, stepDirection[1], stepStyles[2],))
         st2.start()
 
-    elif st2.isAlive():
+    while st2.isAlive():
         st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 20, stepDirection[0], stepStyles[2],))
         st1.start()
         st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 20, stepDirection[1], stepStyles[2],))
-        st1.start()'''
+        st1.start()
 
 #direction -> 0 is forward 1 is backward
 def translation(xPlaces, xDirection, yPlaces, yDirection):
@@ -117,7 +117,7 @@ if len(sys.argv)>3:
     translation(sys.argv[0],sys.argv[1],sys.argv[2],sys.argv[3])
 
 translation(2,0,2,0)
-
+jiggle()
 
 
 '''
