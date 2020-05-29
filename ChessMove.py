@@ -48,13 +48,15 @@ print('setup complete')
 
 #to prevent weird motor movements (stops moving halfway) while only moving one motor
 def jiggle():
-    while global st1.isAlive():
+    st1 = global st1
+    st2 = global st2
+    while st1.isAlive():
         st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 20, stepDirection[0], stepStyles[2],))
         st2.start()
         st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 20, stepDirection[1], stepStyles[2],))
         st2.start()
 
-    while global st2.isAlive():
+    while st2.isAlive():
         st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 20, stepDirection[0], stepStyles[2],))
         st1.start()
         st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 20, stepDirection[1], stepStyles[2],))
