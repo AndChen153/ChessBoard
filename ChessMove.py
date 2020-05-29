@@ -97,9 +97,9 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
         st2.start()
         time.sleep(0.01)
         #straight
+        jiggle()
         st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xTemp, dirx, stepStyles[2],))
         st1.start()
-        jiggle()
         time.sleep(0.01)
     
     elif yPlaces > xPlaces:
@@ -112,9 +112,9 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
         st2.start()
         time.sleep(0.01)
         #straight
+        jiggle()
         st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yTemp, diry, stepStyles[2],))
         st2.start()
-        jiggle()
         time.sleep(0.01)
 
     turnOffMotors()
