@@ -37,7 +37,7 @@ stepDirection = [Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.BACKWARD]
 
 
 #number of steps per spaces on the chessboard
-steps=150
+steps=190
 
 
 #runs motors
@@ -73,24 +73,26 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
         st1.start()
         st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yPlaces, diry, stepStyles[1],))
         st2.start()
+        time.sleep(0.01)
 
     #un-diagonal movement
-    '''
     elif xPlaces > yPlaces:
         xTemp = xPlaces - yPlaces
         #diagonal
         if not st1.isAlive():
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, yPlaces, dirx, stepStyles[2],))
             st1.start()
+            time.sleep(0.01)
         if not st2.isAlive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yPlaces, diry, stepStyles[2],))
             st2.start()
+            time.sleep(0.01)
         #straight
         if not st1.isAlive():
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xTemp, dirx, stepStyles[2],))
             st1.start()
-        if st1.isAlive():
-            jiggle("y")
+            jiggle()
+            time.sleep(0.01)
     
     elif yPlaces > xPlaces:
         yTemp = yPlaces-xPlaces
@@ -98,16 +100,17 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
         if not st1.isAlive():
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xPlaces, dirx, stepStyles[2],))
             st1.start()
+            time.sleep(0.01)
         if not st2.isAlive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper,xPlaces, diry, stepStyles[2],))
             st2.start()
+            time.sleep(0.01)
         #straight
         if not st2.isAlive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yTemp, diry, stepStyles[2],))
             st2.start()
-        if st1.isAlive():
-            jiggle("x")
-    '''
+            jiggle()
+            time.sleep(0.01)
 
     turnOffMotors()
 
@@ -116,9 +119,13 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
 if len(sys.argv)>3:
     translation(sys.argv[0],sys.argv[1],sys.argv[2],sys.argv[3])
 
-st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 200, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
-st1.start()
-jiggle()
+
+
+for i in range (3):
+    translation(1,0,0,0)
+    time.sleep(0.1)
+
+
 
 
 '''
