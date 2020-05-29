@@ -114,7 +114,8 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
 
 #sys.argv=(xPlaces, xDirection, yPlaces, yDirection)
 #            0          1           2          3
-translation(sys.argv[0],sys.argv[1],sys.argv[2],sys.argv[3])
+if len(sys.argv)>3:
+    translation(sys.argv[0],sys.argv[1],sys.argv[2],sys.argv[3])
 
 
 st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 300, stepDirection[1], stepStyles[2],))
