@@ -39,6 +39,18 @@ stepDirection = [Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.BACKWARD]
 #number of steps per spaces on the chessboard
 steps=190
 
+#declare threads
+st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 20, stepDirection[0], stepStyles[2],))
+st2.start()
+st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 5, stepDirection[1], stepStyles[2],))
+st2.start()
+st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 20, stepDirection[0], stepStyles[2],))
+st1.start()
+st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 20, stepDirection[1], stepStyles[2],))
+st1.start()
+
+time.sleep(5)
+print('setup complete')
 
 #runs motors
 def stepper_worker(stepper, numsteps, direction, style):
