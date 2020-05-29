@@ -99,7 +99,8 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
         if not st1.isAlive():
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xTemp, dirx, stepStyles[2],))
             st1.start()
-            jiggle()
+            if not st1.isAlive():
+                jiggle()
     
     elif yPlaces > xPlaces:
         yTemp = yPlaces-xPlaces
@@ -114,7 +115,8 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
         if not st2.isAlive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yTemp, diry, stepStyles[2],))
             st2.start()
-            jiggle()
+            if not st2.isAlive:
+                jiggle()
 
     turnOffMotors()
 
