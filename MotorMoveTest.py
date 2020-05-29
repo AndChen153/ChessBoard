@@ -21,8 +21,8 @@ def turnOffMotors():
     mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
 atexit.register(turnOffMotors)
 
-XAxisStepper = mh.getStepper(200, 1)      # 200 steps/rev, motor port #1
-YAxisStepper = mh.getStepper(200, 2)      # 200 steps/rev, motor port #2
+XAxisStepper = mh.getStepper(400, 1)      # 200 steps/rev, motor port #1
+YAxisStepper = mh.getStepper(400, 2)      # 200 steps/rev, motor port #2
 XAxisStepper.setSpeed(120)
 YAxisStepper.setSpeed(120)
 
