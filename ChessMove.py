@@ -76,6 +76,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
     dirx = stepDirection[int(xDirection)]
     diry = stepDirection[int(yDirection)]
 
+
     #moving in a diagonal
     if xPlaces == yPlaces:
         if not st1.isAlive():
@@ -85,9 +86,13 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yPlaces, diry, stepStyles[1],))
             st2.start()
 
+
+
     #un-diagonal movement
     elif xPlaces > yPlaces:
+
         xTemp = xPlaces - yPlaces
+
         #diagonal
         if not st1.isAlive():
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, yPlaces, dirx, stepStyles[2],))
@@ -97,14 +102,20 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
             st2.start()
 
         #straight
+        while not (st1.done() and st2.done()):
+            print("waiting..")
+            time.sleep(1)
         if not st1.isAlive():
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xTemp, dirx, stepStyles[2],))
             st1.start()
             time.sleep(0.1)
             jiggle()
     
+
     elif yPlaces > xPlaces:
+
         yTemp = yPlaces-xPlaces
+
         #diagonal
         if not st1.isAlive():
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xPlaces, dirx, stepStyles[2],))
@@ -112,7 +123,11 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
         if not st2.isAlive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper,xPlaces, diry, stepStyles[2],))
             st2.start()
+
         #straight
+        while not (st1.done() and st2.done()):
+            print("waiting..")
+            time.sleep(1)
         if not st2.isAlive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yTemp, diry, stepStyles[2],))
             st2.start()
