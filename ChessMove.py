@@ -113,11 +113,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
 if len(sys.argv)>3:
     translation(sys.argv[0],sys.argv[1],sys.argv[2],sys.argv[3])
 
-st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 300, stepDirection[1], stepStyles[2],))
-st1.start()
-
-while True:
-    jiggle()
+translation(3,0,3,0)
 
 
 
