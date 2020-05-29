@@ -26,8 +26,8 @@ atexit.register(turnOffMotors)
 
 XAxisStepper = mh.getStepper(200, 1)      # 200 steps/rev (1.8 degrees per step), motor port #1
 YAxisStepper = mh.getStepper(200, 2)      # 200 steps/rev (1.8 degrees per step), motor port #2
-XAxisStepper.setSpeed(240)
-YAxisStepper.setSpeed(240)
+XAxisStepper.setSpeed(500)
+YAxisStepper.setSpeed(500)
 
 
 stepStyles = [Adafruit_MotorHAT.SINGLE, Adafruit_MotorHAT.DOUBLE, Adafruit_MotorHAT.INTERLEAVE, Adafruit_MotorHAT.MICROSTEP]
