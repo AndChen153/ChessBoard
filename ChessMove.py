@@ -116,7 +116,8 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
 if len(sys.argv)>3:
     translation(sys.argv[0],sys.argv[1],sys.argv[2],sys.argv[3])
 
-translation(2,0,2,0)
+st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 200, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
+st1.start()
 jiggle()
 
 
