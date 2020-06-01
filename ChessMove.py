@@ -46,40 +46,6 @@ steps=200
 time.sleep(5)
 print('setup complete')
 
-#to prevent weird motor movements (stops moving halfway) while only moving one motor
-def jiggle():
-    global st1
-    global st2
-    print('jiggle')
-    run = 0
-    while st1.is_alive():
-        if not st2.is_alive() and run == 0:
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 5, stepDirection[0], stepStyles[0],))
-            st2.start()
-            run = 1
-            print("jigglef1")
-
-        if not st2.is_alive() and run == 1:
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 5, stepDirection[1], stepStyles[0],))
-            st2.start()
-            run = 0
-            print("jiggleb1")
-            
-
-    while st2.is_alive():
-        if not st1.is_alive() and run == 0:
-            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 5, stepDirection[0], stepStyles[0],))
-            st1.start()
-            run = 1
-            print("jigglef2")
-
-        if not st1.is_alive() and run == 1:
-            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 5, stepDirection[1], stepStyles[0],))
-            st1.start()
-            run = 0
-            print("jiggleb2")
-
-
 
 
 #direction -> 0 is forward 1 is backward
@@ -124,6 +90,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
         if not st1.is_alive():
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xTemp, dirx, stepStyles[1],))
             st1.start()
+        #uses other motor for a small amount to get rid of st1 not completing full amount of steps bc of weird motor hat
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 5, diry, stepStyles[1],))
             st2.start()
@@ -148,6 +115,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yTemp, diry, stepStyles[1],))
             st2.start()
+        #uses other motor for a small amount to get rid of st2 not completing full amount of steps bc of weird motor hat
         if not st1.is_alive():
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 5, dirx, stepStyles[1],))
             st1.start()
@@ -160,7 +128,7 @@ if len(sys.argv)>3:
     translation(sys.argv[0],sys.argv[1],sys.argv[2],sys.argv[3])
 
 
-translation(3,1,0,1)
+translation(2,1,5,1)
 time.sleep(0.1)
 
 
