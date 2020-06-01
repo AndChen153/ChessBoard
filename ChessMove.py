@@ -134,10 +134,9 @@ if len(sys.argv)>3:
 
 translation(2,1,5,1)
 while incrementer != 1:
-    print("waiting..")
+    print("waiting translation..")
     time.sleep(0.5)
 translation(2,0,5,0)
-time.sleep(0.1)
 
 
 
