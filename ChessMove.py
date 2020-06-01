@@ -152,10 +152,8 @@ if len(sys.argv)>3:
     translation(sys.argv[0],sys.argv[1],sys.argv[2],sys.argv[3])
 
 
-
-for i in range (3):
-    translation(3,1,1,1)
-    time.sleep(0.1)
+translation(3,1,1,1)
+time.sleep(0.1)
 
 
 
