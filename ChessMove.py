@@ -86,6 +86,7 @@ def jiggle():
 def translation(xPlaces, xDirection, yPlaces, yDirection):
     global st1
     global st2
+    run = 0
     xPlaces = int(xPlaces)*steps
     yPlaces = int(yPlaces)*steps
     dirx = stepDirection[int(xDirection)]
