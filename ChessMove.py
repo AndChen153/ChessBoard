@@ -51,31 +51,32 @@ def jiggle():
     global st1
     global st2
     print('jiggle')
+    run = 0
     while st1.isAlive():
-        if not st2.isAlive():
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 20, stepDirection[0], stepStyles[2],))
+        if not st2.isAlive() and run == 0:
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 10, stepDirection[0], stepStyles[1],))
             st2.start()
-        while st2.isAlive():
-            print("")
+            run = 1
 
-        if not st2.isAlive():
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 20, stepDirection[1], stepStyles[2],))
+        if not st2.isAlive() and run == 1:
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 10, stepDirection[1], stepStyles[1],))
             st2.start()
-        while st2.isAlive():
-            print("")
+            run = 0
+            
 
     while st2.isAlive():
-        if not st1.isAlive():
-            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 20, stepDirection[0], stepStyles[2],))
+        if not st1.isAlive() and run == 0:
+            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 10, stepDirection[0], stepStyles[1],))
             st1.start()
-        while st1.isAlive():
-            print("")
+            run = 1
 
-        if not st1.isAlive():
-            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 20, stepDirection[1], stepStyles[2],))
+        if not st1.isAlive() and run == 1:
+            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 10, stepDirection[1], stepStyles[1],))
             st1.start()
-        while st1.isAlive():
-            print("")
+            run = 0
+
+
+
 
 #direction -> 0 is forward 1 is backward
 def translation(xPlaces, xDirection, yPlaces, yDirection):
