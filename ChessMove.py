@@ -54,13 +54,13 @@ def jiggle():
     run = 0
     while st1.isAlive():
         if not st2.isAlive() and run == 0:
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 50, stepDirection[0], stepStyles[1],))
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 5, stepDirection[0], stepStyles[0],))
             st2.start()
             run = 1
             print("jigglef1")
 
         if not st2.isAlive() and run == 1:
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 50, stepDirection[1], stepStyles[1],))
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 5, stepDirection[1], stepStyles[0],))
             st2.start()
             run = 0
             print("jiggleb1")
@@ -68,13 +68,13 @@ def jiggle():
 
     while st2.isAlive():
         if not st1.isAlive() and run == 0:
-            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 50, stepDirection[0], stepStyles[1],))
+            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 5, stepDirection[0], stepStyles[0],))
             st1.start()
             run = 1
             print("jigglef2")
 
         if not st1.isAlive() and run == 1:
-            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 50, stepDirection[1], stepStyles[1],))
+            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 5, stepDirection[1], stepStyles[0],))
             st1.start()
             run = 0
             print("jiggleb2")
