@@ -119,11 +119,10 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
         #straight
         while st1.isAlive() and st2.isAlive():
             print("waiting..")
-            time.sleep(1)
+            time.sleep(0.5)
         if not st1.isAlive():
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xTemp, dirx, stepStyles[1],))
             st1.start()
-            time.sleep(0.1)
             jiggle()
     
 
@@ -142,11 +141,10 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
         #straight
         while st1.isAlive() and st2.isAlive():
             print("waiting..")
-            time.sleep(1)
+            time.sleep(0.5)
         if not st2.isAlive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yTemp, diry, stepStyles[1],))
             st2.start()
-            time.sleep(0.1)
             jiggle()
 
     turnOffMotors()
