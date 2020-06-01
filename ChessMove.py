@@ -93,7 +93,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
             st1.start()
         #uses other motor for a small amount to get rid of st1 not completing full amount of steps bc of weird motor hat
         if not st2.is_alive():
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 5, diry, stepStyles[1],))
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, diry, stepStyles[1],))
             st2.start()
     
 
@@ -118,7 +118,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
             st2.start()
         #uses other motor for a small amount to get rid of st2 not completing full amount of steps bc of weird motor hat
         if not st1.is_alive():
-            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 5, dirx, stepStyles[1],))
+            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 1, dirx, stepStyles[1],))
             st1.start()
     
     
