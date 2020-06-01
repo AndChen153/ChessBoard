@@ -42,6 +42,7 @@ stepDirection = [Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.BACKWARD]
 
 #number of steps per spaces on the chessboard
 steps=200
+incrementer=0
 
 time.sleep(5)
 print('setup complete')
@@ -119,8 +120,10 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
         if not st1.is_alive():
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 5, dirx, stepStyles[1],))
             st1.start()
-
+    
+    
     turnOffMotors()
+    incrementer+=1
 
 #sys.argv=(xPlaces, xDirection, yPlaces, yDirection)
 #            0          1           2          3
@@ -129,6 +132,9 @@ if len(sys.argv)>3:
 
 
 translation(2,1,5,1)
+while incrementer != 1:
+    print("waiting..")
+    time.sleep(0.5)
 translation(2,0,5,0)
 time.sleep(0.1)
 
