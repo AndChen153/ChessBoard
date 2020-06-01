@@ -53,6 +53,7 @@ print('setup complete')
 def translation(xPlaces, xDirection, yPlaces, yDirection):
     global st1
     global st2
+    global incrementer
     run = 0
     xPlaces = int(xPlaces)*steps
     yPlaces = int(yPlaces)*steps
