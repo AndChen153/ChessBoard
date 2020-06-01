@@ -132,12 +132,9 @@ if len(sys.argv)>3:
     translation(sys.argv[0],sys.argv[1],sys.argv[2],sys.argv[3])
 
 print ("1")
-translation(2,1,5,1)
-print ("2")
-while incrementer != 1:
-    print("waiting translation..")
-    time.sleep(0.5)
 translation(2,0,5,0)
+print ("2")
+
 
 
 
