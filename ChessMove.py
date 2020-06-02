@@ -52,27 +52,27 @@ def jiggleX():
     if not st2.is_alive():
         st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
         st2.start()
-    if xTemp > 250
+    if xTemp > 250:
         time.sleep(2.75)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
             st2.start()
-    if xTemp > 500
+    if xTemp > 500:
         time.sleep(2.75)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
             st2.start()
-    if xTemp > 750
+    if xTemp > 750:
         time.sleep(2.75)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
             st2.start()
-    if xTemp > 1000
+    if xTemp > 1000:
         time.sleep(2.75)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
             st2.start()
-    if xTemp > 1250
+    if xTemp > 1250:
         time.sleep(2.75)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
