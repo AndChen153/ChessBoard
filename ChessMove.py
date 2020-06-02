@@ -41,7 +41,7 @@ stepDirection = [Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.BACKWARD]
 
 
 #number of steps per spaces on the chessboard
-steps=200
+steps=190
 incrementer=0
 
 time.sleep(5)
@@ -132,7 +132,7 @@ if len(sys.argv)>3:
     translation(sys.argv[0],sys.argv[1],sys.argv[2],sys.argv[3])
 
 print ("1")
-translation(2,0,5,0)
+translation(3,1,0,0)
 print ("2")
 
 
