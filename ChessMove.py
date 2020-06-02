@@ -41,8 +41,7 @@ stepDirection = [Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.BACKWARD]
 
 
 #number of steps per spaces on the chessboard
-steps=180
-incrementer=0
+steps=185
 
 time.sleep(5)
 print('setup complete')
@@ -52,9 +51,7 @@ print('setup complete')
 #direction -> 0 is forward 1 is backward
 def translation(xPlaces, xDirection, yPlaces, yDirection):
     global st1
-    global st2
-    global incrementer
-    run = 0
+    global st2    run = 0
     xPlaces = int(xPlaces)*steps
     yPlaces = int(yPlaces)*steps
     dirx = stepDirection[int(xDirection)]
@@ -132,7 +129,7 @@ if len(sys.argv)>3:
     translation(sys.argv[0],sys.argv[1],sys.argv[2],sys.argv[3])
 
 print ("1")
-translation(3,1,0,0)
+translation(5,1,0,0)
 print ("2")
 
 
