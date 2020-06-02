@@ -42,6 +42,7 @@ stepDirection = [Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.BACKWARD]
 
 #number of steps per spaces on the chessboard
 steps=189
+ysteps=200
 incrementer=0
 
 time.sleep(5)
@@ -120,7 +121,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
     global st2
     run = 0
     xPlaces = int(xPlaces)*steps
-    yPlaces = int(yPlaces)*steps
+    yPlaces = int(yPlaces)*ysteps
     dirx = stepDirection[int(xDirection)]
     diry = stepDirection[int(yDirection)]
 
@@ -143,10 +144,10 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
 
         #diagonal
         if not st1.is_alive():
-            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, yPlaces, dirx, stepStyles[1],))
+            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, yPlaces*1.1, dirx, stepStyles[1],))
             st1.start()
         if not st2.is_alive():
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yPlaces, diry, stepStyles[1],))
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yPlaces*1.1, diry, stepStyles[1],))
             st2.start()
 
         #straight
@@ -165,10 +166,10 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
 
         #diagonal
         if not st1.is_alive():
-            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xPlaces, dirx, stepStyles[1],))
+            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xPlaces*1.1, dirx, stepStyles[1],))
             st1.start()
         if not st2.is_alive():
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper,xPlaces, diry, stepStyles[1],))
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper,xPlaces*1.1, diry, stepStyles[1],))
             st2.start()
 
         #straight
@@ -186,12 +187,8 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
 
 #sys.argv=(xPlaces, xDirection, yPlaces, yDirection)
 #            0          1           2          3
-'''if len(sys.argv)>3:
-    translation(sys.argv[0],sys.argv[1],sys.argv[2],sys.argv[3])'''
-
-print ("1")
-translation(1,0,2,0)
-print ("2")
+if len(sys.argv)>3:
+    translation(sys.argv[0],sys.argv[1],sys.argv[2],sys.argv[3])
 
 
 
