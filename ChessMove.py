@@ -48,12 +48,72 @@ time.sleep(5)
 print('setup complete')
 
 
+def jiggleX():
+    if not st2.is_alive():
+        st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
+        st2.start()
+    if xTemp > 250
+        time.sleep(2.75)
+        if not st2.is_alive():
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
+            st2.start()
+    if xTemp > 500
+        time.sleep(2.75)
+        if not st2.is_alive():
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
+            st2.start()
+    if xTemp > 750
+        time.sleep(2.75)
+        if not st2.is_alive():
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
+            st2.start()
+    if xTemp > 1000
+        time.sleep(2.75)
+        if not st2.is_alive():
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
+            st2.start()
+    if xTemp > 1250
+        time.sleep(2.75)
+        if not st2.is_alive():
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
+            st2.start()
+
+def jiggleY()
+    if not st1.is_alive():
+        st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 3, dirx, stepStyles[1],))
+        st1.start()
+    if xTemp > 250
+        time.sleep(2.75)
+        if not st2.is_alive():
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, diry, stepStyles[1],))
+            st2.start()
+    if xTemp > 500
+        time.sleep(2.75)
+        if not st2.is_alive():
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, diry, stepStyles[1],))
+            st2.start()
+    if xTemp > 750
+        time.sleep(2.75)
+        if not st2.is_alive():
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, diry, stepStyles[1],))
+            st2.start()
+    if xTemp > 1000
+        time.sleep(2.75)
+        if not st2.is_alive():
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, diry, stepStyles[1],))
+            st2.start()
+    if xTemp > 1250
+        time.sleep(2.75)
+        if not st2.is_alive():
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, diry, stepStyles[1],))
+            st2.start()
+
+
 
 #direction -> 0 is forward 1 is backward
 def translation(xPlaces, xDirection, yPlaces, yDirection):
     global st1
     global st2
-    global incrementer
     run = 0
     xPlaces = int(xPlaces)*steps
     yPlaces = int(yPlaces)*steps
@@ -93,10 +153,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xTemp, dirx, stepStyles[1],))
             st1.start()
         #uses other motor for a small amount to get rid of st1 not completing full amount of steps bc of weird motor hat
-        if not st2.is_alive():
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, diry, stepStyles[1],))
-            st2.start()
-    
+        jiggleX()
 
     elif yPlaces > xPlaces:
 
@@ -118,13 +175,10 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yTemp, diry, stepStyles[1],))
             st2.start()
         #uses other motor for a small amount to get rid of st2 not completing full amount of steps bc of weird motor hat
-        if not st1.is_alive():
-            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 3, dirx, stepStyles[1],))
-            st1.start()
+        jiggleY()
     
     
     turnOffMotors()
-    incrementer+=1
 
 #sys.argv=(xPlaces, xDirection, yPlaces, yDirection)
 #            0          1           2          3
