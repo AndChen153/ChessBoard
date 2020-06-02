@@ -78,7 +78,7 @@ def jiggleX():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
             st2.start()
 
-def jiggleY()
+def jiggleY():
     if not st1.is_alive():
         st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 3, dirx, stepStyles[1],))
         st1.start()
