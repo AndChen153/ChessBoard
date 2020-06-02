@@ -82,27 +82,27 @@ def jiggleY()
     if not st1.is_alive():
         st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 3, dirx, stepStyles[1],))
         st1.start()
-    if xTemp > 250
+    if xTemp > 250:
         time.sleep(2.75)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, diry, stepStyles[1],))
             st2.start()
-    if xTemp > 500
+    if xTemp > 500:
         time.sleep(2.75)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, diry, stepStyles[1],))
             st2.start()
-    if xTemp > 750
+    if xTemp > 750:
         time.sleep(2.75)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, diry, stepStyles[1],))
             st2.start()
-    if xTemp > 1000
+    if xTemp > 1000:
         time.sleep(2.75)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, diry, stepStyles[1],))
             st2.start()
-    if xTemp > 1250
+    if xTemp > 1250:
         time.sleep(2.75)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, diry, stepStyles[1],))
