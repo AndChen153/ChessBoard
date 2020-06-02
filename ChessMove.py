@@ -190,7 +190,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
     translation(sys.argv[0],sys.argv[1],sys.argv[2],sys.argv[3])'''
 
 print ("1")
-translation(4,1,0,0)
+translation(8,1,0,0)
 print ("2")
 
 
