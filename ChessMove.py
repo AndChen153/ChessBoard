@@ -42,7 +42,6 @@ stepDirection = [Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.BACKWARD]
 
 #number of steps per spaces on the chessboard
 steps=189
-ysteps=220
 incrementer=0
 
 time.sleep(5)
@@ -119,9 +118,8 @@ def jiggleY(yTemp):
 def translation(xPlaces, xDirection, yPlaces, yDirection):
     global st1
     global st2
-    run = 0
     xPlaces = int(xPlaces)*steps
-    yPlaces = int(yPlaces)*ysteps
+    yPlaces = int(yPlaces)*steps
     dirx = stepDirection[int(xDirection)]
     diry = stepDirection[int(yDirection)]
 
@@ -147,7 +145,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(yPlaces*1.1), dirx, stepStyles[1],))
             st1.start()
         if not st2.is_alive():
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, int(yPlaces*1.1), diry, stepStyles[1],))
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, int(yPlaces*1.28), diry, stepStyles[1],))
             st2.start()
 
         #straight
@@ -169,7 +167,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(xPlaces*1.1), dirx, stepStyles[1],))
             st1.start()
         if not st2.is_alive():
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper,int(xPlaces*1.1), diry, stepStyles[1],))
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper,int(xPlaces*1.28), diry, stepStyles[1],))
             st2.start()
 
         #straight
@@ -177,7 +175,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
             print("waiting.. move y ")
             time.sleep(0.5)
         if not st2.is_alive():
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yTemp, diry, stepStyles[1],))
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yTemp*1.164, diry, stepStyles[1],))
             st2.start()
         #uses other motor for a small amount to get rid of st2 not completing full amount of steps bc of weird motor hat
         jiggleY(yTemp)
