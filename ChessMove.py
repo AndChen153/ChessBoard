@@ -49,6 +49,8 @@ print('setup complete')
 
 
 def jiggleX():
+    global st1
+    global st2
     if not st2.is_alive():
         st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
         st2.start()
@@ -79,6 +81,8 @@ def jiggleX():
             st2.start()
 
 def jiggleY():
+    global st1
+    global st2
     if not st1.is_alive():
         st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 3, dirx, stepStyles[1],))
         st1.start()
