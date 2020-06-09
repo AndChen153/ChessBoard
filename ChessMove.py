@@ -41,7 +41,7 @@ stepDirection = [Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.BACKWARD]
 
 
 #number of steps per spaces on the chessboard
-steps=200
+steps=220
 ysteps=220
 incrementer=0
 
