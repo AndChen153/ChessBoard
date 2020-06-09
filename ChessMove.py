@@ -23,11 +23,11 @@ GPIO.setup(channel, GPIO.OUT)
 
 # turns off motors at exit of program
 def turnOffMotors():
+    GPIO.cleanup()
     mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
     mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
     mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
     mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
-    GPIO.cleanup()
 atexit.register(turnOffMotors)
 
 # runs motors
@@ -38,8 +38,8 @@ def stepper_worker(stepper, numsteps, direction, style):
 
 XAxisStepper = mh.getStepper(200, 1)      # 200 steps/rev (1.8 degrees per step), motor port #1
 YAxisStepper = mh.getStepper(200, 2)      # 200 steps/rev (1.8 degrees per step), motor port #2
-XAxisStepper.setSpeed(5000)
-YAxisStepper.setSpeed(5000)
+XAxisStepper.setSpeed(30)
+YAxisStepper.setSpeed(30)
 
 # use double or interleave(half the distnace double moves)
 stepStyles = [Adafruit_MotorHAT.SINGLE, Adafruit_MotorHAT.DOUBLE, Adafruit_MotorHAT.INTERLEAVE, Adafruit_MotorHAT.MICROSTEP]
@@ -209,6 +209,8 @@ b=input("direction")
 c=input("places")
 d=input("direction")
 translation(a,b,c,d)
+
+
 
 
 
