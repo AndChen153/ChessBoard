@@ -23,7 +23,6 @@ GPIO.setup(channel, GPIO.OUT)
 
 # turns off motors at exit of program
 def turnOffMotors():
-    GPIO.cleanup()
     mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
     mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
     mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
@@ -36,6 +35,7 @@ def magnetOnOff(magnet):
         GPIO.output(channel, GPIO.HIGH)
     elif magnet == "0":
         GPIO.output(channel, GPIO.LOW)
+    print("running magnet_____________")
 
 # runs motors
 def stepper_worker(stepper, numsteps, direction, style):
@@ -145,7 +145,6 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
 
     # moving in a diagonal
     if xPlaces == yPlaces:
-        magnetOnOff(magnet)
         if not st1.is_alive():
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xPlaces, dirx, stepStyles[1],))
             st1.start()
@@ -159,7 +158,6 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
     elif xPlaces > yPlaces:
 
         xTemp = xPlaces - yPlaces
-        magnetOnOff(magnet)
         
         # diagonal
         if not st1.is_alive():
@@ -174,17 +172,14 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
             print("waiting.. move x ")
             time.sleep(0.5)
         if not st1.is_alive():
-            magnetOnOff(magnet)
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xTemp, dirx, stepStyles[1],))
             st1.start()
-            magnetOnOff(magnet)
         # uses other motor for a small amount to get rid of st1 not completing full amount of steps bc of weird motor hat
         jiggleX(xTemp)
 
     elif yPlaces > xPlaces:
 
         yTemp = yPlaces-xPlaces
-        magnetOnOff(magnet)
 
         # diagonal
         if not st1.is_alive():
@@ -199,10 +194,8 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
             print("waiting.. move y ")
             time.sleep(0.5)
         if not st2.is_alive():
-            magnetOnOff(magnet)
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yTemp, diry, stepStyles[1],))
             st2.start()
-            magnetOnOff(magnet)
         # uses other motor for a small amount to get rid of st2 not completing full amount of steps bc of weird motor hat
         jiggleY(yTemp)
     
@@ -223,7 +216,7 @@ translation(a, b, c, d, magnet)
 
 
 
-
+GPIO.cleanup()
 
 '''
 if not st1.is_alive():
