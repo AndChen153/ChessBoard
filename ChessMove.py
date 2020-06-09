@@ -119,7 +119,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, ysteps):
     global st1
     global st2
     xPlaces = int(xPlaces)*steps
-    yPlaces = int(yPlaces)*ysteps
+    yPlaces = int(yPlaces)*int(ysteps)
     dirx = stepDirection[int(xDirection)]
     diry = stepDirection[int(yDirection)]
 
