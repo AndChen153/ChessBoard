@@ -115,11 +115,11 @@ def jiggleY(yTemp):
 
 
 #direction -> 0 is forward 1 is backward
-def translation(xPlaces, xDirection, yPlaces, yDirection):
+def translation(xPlaces, xDirection, yPlaces, yDirection, ysteps):
     global st1
     global st2
     xPlaces = int(xPlaces)*steps
-    yPlaces = int(yPlaces)*steps
+    yPlaces = int(yPlaces)*ysteps
     dirx = stepDirection[int(xDirection)]
     diry = stepDirection[int(yDirection)]
 
@@ -145,7 +145,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(yPlaces*1.1), dirx, stepStyles[1],))
             st1.start()
         if not st2.is_alive():
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, int(yPlaces*1.28), diry, stepStyles[1],))
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, int(yPlaces*1.1), diry, stepStyles[1],))
             st2.start()
 
         #straight
@@ -167,7 +167,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(xPlaces*1.1), dirx, stepStyles[1],))
             st1.start()
         if not st2.is_alive():
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper,int(xPlaces*1.28), diry, stepStyles[1],))
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper,int(xPlaces*1.1), diry, stepStyles[1],))
             st2.start()
 
         #straight
@@ -175,7 +175,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
             print("waiting.. move y ")
             time.sleep(0.5)
         if not st2.is_alive():
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yTemp*1.164, diry, stepStyles[1],))
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yTemp, diry, stepStyles[1],))
             st2.start()
         #uses other motor for a small amount to get rid of st2 not completing full amount of steps bc of weird motor hat
         jiggleY(yTemp)
@@ -185,11 +185,10 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
 
 #sys.argv=(xPlaces, xDirection, yPlaces, yDirection)
 #            0          1           2          3
-a=input("a")
-b=input("b")
-c=input("c")
-d=input("d")
-translation(a,b,c,d)
+c=input("places")
+d=input("direction")
+e=input("steps")
+translation(0,0,c,d,e)
 
 
 
