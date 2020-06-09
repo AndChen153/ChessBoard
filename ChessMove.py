@@ -120,6 +120,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, ysteps):
     global st2
     xPlaces = int(xPlaces)*steps
     yPlaces = int(yPlaces)*int(ysteps)
+    print(yPlaces)
     dirx = stepDirection[int(xDirection)]
     diry = stepDirection[int(yDirection)]
 
@@ -161,7 +162,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, ysteps):
     elif yPlaces > xPlaces:
 
         yTemp = yPlaces-xPlaces
-
+        print(yTemp)
         #diagonal
         if not st1.is_alive():
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(xPlaces*1.1), dirx, stepStyles[1],))
