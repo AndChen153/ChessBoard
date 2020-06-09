@@ -144,10 +144,10 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
 
         #diagonal
         if not st1.is_alive():
-            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(yPlaces*1.1), dirx, stepStyles[1],))
+            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(yPlaces), dirx, stepStyles[1],))
             st1.start()
         if not st2.is_alive():
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, int(yPlaces*1.1), diry, stepStyles[1],))
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, int(yPlaces), diry, stepStyles[1],))
             st2.start()
 
         #straight
@@ -166,10 +166,10 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
         print(yTemp)
         #diagonal
         if not st1.is_alive():
-            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(xPlaces*1.1), dirx, stepStyles[1],))
+            st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(xPlaces), dirx, stepStyles[1],))
             st1.start()
         if not st2.is_alive():
-            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper,int(xPlaces*1.1), diry, stepStyles[1],))
+            st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper,int(xPlaces), diry, stepStyles[1],))
             st2.start()
 
         #straight
