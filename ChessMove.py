@@ -42,6 +42,7 @@ stepDirection = [Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.BACKWARD]
 
 #number of steps per spaces on the chessboard
 steps=189
+ysteps=220
 incrementer=0
 
 time.sleep(5)
@@ -115,11 +116,11 @@ def jiggleY(yTemp):
 
 
 #direction -> 0 is forward 1 is backward
-def translation(xPlaces, xDirection, yPlaces, yDirection, ysteps):
+def translation(xPlaces, xDirection, yPlaces, yDirection):
     global st1
     global st2
     xPlaces = int(xPlaces)*steps
-    yPlaces = int(yPlaces)*int(ysteps)
+    yPlaces = int(yPlaces)*ysteps
     print(yPlaces)
     dirx = stepDirection[int(xDirection)]
     diry = stepDirection[int(yDirection)]
@@ -186,10 +187,11 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, ysteps):
 
 #sys.argv=(xPlaces, xDirection, yPlaces, yDirection)
 #            0          1           2          3
+a=input("places")
+b=input("direction")
 c=input("places")
 d=input("direction")
-e=input("steps")
-translation(0,0,c,d,e)
+translation(a,b,c,d)
 
 
 
