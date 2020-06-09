@@ -38,6 +38,8 @@ stepStyles = [Adafruit_MotorHAT.SINGLE, Adafruit_MotorHAT.DOUBLE, Adafruit_Motor
 #                   0                               1                           2                           3
 stepDirection = [Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.BACKWARD]
 #                   0                               1
+stepDirectiony = [Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.FORWARD]
+#so motors move same direction    0                               1
 
 
 #number of steps per spaces on the chessboard
@@ -123,7 +125,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection):
     yPlaces = int(yPlaces)*ysteps
     print(yPlaces)
     dirx = stepDirection[int(xDirection)]
-    diry = stepDirection[int(yDirection)]
+    diry = stepDirectiony[int(yDirection)]
 
 
     #moving in a diagonal
