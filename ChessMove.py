@@ -30,16 +30,24 @@ def turnOffMotors():
     mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
 atexit.register(turnOffMotors)
 
+# magnet relay control
+def magnetOnOff(magnet):
+    if magnet == "1":
+        GPIO.output(channel, GPIO.HIGH)
+    elif magnet == "0":
+        GPIO.output(channel, GPIO.LOW)
+
 # runs motors
 def stepper_worker(stepper, numsteps, direction, style):
     print("Steppin!")
+    magnetOnOff(magnet)
     stepper.step(numsteps, direction, style)
     print("Done \n")
 
 XAxisStepper = mh.getStepper(200, 1)      # 200 steps/rev (1.8 degrees per step), motor port #1
 YAxisStepper = mh.getStepper(200, 2)      # 200 steps/rev (1.8 degrees per step), motor port #2
-XAxisStepper.setSpeed(30)
-YAxisStepper.setSpeed(30)
+XAxisStepper.setSpeed(60)
+YAxisStepper.setSpeed(60)
 
 # use double or interleave(half the distnace double moves)
 stepStyles = [Adafruit_MotorHAT.SINGLE, Adafruit_MotorHAT.DOUBLE, Adafruit_MotorHAT.INTERLEAVE, Adafruit_MotorHAT.MICROSTEP]
@@ -122,12 +130,6 @@ def jiggleY(yTemp):
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
             st2.start()
-
-def magnetOnOff(magnet):
-    if magnet == "1":
-        GPIO.output(channel, GPIO.HIGH)
-    elif magnet == "0":
-        GPIO.output(channel, GPIO.LOW)
 
 # direction -> 0 is forward 1 is backward
 def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
