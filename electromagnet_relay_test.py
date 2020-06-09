@@ -1,5 +1,4 @@
 import RPi.GPIO as GPIO
-import time
 
 channel = 18
 
@@ -10,6 +9,8 @@ y=input("a or b")
 
 if y == "a":
     GPIO.output(channel, GPIO.HIGH)
+    GPIO.cleanup()
 
 elif y == "b":
     GPIO.output(channel, GPIO.LOW)
+    GPIO.cleanup()
