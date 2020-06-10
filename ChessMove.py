@@ -43,7 +43,8 @@ def magnetOnOff(magnet):
             GPIO.output(channel, GPIO.HIGH)
         elif magnet == "0":
             GPIO.output(channel, GPIO.LOW)
-        print("running magnet_____________")
+        time.sleep(0.2)
+        #print("running magnet_____________")
         if stop_threads:
             break
 
@@ -56,8 +57,8 @@ def stepper_worker(stepper, numsteps, direction, style):
 
 XAxisStepper = mh.getStepper(200, 1)      # 200 steps/rev (1.8 degrees per step), motor port #1
 YAxisStepper = mh.getStepper(200, 2)      # 200 steps/rev (1.8 degrees per step), motor port #2
-XAxisStepper.setSpeed(60)
-YAxisStepper.setSpeed(60)
+XAxisStepper.setSpeed(5000)
+YAxisStepper.setSpeed(5000)
 
 # use double or interleave(half the distnace double moves)
 stepStyles = [Adafruit_MotorHAT.SINGLE, Adafruit_MotorHAT.DOUBLE, Adafruit_MotorHAT.INTERLEAVE, Adafruit_MotorHAT.MICROSTEP]
@@ -73,7 +74,6 @@ steps=230
 ysteps=230
 incrementer=0
 
-time.sleep(5)
 print('setup complete')
 
 
@@ -150,12 +150,11 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
     print(yPlaces)
     dirx = stepDirection[int(xDirection)]
     diry = stepDirectiony[int(yDirection)]
-    
-    st3 = threading.Thread(target=magnetOnOff, args=(magnet))
-    st3.start()
 
     # moving in a diagonal
     if xPlaces == yPlaces:
+        st3 = threading.Thread(target=magnetOnOff, args=(magnet))
+        st3.start()
         if not st1.is_alive():
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xPlaces, dirx, stepStyles[1],))
             st1.start()
@@ -172,6 +171,8 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
         
         # diagonal
         if not st1.is_alive():
+            st3 = threading.Thread(target=magnetOnOff, args=(magnet))
+            st3.start()
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(yPlaces), dirx, stepStyles[1],))
             st1.start()
         if not st2.is_alive():
@@ -186,7 +187,6 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xTemp, dirx, stepStyles[1],))
             st1.start()
             
-            
         # uses other motor for a small amount to get rid of st1 not completing full amount of steps bc of weird motor hat
         jiggleX(xTemp)
 
@@ -196,6 +196,8 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
 
         # diagonal
         if not st1.is_alive():
+            st3 = threading.Thread(target=magnetOnOff, args=(magnet))
+            st3.start()
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(xPlaces), dirx, stepStyles[1],))
             st1.start()
         if not st2.is_alive():
