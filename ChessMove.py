@@ -44,7 +44,7 @@ def magnetOnOff(magnet):
         elif magnet == "0":
             GPIO.output(channel, GPIO.LOW)
         time.sleep(0.2)
-        #print("running magnet_____________")
+        print("running magnet_____________")
         if stop_threads:
             break
 
@@ -70,8 +70,8 @@ stepDirectiony = [Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.FORWARD]
 
 
 # number of steps per spaces on the chessboard
-steps=230
-ysteps=230
+steps=220
+ysteps=220
 incrementer=0
 
 print('setup complete')
