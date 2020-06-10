@@ -196,7 +196,8 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
             
         # uses other motor for a small amount to get rid of st1 not completing full amount of steps bc of weird motor hat
         magnetOnOff(magnet)
-        jiggleX(xTemp)
+        if xTemp>300:
+            jiggleX(xTemp)
 
     elif yPlaces > xPlaces:
 
@@ -222,7 +223,8 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
             st2.start()
         # uses other motor for a small amount to get rid of st2 not completing full amount of steps bc of weird motor hat
         magnetOnOff(magnet)
-        jiggleY(yTemp)
+        if yTemp>300:
+            jiggleY(yTemp)
     
     
     turnOffMotors()
