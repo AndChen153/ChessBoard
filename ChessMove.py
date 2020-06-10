@@ -89,30 +89,30 @@ def jiggleX(xTemp):
         st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
         st2.start()
     if xTemp > 300:
-        time.sleep(3.5)
+        time.sleep(4.5)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
             st2.start()
     if xTemp > 600:
-        time.sleep(3.5)
+        time.sleep(4.5)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
             st2.start()
-    '''if xTemp > 900:
-        time.sleep(3.5)
+    if xTemp > 900:
+        time.sleep(4.5)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
             st2.start()
     if xTemp > 1200:
-        time.sleep(3.5)
+        time.sleep(4.5)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
             st2.start()
     if xTemp > 1500:
-        time.sleep(3.5)
+        time.sleep(4.5)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
-            st2.start()'''
+            st2.start()
 
 def jiggleY(yTemp):
     global st1
@@ -122,30 +122,30 @@ def jiggleY(yTemp):
         st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 1, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
         st1.start()
     if yTemp > 300:
-        time.sleep(3.5)
+        time.sleep(4.5)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
             st2.start()
     if yTemp > 600:
-        time.sleep(3.5)
+        time.sleep(4.5)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
             st2.start()
-    '''if yTemp > 900:
-        time.sleep(3.5)
+    if yTemp > 900:
+        time.sleep(4.5)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
             st2.start()
     if yTemp > 1200:
-        time.sleep(3.5)
+        time.sleep(4.5)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
             st2.start()
     if yTemp > 1500:
-        time.sleep(3.5)
+        time.sleep(4.5)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
-            st2.start()'''
+            st2.start()
 
 # direction -> 0 is forward 1 is backward
 def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
