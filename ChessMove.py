@@ -171,6 +171,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
         while st1.is_alive() and st2.is_alive():
             print("waiting.. move x ")
             time.sleep(0.5)
+        time.sleep(1) # to prevent the magnet for turning off
         if not st1.is_alive():
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xTemp, dirx, stepStyles[1],))
             st1.start()
@@ -193,6 +194,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
         while st1.is_alive() and st2.is_alive():
             print("waiting.. move y ")
             time.sleep(0.5)
+        time.sleep(1) # to prevent the magnet for turning off
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yTemp, diry, stepStyles[1],))
             st2.start()
