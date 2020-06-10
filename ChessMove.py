@@ -14,6 +14,7 @@ mh = Adafruit_MotorHAT()
 # create empty threads (these will hold the stepper 1 and 2 threads) so both motors can be ran at the same time
 st1 = threading.Thread()
 st2 = threading.Thread()
+st3 = threading.Thread()
 
 # setup gpio pin for relay
 channel = 18
@@ -27,15 +28,24 @@ def turnOffMotors():
     mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
     mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
     mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
+def killThreads():
+    st1.kill()
+    st1.join()
+
 atexit.register(turnOffMotors)
 
 # magnet relay control
+stop_threads=False
 def magnetOnOff(magnet):
-    if magnet == "1":
-        GPIO.output(channel, GPIO.HIGH)
-    elif magnet == "0":
-        GPIO.output(channel, GPIO.LOW)
-    print("running magnet_____________")
+    global stop_threads
+    while True:
+        if magnet == "1":
+            GPIO.output(channel, GPIO.HIGH)
+        elif magnet == "0":
+            GPIO.output(channel, GPIO.LOW)
+        print("running magnet_____________")
+        if stop_threads:
+            break
 
 # runs motors
 def stepper_worker(stepper, numsteps, direction, style):
@@ -70,7 +80,6 @@ print('setup complete')
 def jiggleX(xTemp):
     global st1
     global st2
-    magnetOnOff(magnet)
     if not st2.is_alive():
         st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
         st2.start()
@@ -103,7 +112,6 @@ def jiggleX(xTemp):
 def jiggleY(yTemp):
     global st1
     global st2
-    magnetOnOff(magnet)
     if not st1.is_alive():
         st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 3, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
         st1.start()
@@ -143,7 +151,8 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
     dirx = stepDirection[int(xDirection)]
     diry = stepDirectiony[int(yDirection)]
     
-
+    st3 = threading.Thread(target=magnetOnOff, args=(magnet))
+    st3.start()
 
     # moving in a diagonal
     if xPlaces == yPlaces:
@@ -176,6 +185,7 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
         if not st1.is_alive():
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xTemp, dirx, stepStyles[1],))
             st1.start()
+            
             
         # uses other motor for a small amount to get rid of st1 not completing full amount of steps bc of weird motor hat
         jiggleX(xTemp)
@@ -217,9 +227,9 @@ translation(a, b, c, d, magnet)
 
 
 
-
-
 GPIO.cleanup()
+stop_threads = True
+
 
 '''
 if not st1.is_alive():
