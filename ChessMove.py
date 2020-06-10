@@ -84,30 +84,36 @@ print('setup complete')
 def jiggleX(xTemp):
     global st1
     global st2
-    time.sleep(0.5)
+    time.sleep(1)
+    magnetOnOff(magnet)
     if not st2.is_alive():
         st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
         st2.start()
+    magnetOnOff(magnet)
     if xTemp > 300:
         time.sleep(4.65)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
             st2.start()
+    magnetOnOff(magnet)
     if xTemp > 600:
         time.sleep(4.65)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
             st2.start()
+    magnetOnOff(magnet)
     if xTemp > 900:
         time.sleep(4.65)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
             st2.start()
+    magnetOnOff(magnet)
     if xTemp > 1200:
         time.sleep(4.65)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
             st2.start()
+    magnetOnOff(magnet)
     if xTemp > 1500:
         time.sleep(4.65)
         if not st2.is_alive():
@@ -117,30 +123,36 @@ def jiggleX(xTemp):
 def jiggleY(yTemp):
     global st1
     global st2
-    time.sleep(0.5)
+    time.sleep(1)
+    magnetOnOff(magnet)
     if not st1.is_alive():
         st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, 1, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
         st1.start()
+    magnetOnOff(magnet)
     if yTemp > 300:
         time.sleep(4.65)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
             st2.start()
+    magnetOnOff(magnet)
     if yTemp > 600:
         time.sleep(4.65)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
             st2.start()
+    magnetOnOff(magnet)
     if yTemp > 900:
         time.sleep(4.65)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
             st2.start()
+    magnetOnOff(magnet)
     if yTemp > 1200:
         time.sleep(4.65)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.FORWARD, stepStyles[1],))
             st2.start()
+    magnetOnOff(magnet)
     if yTemp > 1500:
         time.sleep(4.65)
         if not st2.is_alive():
