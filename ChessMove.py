@@ -50,7 +50,7 @@ def magnetOnOff(magnet):
 # runs motors
 def stepper_worker(stepper, numsteps, direction, style):
     print("Steppin!")
-    magnetOnOff(magnet)
+    #magnetOnOff(magnet)
     stepper.step(numsteps, direction, style)
     print("Done \n")
 
