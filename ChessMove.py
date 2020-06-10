@@ -153,7 +153,7 @@ def jiggleY(yTemp):
             #st2.start()
             stepper_worker(XAxisStepper, 5, Adafruit_MotorHAT.FORWARD, stepStyles[1])
     if yTemp > 1500:
-        time.sleep(43)
+        time.sleep(4)
         if not st2.is_alive():
             #st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 3, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
             #st2.start()
@@ -172,13 +172,13 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
     # moving in a diagonal
     if xPlaces == yPlaces:
         if not st1.is_alive():
-            magnetOnOff(magnet)
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xPlaces, dirx, stepStyles[1],))
             st1.start()
         if not st2.is_alive():
-            magnetOnOff(magnet)
+            
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yPlaces, diry, stepStyles[1],))
             st2.start()
+        magnetOnOff(magnet)
 
 
 
@@ -189,11 +189,11 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
         
         # diagonal
         if not st1.is_alive():
-            magnetOnOff(magnet)
+            #magnetOnOff(magnet)
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(yPlaces), dirx, stepStyles[1],))
             st1.start()
         if not st2.is_alive():
-            magnetOnOff(magnet)
+            #magnetOnOff(magnet)
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, int(yPlaces), diry, stepStyles[1],))
             st2.start()
 
@@ -202,13 +202,13 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
             print("waiting.. move x ")
             time.sleep(0.5)
         if not st1.is_alive():
-            magnetOnOff(magnet)
+            #magnetOnOff(magnet)
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xTemp, dirx, stepStyles[1],))
             st1.start()
             
         # uses other motor for a small amount to get rid of st1 not completing full amount of steps bc of weird motor hat
         magnetOnOff(magnet)
-        jiggleX(xTemp)
+        #jiggleX(xTemp)
 
     elif yPlaces > xPlaces:
 
@@ -216,11 +216,11 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
 
         # diagonal
         if not st1.is_alive():
-            magnetOnOff(magnet)
+            #magnetOnOff(magnet)
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(xPlaces), dirx, stepStyles[1],))
             st1.start()
         if not st2.is_alive():
-            magnetOnOff(magnet)
+            #magnetOnOff(magnet)
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper,int(xPlaces), diry, stepStyles[1],))
             st2.start()
 
@@ -229,12 +229,12 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
             print("waiting.. move y ")
             time.sleep(0.5)
         if not st2.is_alive():
-            magnetOnOff(magnet)
+            #magnetOnOff(magnet)
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yTemp, diry, stepStyles[1],))
             st2.start()
         # uses other motor for a small amount to get rid of st2 not completing full amount of steps bc of weird motor hat
         magnetOnOff(magnet)
-        jiggleY(yTemp)
+        #jiggleY(yTemp)
     
     
     turnOffMotors()
