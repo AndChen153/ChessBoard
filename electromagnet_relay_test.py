@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 
-channel = 17
+channel = 18
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(channel, GPIO.OUT)
