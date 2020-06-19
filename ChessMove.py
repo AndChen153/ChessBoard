@@ -17,7 +17,7 @@ st2 = threading.Thread()
 st3 = threading.Thread()
 
 # setup gpio pin for relay
-channel = 18
+channel = 17
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(channel, GPIO.OUT)
 
