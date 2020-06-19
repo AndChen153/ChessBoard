@@ -234,11 +234,12 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
 #            0          1           2          3
 
 magnet=input("1(high) or 0(low)")
+magnetOnOff(magnet)
 a=input("places")
 b=input("direction")
 c=input("places")
 d=input("direction")
-magnetOnOff(magnet)
+
 translation(a, b, c, d, magnet)
 
 
