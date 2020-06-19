@@ -247,7 +247,6 @@ translation(a, b, c, d, magnet)
 
 
 
-GPIO.cleanup()
 stop_threads = True
 
 
