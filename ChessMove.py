@@ -39,8 +39,11 @@ stop_threads=False
 def magnetOnOff(magnet):
     if magnet == "1":
         GPIO.output(channel, GPIO.HIGH)
+        print("working magnet1")
     elif magnet == "0":
         GPIO.output(channel, GPIO.LOW)
+        print("working magnet0")
+    
     '''
     global stop_threads
     while True:
