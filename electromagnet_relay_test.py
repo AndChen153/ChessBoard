@@ -9,8 +9,9 @@ y=input("a or b")
 
 if y == "a":
     GPIO.output(channel, GPIO.HIGH)
-    GPIO.cleanup()
+    
 
 elif y == "b":
     GPIO.output(channel, GPIO.LOW)
-    GPIO.cleanup()
+
+GPIO.cleanup()
