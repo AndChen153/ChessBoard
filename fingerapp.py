@@ -45,7 +45,7 @@ while True:
 
     if not st1.isAlive() and STEP == 1:
         print("250 forward")
-        st1 = threading.Thread(target=stepper_worker, args=(kit.stepper2, 250, STEPPER.FORWARD, stepstyles[1],))
+        st1 = threading.Thread(target=stepper_worker, args=(kit.stepper2, 210, STEPPER.FORWARD, stepstyles[1],))
         st1.start()
         STEP = 2
     
@@ -57,7 +57,7 @@ while True:
 
     if not st1.isAlive() and STEP == 3:
         print("250 back")
-        st1 = threading.Thread(target=stepper_worker, args=(kit.stepper2, 250, STEPPER.BACKWARD, stepstyles[1],))
+        st1 = threading.Thread(target=stepper_worker, args=(kit.stepper2, 210, STEPPER.BACKWARD, stepstyles[1],))
         st1.start()
         STEP = 0
 
