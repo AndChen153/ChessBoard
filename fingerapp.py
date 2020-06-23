@@ -36,25 +36,22 @@ while True:
         print("300 forward")
         stepper_worker(kit.stepper1, 230, STEPPER.FORWARD, stepstyles[1],)
         STEP = 1
-        time.sleep(0.1)
+    time.sleep(0.2)
 
     if STEP == 1:
         print("250 forward")
         stepper_worker(kit.stepper2, 300, STEPPER.FORWARD, stepstyles[1],)
         STEP = 2
-        time.sleep(0.1)
+    time.sleep(0.2)
     
     if STEP == 2:
         print("300 back")
         stepper_worker(kit.stepper1, 230, STEPPER.BACKWARD, stepstyles[1],)
         STEP = 3
-        time.sleep(0.1)
+    time.sleep(0.2)
 
     if STEP == 3:
         print("250 back")
         stepper_worker(kit.stepper2, 300, STEPPER.BACKWARD, stepstyles[1],)
         STEP = 0
-        time.sleep(0.1)
-
-    time.sleep(0.1)  # Small delay to stop from constantly polling threads
-    # see: https://forums.adafruit.com/viewtopic.php?f=50&t=104354&p=562733#p562733
+    time.sleep(0.2)
