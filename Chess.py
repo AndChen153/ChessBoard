@@ -1,5 +1,6 @@
 #import from adafruit_motor import stepper
 from array import *
+import ChessMove as CM
 #from adafruit_motorkit import MotorKit
 #from StepperMove import moveSteps, moveTo, zero, takePiece
 
@@ -21,17 +22,16 @@ board = [[2,3,4,5,6,4,3,2], \
          [8,9,10,11,12,10,9,8]]
 
 
-stepSize=100
-
 
 
 
 while (True):
+
     #intake starting and ending positions and split them into letter and number
-    startingPos=input("enter starting position spaces inbetween")
-    startingPosList = startingPos.split()
-    endingPos=input("enter ending position spaces inbetween")
-    endingPosList = endingPos.split()
+    startingPos=input("enter starting position (lower case letters)")
+    startingPosList = list(startingPos)
+    endingPos=input("enter ending position (lower case letters)")
+    endingPosList = list(endingPos)
 
     #assigning to variables so its easier to read
     startletter = startingPosList[0]
@@ -39,11 +39,8 @@ while (True):
     endletter = endingPosList[0]
     endnumber = endingPosList[1]
 
-    '''
-    temp = board[reference[startnumber]][reference[startletter]]
-
-    board[reference[startnumber]][reference[startletter]] = 0
-    board[reference[endnumber]][reference[endletter]] = temp
+    
+    
     '''
     #set end position with start value
     board[reference[endnumber]][reference[endletter]] = board[reference[startnumber]][reference[startletter]]
@@ -52,6 +49,7 @@ while (True):
     
     print (board[reference[startnumber]][reference[startletter]])
     print (board[reference[endnumber]][reference[endletter]])
+    '''
 
 
     

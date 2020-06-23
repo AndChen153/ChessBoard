@@ -1,5 +1,3 @@
-
-
 from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor, Adafruit_StepperMotor
 import RPi.GPIO as GPIO
 import time
@@ -8,15 +6,16 @@ import threading
 import random
 import sys
 
+# do not cleanup gpio, will cause the relay to switch off as soon as the motors start to move
+
 # create a default object, no changes to I2C address or frequency
 mh = Adafruit_MotorHAT()
 
 # create empty threads (these will hold the stepper 1 and 2 threads) so both motors can be ran at the same time
 st1 = threading.Thread()
 st2 = threading.Thread()
-st3 = threading.Thread()
 
-# setup gpio pin for relay
+# setup gpio pin for triggering relay
 channel = 17
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(channel, GPIO.OUT)
@@ -28,9 +27,12 @@ def turnOffMotors():
     mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
     mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
     mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
+
 def killThreads():
     st1.kill()
     st1.join()
+    st2.kill()
+    st2.join()
 
 atexit.register(turnOffMotors)
 
@@ -39,10 +41,8 @@ stop_threads=False
 def magnetOnOff(magnet):
     if magnet == "1":
         GPIO.output(channel, GPIO.HIGH)
-        print("working magnet1")
     elif magnet == "0":
         GPIO.output(channel, GPIO.LOW)
-        print("working magnet0")
     
     '''
     global stop_threads
@@ -64,12 +64,14 @@ def stepper_worker(stepper, numsteps, direction, style):
     stepper.step(numsteps, direction, style)
     print("Done \n")
 
+# setting up stepper motors
 XAxisStepper = mh.getStepper(200, 1)      # 200 steps/rev (1.8 degrees per step), motor port #1
 YAxisStepper = mh.getStepper(200, 2)      # 200 steps/rev (1.8 degrees per step), motor port #2
+# not sure if this will affect anything
 XAxisStepper.setSpeed(5000)
 YAxisStepper.setSpeed(5000)
 
-# use double or interleave(half the distnace double moves)
+# use double or interleave(will take 400 steps per 1 rev)     DO NOT use single or microstep, these lead to very poor motor movement
 stepStyles = [Adafruit_MotorHAT.SINGLE, Adafruit_MotorHAT.DOUBLE, Adafruit_MotorHAT.INTERLEAVE, Adafruit_MotorHAT.MICROSTEP]
 #                   0                               1                           2                           3
 stepDirection = [Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.BACKWARD]
@@ -152,21 +154,19 @@ def jiggleY(yTemp):
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, 1, Adafruit_MotorHAT.BACKWARD, stepStyles[1],))
             st2.start()
 
-# direction -> 0 is forward 1 is backward
+# direction -> 0 is negative direction 1 is positive direction
 def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
     global st1
     global st2
     xPlaces = int(xPlaces)*steps
     yPlaces = int(yPlaces)*ysteps
-    print(yPlaces)
     dirx = stepDirection[int(xDirection)]
     diry = stepDirectiony[int(yDirection)]
 
-    #magnetOnOff(magnet)
+    magnetOnOff(magnet)
 
-    # moving in a diagonal
+    # moving in a diagonal 
     if xPlaces == yPlaces:
-        #magnetOnOff(magnet)
         if not st1.is_alive():
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xPlaces, dirx, stepStyles[1],))
             st1.start()
@@ -174,60 +174,50 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yPlaces, diry, stepStyles[1],))
             st2.start()
 
-
-
     # un-diagonal movement
     elif xPlaces > yPlaces:
 
         xTemp = xPlaces - yPlaces
         
-        # diagonal
+        # diagonal movement
         if not st1.is_alive():
-            #magnetOnOff(magnet)
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(yPlaces), dirx, stepStyles[1],))
             st1.start()
         if not st2.is_alive():
-            #magnetOnOff(magnet)
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, int(yPlaces), diry, stepStyles[1],))
             st2.start()
 
-        # straight
+        # straight movement
         while st1.is_alive() and st2.is_alive():
             print("waiting.. move x ")
             time.sleep(0.5)
         if not st1.is_alive():
-            #magnetOnOff(magnet)
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, xTemp, dirx, stepStyles[1],))
             st1.start()
             
-        # uses other motor for a small amount to get rid of st1 not completing full amount of steps bc of weird motor hat
-        #magnetOnOff(magnet)
+        # uses other motor for a small amount to get rid of st1 not completing full amount of steps bc of weird motor hat behavior
         jiggleX(xTemp)
 
     elif yPlaces > xPlaces:
 
         yTemp = yPlaces-xPlaces
 
-        # diagonal
+        # diagonal movement
         if not st1.is_alive():
-            #magnetOnOff(magnet)
             st1 = threading.Thread(target=stepper_worker, args=(XAxisStepper, int(xPlaces), dirx, stepStyles[1],))
             st1.start()
         if not st2.is_alive():
-            #magnetOnOff(magnet)
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper,int(xPlaces), diry, stepStyles[1],))
             st2.start()
 
-        # straight
+        # straight movement
         while st1.is_alive() and st2.is_alive():
             print("waiting.. move y ")
             time.sleep(0.5)
         if not st2.is_alive():
-            #magnetOnOff(magnet)
             st2 = threading.Thread(target=stepper_worker, args=(YAxisStepper, yTemp, diry, stepStyles[1],))
             st2.start()
-        # uses other motor for a small amount to get rid of st2 not completing full amount of steps bc of weird motor hat
-        #magnetOnOff(magnet)
+        # uses other motor for a small amount to get rid of st2 not completing full amount of steps bc of weird motor hat behavior
         jiggleY(yTemp)
     
     
@@ -237,7 +227,6 @@ def translation(xPlaces, xDirection, yPlaces, yDirection, magnet):
 #            0          1           2          3
 
 magnet=input("1(high) or 0(low)")
-magnetOnOff(magnet)
 a=input("places")
 b=input("direction")
 c=input("places")
@@ -247,7 +236,6 @@ translation(a, b, c, d, magnet)
 
 
 
-stop_threads = True
 
 
 '''
