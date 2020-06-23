@@ -32,25 +32,25 @@ def stepper_worker(stepper, numsteps, direction, style):
 STEP=0
 
 while True:
-    if not st1.isAlive() and STEP == 0:
+    if STEP == 0:
         print("300 forward")
         stepper_worker(kit.stepper1, 240, STEPPER.FORWARD, stepstyles[1],)
         STEP = 1
         time.sleep(0.1)
 
-    if not st1.isAlive() and STEP == 1:
+    if STEP == 1:
         print("250 forward")
         stepper_worker(kit.stepper2, 300, STEPPER.FORWARD, stepstyles[1],)
         STEP = 2
         time.sleep(0.1)
     
-    if not st1.isAlive() and STEP == 2:
+    if STEP == 2:
         print("300 back")
         stepper_worker(kit.stepper1, 240, STEPPER.BACKWARD, stepstyles[1],)
         STEP = 3
         time.sleep(0.1)
 
-    if not st1.isAlive() and STEP == 3:
+    if STEP == 3:
         print("250 back")
         stepper_worker(kit.stepper2, 300, STEPPER.BACKWARD, stepstyles[1],)
         STEP = 0
