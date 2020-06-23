@@ -12,11 +12,6 @@ from adafruit_motorkit import MotorKit
 # create a default object, no changes to I2C address or frequency
 kit = MotorKit()
 
-# create empty threads (these will hold the stepper 1 and 2 threads)
-st1 = threading.Thread()  # pylint: disable=bad-thread-instantiation
-st2 = threading.Thread()  # pylint: disable=bad-thread-instantiation
-
-
 # recommended for auto-disabling motors on shutdown!
 def turnOffMotors():
     kit.stepper1.release()
@@ -39,31 +34,27 @@ STEP=0
 while True:
     if not st1.isAlive() and STEP == 0:
         print("300 forward")
-        st1 = threading.Thread(target=stepper_worker, args=(kit.stepper1, 240, STEPPER.FORWARD, stepstyles[1],))
-        st1.start()
+        stepper_worker(kit.stepper1, 240, STEPPER.FORWARD, stepstyles[1],)
         STEP = 1
-        time.sleep(0.1)
+        time.sleep(0.2)
 
     if not st1.isAlive() and STEP == 1:
         print("250 forward")
-        st1 = threading.Thread(target=stepper_worker, args=(kit.stepper2, 300, STEPPER.FORWARD, stepstyles[1],))
-        st1.start()
+        stepper_worker(kit.stepper2, 300, STEPPER.FORWARD, stepstyles[1],)
         STEP = 2
-        time.sleep(0.1)
+        time.sleep(0.2)
     
     if not st1.isAlive() and STEP == 2:
         print("300 back")
-        st1 = threading.Thread(target=stepper_worker, args=(kit.stepper1, 240, STEPPER.BACKWARD, stepstyles[1],))
-        st1.start()
+        stepper_worker(kit.stepper1, 240, STEPPER.BACKWARD, stepstyles[1],)
         STEP = 3
-        time.sleep(0.1)
+        time.sleep(0.2)
 
     if not st1.isAlive() and STEP == 3:
         print("250 back")
-        st1 = threading.Thread(target=stepper_worker, args=(kit.stepper2, 300, STEPPER.BACKWARD, stepstyles[1],))
-        st1.start()
+        stepper_worker(kit.stepper2, 300, STEPPER.BACKWARD, stepstyles[1],)
         STEP = 0
-        time.sleep(0.1)
+        time.sleep(0.2)
 
     time.sleep(0.1)  # Small delay to stop from constantly polling threads
     # see: https://forums.adafruit.com/viewtopic.php?f=50&t=104354&p=562733#p562733
