@@ -34,7 +34,7 @@ STEP=0
 while True:
     if STEP == 0:
         print("300 forward")
-        stepper_worker(kit.stepper1, 240, STEPPER.FORWARD, stepstyles[1],)
+        stepper_worker(kit.stepper1, 230, STEPPER.FORWARD, stepstyles[1],)
         STEP = 1
         time.sleep(0.1)
 
@@ -46,7 +46,7 @@ while True:
     
     if STEP == 2:
         print("300 back")
-        stepper_worker(kit.stepper1, 240, STEPPER.BACKWARD, stepstyles[1],)
+        stepper_worker(kit.stepper1, 230, STEPPER.BACKWARD, stepstyles[1],)
         STEP = 3
         time.sleep(0.1)
 
