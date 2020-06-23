@@ -39,27 +39,31 @@ STEP=0
 while True:
     if not st1.isAlive() and STEP == 0:
         print("300 forward")
-        st1 = threading.Thread(target=stepper_worker, args=(kit.stepper1, 210, STEPPER.FORWARD, stepstyles[1],))
+        st1 = threading.Thread(target=stepper_worker, args=(kit.stepper1, 150, STEPPER.FORWARD, stepstyles[1],))
         st1.start()
         STEP = 1
+        time.sleep(0.1)
 
     if not st1.isAlive() and STEP == 1:
         print("250 forward")
         st1 = threading.Thread(target=stepper_worker, args=(kit.stepper2, 300, STEPPER.FORWARD, stepstyles[1],))
         st1.start()
         STEP = 2
+        time.sleep(0.1)
     
     if not st1.isAlive() and STEP == 2:
         print("300 back")
-        st1 = threading.Thread(target=stepper_worker, args=(kit.stepper1, 210, STEPPER.BACKWARD, stepstyles[1],))
+        st1 = threading.Thread(target=stepper_worker, args=(kit.stepper1, 150, STEPPER.BACKWARD, stepstyles[1],))
         st1.start()
         STEP = 3
+        time.sleep(0.1)
 
     if not st1.isAlive() and STEP == 3:
         print("250 back")
         st1 = threading.Thread(target=stepper_worker, args=(kit.stepper2, 300, STEPPER.BACKWARD, stepstyles[1],))
         st1.start()
         STEP = 0
+        time.sleep(0.1)
 
     time.sleep(0.1)  # Small delay to stop from constantly polling threads
     # see: https://forums.adafruit.com/viewtopic.php?f=50&t=104354&p=562733#p562733
