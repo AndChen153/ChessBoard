@@ -43,7 +43,7 @@ ySteps = 100 # how many steps across y axis is on display
 
 def stepper_worker(stepper, numsteps, direction, style):
     # print("Steppin!")
-    for _ in range(numsteps):
+    for i in range(numsteps):
         stepper.onestep(direction=direction, style=style)
     # print("Done")
 
@@ -77,14 +77,26 @@ def squaremove():
         #time.sleep(0.1)
 
 # moves in two directions and for differing x,y values 
-def translation(xSteps, xDirection, ySteps, yDirection):
+def translation(xSteps, ySteps):
     global st1
     global st2
     global runNext
     runNext = False
-    dirx = stepDirection[int(xDirection)]
-    diry = stepDirectiony[int(yDirection)]
+    dirx = stepDirection[int(1)]
+    diry = stepDirectiony[int(1)]
+    dirx1 = stepDirection[int(0)]
+    diry1 = stepDirectiony[int(0)]
 
+    for i in range(xSteps):
+        kit.stepper1.onestep(direction=dirx, style=style)
+    for i in range(ySteps):
+        kit.stepper2.onestep(direction=diry, style=style)
+    for i in range(xSteps):
+        kit.stepper1.onestep(direction=dirx1, style=style)
+    for i in range(ySteps):
+        kit.stepper2.onestep(direction=diry1, style=style)
+
+    '''
     # moving in a diagonal 
     if xSteps == ySteps:
         if not st1.is_alive():
@@ -133,17 +145,18 @@ def translation(xSteps, xDirection, ySteps, yDirection):
             time.sleep(0.5)
         if not st2.is_alive():
             st2 = threading.Thread(target=stepper_worker, args=(kit.stepper2, yTemp, diry, stepstyles[1],))
-            st2.start()    
+            st2.start() 
+    '''   
     
     turnOffMotors()
     runNext = True
 
 a=input("xSteps")
-b=input("direction")
+#b=input("direction")
 c=input("ySteps")
-d=input("direction")
+#d=input("direction")
 
-translation(int(a), int(b), int(c), int(d))
+translation(int(a) int(c))
 squaremove()
 
 '''while True:
