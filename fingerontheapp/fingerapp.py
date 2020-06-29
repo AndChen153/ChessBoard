@@ -144,7 +144,7 @@ c=input("ySteps")
 d=input("direction")
 
 translation(int(a), int(b), int(c), int(d))
-
+squaremove()
 
 '''while True:
     pixelInput = input('pixels?')
