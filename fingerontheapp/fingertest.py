@@ -31,7 +31,7 @@ atexit.register(turnOffMotors)
 def stepper_worker(stepper, numsteps, direction, style):
     # print("Steppin!")
     for _ in range(numsteps):
-        stepper.onestep(direction=direction, style=style)
+        stepper.onestep(direction=direction)
     # print("Done")
 
 
