@@ -96,11 +96,11 @@ def translation(xSteps, ySteps):
     runNext = False
     #x = threading.Thread(target=thread_function, args=(1,))
 
-    st1 = threading.Thread(target=stepperXMove, args=(xSteps))
+    st1 = threading.Thread(target=stepperXMove, args=(xSteps,))
     st1.start()
 
-    st2 = threading.Thread(target=stepperYMove, args=(ySteps))
-    st2.Start()
+    st2 = threading.Thread(target=stepperYMove, args=(ySteps,))
+    st2.start()
 
     '''for i in range(xSteps):
         kit.stepper1.onestep(direction=dirx, style=STEPPER.DOUBLE)
