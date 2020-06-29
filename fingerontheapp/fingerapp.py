@@ -94,7 +94,7 @@ def translation(xSteps, ySteps):
     global st2
     global runNext
     runNext = False
-    x = threading.Thread(target=thread_function, args=(1,))
+    #x = threading.Thread(target=thread_function, args=(1,))
 
     st1 = threading.Thread(target=stepperXMove, args=(xSteps))
     st1.start()
