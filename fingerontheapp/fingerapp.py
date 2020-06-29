@@ -31,7 +31,7 @@ stepDirection = [STEPPER.FORWARD, STEPPER.BACKWARD]
 #                   0                      1
 
 
-xPixels = 530 # how many pixels across x axis is on display
+xPixels = 430 # how many pixels across x axis is on display
 yPixels = 530 # how many pixels across y axis is on display
 xSteps = 70 # how many steps across half of the x axis is on display
 ySteps = 110 # how many steps across half of the  y axis is on display
@@ -75,18 +75,27 @@ def squaremove():
         #time.sleep(0.1)
 
 # moves in two directions and for differing x,y values 
-def translation(xSteps, ySteps):
+def translation(xSteps, xdir, ySteps, ydir):
     global runNext
-
+    dirx = stepDirection[int(xdir)]
+    diry = stepDirection[int(ydir)]
+    if int(xdir) == 1:
+        dirx2 = stepDirection[0]
+    else:
+        dirx2 = stepDirection[1]
+    if int(ydir) == 1:
+        diry2 = stepDirection[0]
+    else:
+        diry2 = stepDirection[1]
 
     for i in range(xSteps):
-        kit.stepper1.onestep(direction=STEPPER.BACKWARD, style=STEPPER.DOUBLE)
+        kit.stepper1.onestep(direction=dirx, style=STEPPER.DOUBLE)
     for i in range(ySteps):
-        kit.stepper2.onestep(direction=STEPPER.BACKWARD, style=STEPPER.DOUBLE)
+        kit.stepper2.onestep(direction=diry, style=STEPPER.DOUBLE)
     for i in range(xSteps):
-        kit.stepper1.onestep(direction=STEPPER.FORWARD, style=STEPPER.DOUBLE)
+        kit.stepper1.onestep(direction=dirx2 , style=STEPPER.DOUBLE)
     for i in range(ySteps):
-        kit.stepper2.onestep(direction=STEPPER.FORWARD, style=STEPPER.DOUBLE)
+        kit.stepper2.onestep(direction=diry2 , style=STEPPER.DOUBLE)
 
     turnOffMotors()
     runNext = True
@@ -95,8 +104,18 @@ while True:
     pixelInput = input('pixels?')
     pixelCounts = pixelInput.split(" ")
     
+    if int(pixelCounts[0])>265:
+        xdir = 1
+    else:
+        xdir = 0
+
+    if int(pixelCounts[1])>265:
+        ydir = 1
+    else:
+        ydir = 0
+    
     xdiff = abs(265-int(pixelCounts[0]))
-    xdiff = abs(265-int(pixelCounts[1]))
+    ydiff = abs(265-int(pixelCounts[1]))
 
     xPercent = xdiff/xPixels 
     yPercent = ydiff/yPixels
@@ -104,7 +123,7 @@ while True:
     xNum = int(xPercent*xSteps)
     yNum = int(yPercent*ySteps)
 
-    translation(xNum, yNum)
+    translation(xNum, xdir, yNum, ydir)
     while runNext == False:
         print("wait")
 
