@@ -29,9 +29,7 @@ stepstyles = [STEPPER.SINGLE, STEPPER.DOUBLE, STEPPER.INTERLEAVE, STEPPER.MICROS
 #                   0               1                2                   3
 stepDirection = [STEPPER.FORWARD, STEPPER.BACKWARD]
 #                   0                      1
-# so motors move same direction
-stepDirectiony = [STEPPER.BACKWARD, STEPPER.FORWARD]
-#                   0                      1
+
 
 xPixels = 530 # how many pixels across x axis is on display
 yPixels = 530 # how many pixels across y axis is on display
@@ -78,7 +76,6 @@ def squaremove():
 
 # moves in two directions and for differing x,y values 
 def translation(xSteps, ySteps):
-
     global runNext
 
 
