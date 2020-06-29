@@ -101,10 +101,10 @@ def translation(xSteps, xDirection, ySteps, yDirection):
         
         # diagonal movement
         if not st1.is_alive():
-            st1 = threading.Thread(target=stepper_worker, args=(kit.stepper1, int(ySteps), dirx, stepstyles[1],))
+            st1 = threading.Thread(target=stepper_worker, args=(kit.stepper1, ySteps, dirx, stepstyles[1],))
             st1.start()
         if not st2.is_alive():
-            st2 = threading.Thread(target=stepper_worker, args=(kit.stepper2, int(ySteps), diry, stepstyles[1],))
+            st2 = threading.Thread(target=stepper_worker, args=(kit.stepper2, ySteps, diry, stepstyles[1],))
             st2.start()
 
         # straight movement
@@ -121,10 +121,10 @@ def translation(xSteps, xDirection, ySteps, yDirection):
 
         # diagonal movement
         if not st1.is_alive():
-            st1 = threading.Thread(target=stepper_worker, args=(kit.stepper1, int(xSteps), dirx, stepstyles[1],))
+            st1 = threading.Thread(target=stepper_worker, args=(kit.stepper1, xSteps, dirx, stepstyles[1],))
             st1.start()
         if not st2.is_alive():
-            st2 = threading.Thread(target=stepper_worker, args=(kit.stepper2,int(xSteps), diry, stepstyles[1],))
+            st2 = threading.Thread(target=stepper_worker, args=(kit.stepper2,int(xSteps, diry, stepstyles[1],))
             st2.start()
 
         # straight movement
