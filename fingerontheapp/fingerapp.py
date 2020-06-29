@@ -98,8 +98,8 @@ while True:
     pixelInput = input('pixels?')
     pixelCounts = pixelInput.split(" ")
 
-    xPercent = pixelCounts[0]/xPixels 
-    yPercent = pixelCounts[1]/yPixels
+    xPercent = int(pixelCounts[0])/xPixels 
+    yPercent = int(pixelCounts[1])/yPixels
 
     xNum = int(xPercent*xSteps)
     yNum = int(yPercent*ySteps)
