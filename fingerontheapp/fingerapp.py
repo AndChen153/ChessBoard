@@ -88,13 +88,13 @@ def translation(xSteps, ySteps):
     diry1 = stepDirectiony[int(0)]
 
     for i in range(xSteps):
-        kit.stepper1.onestep(direction=dirx, style=style)
+        kit.stepper1.onestep(direction=dirx, style=STEPPER.DOUBLE)
     for i in range(ySteps):
-        kit.stepper2.onestep(direction=diry, style=style)
+        kit.stepper2.onestep(direction=diry, style=STEPPER.DOUBLE)
     for i in range(xSteps):
-        kit.stepper1.onestep(direction=dirx1, style=style)
+        kit.stepper1.onestep(direction=dirx1, style=STEPPER.DOUBLE)
     for i in range(ySteps):
-        kit.stepper2.onestep(direction=diry1, style=style)
+        kit.stepper2.onestep(direction=diry1, style=STEPPER.DOUBLE)
 
     '''
     # moving in a diagonal 
