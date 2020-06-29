@@ -138,8 +138,15 @@ def translation(xSteps, xDirection, ySteps, yDirection):
     turnOffMotors()
     runNext = True
 
+a=input("xSteps")
+b=input("direction")
+c=input("ySteps")
+d=input("direction")
 
-while True:
+translation(a, b, c, d)
+
+
+'''while True:
     pixelInput = input('pixels?')
     pixelCounts = pixelInput.split(" ")
 
@@ -152,5 +159,5 @@ while True:
     translation(xNum, 1, yNum, 1)
     while runNext == False:
         wait=True
-    translation(xNum, 0, yNum, 0)
+    translation(xNum, 0, yNum, 0)'''
 
