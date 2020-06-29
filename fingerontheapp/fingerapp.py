@@ -35,8 +35,8 @@ stepDirectiony = [STEPPER.BACKWARD, STEPPER.FORWARD]
 
 xPixels = 530 # how many pixels across x axis is on display
 yPixels = 530 # how many pixels across y axis is on display
-xSteps = 140 # how many steps across x axis is on display
-ySteps = 220 # how many steps across y axis is on display
+xSteps = 70 # how many steps across half of the x axis is on display
+ySteps = 110 # how many steps across half of the  y axis is on display
 
 #REPLACE STEP VALUES BEFORE USE
 
@@ -83,13 +83,13 @@ def translation(xSteps, ySteps):
 
 
     for i in range(xSteps):
-        kit.stepper1.onestep(direction=STEPPER.FORWARD, style=STEPPER.DOUBLE)
-    for i in range(ySteps):
-        kit.stepper2.onestep(direction=STEPPER.FORWARD, style=STEPPER.DOUBLE)
-    for i in range(xSteps):
         kit.stepper1.onestep(direction=STEPPER.BACKWARD, style=STEPPER.DOUBLE)
     for i in range(ySteps):
         kit.stepper2.onestep(direction=STEPPER.BACKWARD, style=STEPPER.DOUBLE)
+    for i in range(xSteps):
+        kit.stepper1.onestep(direction=STEPPER.FORWARD, style=STEPPER.DOUBLE)
+    for i in range(ySteps):
+        kit.stepper2.onestep(direction=STEPPER.FORWARD, style=STEPPER.DOUBLE)
 
     turnOffMotors()
     runNext = True
@@ -97,9 +97,12 @@ def translation(xSteps, ySteps):
 while True:
     pixelInput = input('pixels?')
     pixelCounts = pixelInput.split(" ")
+    
+    xdiff = abs(265-int(pixelCounts[0]))
+    xdiff = abs(265-int(pixelCounts[1]))
 
-    xPercent = int(pixelCounts[0])/xPixels 
-    yPercent = int(pixelCounts[1])/yPixels
+    xPercent = xdiff/xPixels 
+    yPercent = ydiff/yPixels
 
     xNum = int(xPercent*xSteps)
     yNum = int(yPercent*ySteps)
