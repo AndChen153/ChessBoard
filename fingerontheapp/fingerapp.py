@@ -156,8 +156,8 @@ a=input("xSteps")
 c=input("ySteps")
 #d=input("direction")
 
-translation(int(a) int(c))
-squaremove()
+translation(int(a), int(c))
+#squaremove()
 
 '''while True:
     pixelInput = input('pixels?')
