@@ -33,10 +33,10 @@ stepDirection = [STEPPER.FORWARD, STEPPER.BACKWARD]
 stepDirectiony = [STEPPER.BACKWARD, STEPPER.FORWARD]
 #                   0                      1
 
-xPixels = 430 # how many pixels across x axis is on display
-yPixels = 525 # how many pixels across y axis is on display
-xSteps = 100 # how many steps across x axis is on display
-ySteps = 100 # how many steps across y axis is on display
+xPixels = 530 # how many pixels across x axis is on display
+yPixels = 530 # how many pixels across y axis is on display
+xSteps = 140 # how many steps across x axis is on display
+ySteps = 220 # how many steps across y axis is on display
 
 #REPLACE STEP VALUES BEFORE USE
 
@@ -46,18 +46,6 @@ def stepper_worker(stepper, numsteps, direction, style):
     for i in range(numsteps):
         stepper.onestep(direction=direction, style=style)
     # print("Done")
-
-def stepperXMove(steps):
-    for i in range(steps):
-        kit.stepper1.onestep(direction=STEPPER.BACKWARD, style=STEPPER.DOUBLE)
-    for i in range(steps):
-        kit.stepper1.onestep(direction=STEPPER.FORWARD, style=STEPPER.DOUBLE)
-
-def stepperYMove(steps):
-    for i in range(steps):
-        kit.stepper2.onestep(direction=STEPPER.FORWARD, style=STEPPER.DOUBLE)
-    for i in range(steps):
-        kit.stepper2.onestep(direction=STEPPER.BACKWARD, style=STEPPER.DOUBLE)
 
 # moves touch input in a square, most basic function
 def squaremove():
@@ -90,105 +78,33 @@ def squaremove():
 
 # moves in two directions and for differing x,y values 
 def translation(xSteps, ySteps):
-    global st1
-    global st2
+
     global runNext
-    runNext = False
-    #x = threading.Thread(target=thread_function, args=(1,))
-
-    '''st1 = threading.Thread(target=stepperXMove, args=(xSteps,))
-    st1.start()
-
-    st2 = threading.Thread(target=stepperYMove, args=(ySteps,))
-    st2.start()'''
-    stepperXMove(xSteps)
-    stepperYMove(ySteps)
 
 
-    '''for i in range(xSteps):
-        kit.stepper1.onestep(direction=dirx, style=STEPPER.DOUBLE)
-    for i in range(ySteps):
-        kit.stepper2.onestep(direction=diry, style=STEPPER.DOUBLE)
     for i in range(xSteps):
-        kit.stepper1.onestep(direction=dirx1, style=STEPPER.DOUBLE)
+        kit.stepper1.onestep(direction=STEPPER.FORWARD, style=STEPPER.DOUBLE)
     for i in range(ySteps):
-        kit.stepper2.onestep(direction=diry1, style=STEPPER.DOUBLE)'''
+        kit.stepper2.onestep(direction=STEPPER.FORWARD, style=STEPPER.DOUBLE)
+    for i in range(xSteps):
+        kit.stepper1.onestep(direction=STEPPER.BACKWARD, style=STEPPER.DOUBLE)
+    for i in range(ySteps):
+        kit.stepper2.onestep(direction=STEPPER.BACKWARD, style=STEPPER.DOUBLE)
 
-    '''
-    # moving in a diagonal 
-    if xSteps == ySteps:
-        if not st1.is_alive():
-            st1 = threading.Thread(target=stepper_worker, args=(kit.stepper1, xSteps, dirx, stepstyles[1],))
-            st1.start()
-        if not st2.is_alive():
-            st2 = threading.Thread(target=stepper_worker, args=(kit.stepper2, ySteps, diry, stepstyles[1],))
-            st2.start()
-
-    # un-diagonal movement, moves diagonal for equal x,y then completes remaining x or y steps in a straight line
-    elif xSteps > ySteps:
-
-        xTemp = xSteps - ySteps
-        
-        # diagonal movement
-        if not st1.is_alive():
-            st1 = threading.Thread(target=stepper_worker, args=(kit.stepper1, ySteps, dirx, stepstyles[1],))
-            st1.start()
-        if not st2.is_alive():
-            st2 = threading.Thread(target=stepper_worker, args=(kit.stepper2, ySteps, diry, stepstyles[1],))
-            st2.start()
-
-        # straight movement
-        while st1.is_alive() and st2.is_alive():
-            print("waiting.. move x ")
-            time.sleep(0.5)
-        if not st1.is_alive():
-            st1 = threading.Thread(target=stepper_worker, args=(kit.stepper1, xTemp, dirx, stepstyles[1],))
-            st1.start()
-            
-    elif ySteps > xSteps:
-
-        yTemp = ySteps-xSteps
-
-        # diagonal movement
-        if not st1.is_alive():
-            st1 = threading.Thread(target=stepper_worker, args=(kit.stepper1, xSteps, dirx, stepstyles[1],))
-            st1.start()
-        if not st2.is_alive():
-            st2 = threading.Thread(target=stepper_worker, args=(kit.stepper2,int(xSteps, diry, stepstyles[1],))
-            st2.start()
-
-        # straight movement
-        while st1.is_alive() and st2.is_alive():
-            print("waiting.. move y ")
-            time.sleep(0.5)
-        if not st2.is_alive():
-            st2 = threading.Thread(target=stepper_worker, args=(kit.stepper2, yTemp, diry, stepstyles[1],))
-            st2.start() 
-    '''   
-    
     turnOffMotors()
     runNext = True
 
-a=input("xSteps")
-#b=input("direction")
-c=input("ySteps")
-#d=input("direction")
-
-translation(int(a), int(c))
-#squaremove()
-
-'''while True:
+while True:
     pixelInput = input('pixels?')
     pixelCounts = pixelInput.split(" ")
 
     xPercent = pixelCounts[0]/xPixels 
     yPercent = pixelCounts[1]/yPixels
 
-    xNum = xPercent*xSteps
-    yNum = yPercent*ySteps
+    xNum = int(xPercent*xSteps)
+    yNum = int(yPercent*ySteps)
 
-    translation(xNum, 1, yNum, 1)
+    translation(xNum, yNum)
     while runNext == False:
-        wait=True
-    translation(xNum, 0, yNum, 0)'''
+        print("wait")
 
