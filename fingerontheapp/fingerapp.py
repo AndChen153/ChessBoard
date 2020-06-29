@@ -38,7 +38,7 @@ yPixels = 525 # how many pixels across y axis is on display
 xSteps = 100 # how many steps across x axis is on display
 ySteps = 100 # how many steps across y axis is on display
 
-REPLACE STEP VALUES BEFORE USE
+#REPLACE STEP VALUES BEFORE USE
 
 
 def stepper_worker(stepper, numsteps, direction, style):
