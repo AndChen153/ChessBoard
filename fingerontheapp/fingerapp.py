@@ -143,7 +143,7 @@ b=input("direction")
 c=input("ySteps")
 d=input("direction")
 
-translation(a, b, c, d)
+translation(int(a), int(b), int(c), int(d))
 
 
 '''while True:
