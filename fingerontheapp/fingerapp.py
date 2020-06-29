@@ -18,8 +18,8 @@ def turnOffMotors():
     kit.stepper2.release()
 
 # create empty threads (these will hold the stepper 1 and 2 threads) so both motors can be ran at the same time
-st1 = threading.Thread()
-st2 = threading.Thread()
+#st1 = threading.Thread()
+#st2 = threading.Thread()
 
 runNext = False
 
@@ -46,6 +46,18 @@ def stepper_worker(stepper, numsteps, direction, style):
     for i in range(numsteps):
         stepper.onestep(direction=direction, style=style)
     # print("Done")
+
+def stepperXMove(steps):
+    for i in range(steps):
+        kit.stepper1.onestep(direction=STEPPER.BACKWARD, style=STEPPER.DOUBLE)
+    for i in range(steps):
+        kit.stepper1.onestep(direction=STEPPER.FORWARD, style=STEPPER.DOUBLE)
+
+def stepperYMove(steps):
+    for i in range(steps):
+        kit.stepper2.onestep(direction=STEPPER.FORWARD, style=STEPPER.DOUBLE)
+    for i in range(steps):
+        kit.stepper2.onestep(direction=STEPPER.BACKWARD, style=STEPPER.DOUBLE)
 
 # moves touch input in a square, most basic function
 def squaremove():
@@ -82,19 +94,22 @@ def translation(xSteps, ySteps):
     global st2
     global runNext
     runNext = False
-    dirx = stepDirection[int(1)]
-    diry = stepDirectiony[int(1)]
-    dirx1 = stepDirection[int(0)]
-    diry1 = stepDirectiony[int(0)]
+    x = threading.Thread(target=thread_function, args=(1,))
 
-    for i in range(xSteps):
+    st1 = threading.Thread(target=stepperXMove, args=(xSteps))
+    st1.start()
+
+    st2 = threading.Thread(target=stepperYMove, args=(ySteps))
+    st2.Start()
+
+    '''for i in range(xSteps):
         kit.stepper1.onestep(direction=dirx, style=STEPPER.DOUBLE)
     for i in range(ySteps):
         kit.stepper2.onestep(direction=diry, style=STEPPER.DOUBLE)
     for i in range(xSteps):
         kit.stepper1.onestep(direction=dirx1, style=STEPPER.DOUBLE)
     for i in range(ySteps):
-        kit.stepper2.onestep(direction=diry1, style=STEPPER.DOUBLE)
+        kit.stepper2.onestep(direction=diry1, style=STEPPER.DOUBLE)'''
 
     '''
     # moving in a diagonal 
