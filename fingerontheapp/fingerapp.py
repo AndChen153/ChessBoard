@@ -167,7 +167,7 @@ while True:
     xNum = int(xPercent*xSteps)
     yNum = int(yPercent*ySteps)
     xNum -= 55
-    yNum -= 55
+    yNum -= 65
 
     if xNum < 0:
         xNum = 0
