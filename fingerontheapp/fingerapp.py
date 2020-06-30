@@ -94,10 +94,10 @@ def translation(xSteps, ySteps):
         kit.stepper1.onestep(direction=STEPPER.BACKWARD, style=STEPPER.DOUBLE)
     for i in range(ySteps):
         kit.stepper2.onestep(direction=STEPPER.BACKWARD, style=STEPPER.DOUBLE)
-    for i in range(xSteps):
-        kit.stepper1.onestep(direction=STEPPER.FORWARD , style=STEPPER.DOUBLE)
     for i in range(ySteps):
         kit.stepper2.onestep(direction=STEPPER.FORWARD , style=STEPPER.DOUBLE)
+    for i in range(xSteps):
+        kit.stepper1.onestep(direction=STEPPER.FORWARD , style=STEPPER.DOUBLE)
 
     turnOffMotors()
     runNext = True
