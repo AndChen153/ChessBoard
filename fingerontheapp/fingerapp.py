@@ -102,7 +102,7 @@ def translation(xSteps, ySteps):
     turnOffMotors()
     runNext = True
 
-squaremove()
+#squaremove()
 
 while True:
     pixelInput = input('pixels?')
