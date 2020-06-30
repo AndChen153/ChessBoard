@@ -166,8 +166,8 @@ while True:
 
     xNum = int(xPercent*xSteps)
     yNum = int(yPercent*ySteps)
-    xNum -= 45
-    yNum -= 45
+    xNum -= 55
+    yNum -= 55
 
     #translation(xNum, xdir, yNum, ydir)
     translation(xNum, yNum)
