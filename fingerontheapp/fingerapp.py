@@ -30,13 +30,19 @@ stepstyles = [STEPPER.SINGLE, STEPPER.DOUBLE, STEPPER.INTERLEAVE, STEPPER.MICROS
 stepDirection = [STEPPER.FORWARD, STEPPER.BACKWARD]
 #                   0                      1
 
-
+'''
 xPixels = 430 # how many pixels across x axis is on display
 yPixels = 530 # how many pixels across y axis is on display
 xSteps = 180 # how many steps across half of the x axis is on display
 ySteps = 260 # how many steps across half of the  y axis is on display
+'''
 
-#REPLACE STEP VALUES BEFORE USE
+
+xPixels = 430 # how many pixels across x axis is on display
+yPixels = 530 # how many pixels across y axis is on display
+xSteps = 325 # how many steps across half of the x axis is on display
+ySteps = 390 # how many steps across half of the  y axis is on display
+
 
 
 def stepper_worker(stepper, numsteps, direction, style):
@@ -104,6 +110,35 @@ def translation(xSteps, ySteps):
 
 #squaremove()
 
+'''while True:
+    pixelInput = input('pixels?')
+    pixelCounts = pixelInput.split(" ")
+    
+    '''if int(pixelCounts[0])>265:
+        xdir = 1
+    else:
+        xdir = 0
+
+    if int(pixelCounts[1])>265:
+        ydir = 1
+    else:
+        ydir = 0'''
+    
+    #xdiff = abs(265-int(pixelCounts[0]))
+    #ydiff = abs(265-int(pixelCounts[1]))
+
+    xPercent = int(pixelCounts[0])/xPixels 
+    yPercent = int(pixelCounts[1])/yPixels
+    print (xPercent, yPercent)
+
+    xNum = int(xPercent*xSteps)
+    yNum = int(yPercent*ySteps)
+
+    #translation(xNum, xdir, yNum, ydir)
+    translation(xNum, yNum)
+    while runNext == False:
+        print("wait")'''
+
 while True:
     pixelInput = input('pixels?')
     pixelCounts = pixelInput.split(" ")
@@ -127,9 +162,10 @@ while True:
 
     xNum = int(xPercent*xSteps)
     yNum = int(yPercent*ySteps)
+    xNum -= 90
+    yNum -= 90
 
     #translation(xNum, xdir, yNum, ydir)
     translation(xNum, yNum)
     while runNext == False:
         print("wait")
-
