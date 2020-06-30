@@ -171,10 +171,14 @@ while True:
 
     if xNum < 0:
         xNum = 0
+    elif xNum < 30:
+        xNum = 30
     elif xNum > 270:
         xNum = 270
     if yNum < 0:
         yNum = 0
+    elif yNum < 30:
+        yNum = 30
     elif yNum > 335:
         yNum = 335
 
