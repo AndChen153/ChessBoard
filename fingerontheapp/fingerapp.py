@@ -148,8 +148,8 @@ while True:
     pixelCounts = pixelInput.split(" ")
     xPercent = (int(pixelCounts[0])-100)/xPixels 
     yPercent = int(pixelCounts[1])/yPixels
-    print (xPercent, yPercent)
-    randomNum = random.randint(0,30)
+    randomNumx = random.randint(0,30)
+    randomNumy = random.randint(0,30)
     
 
     xNum = int(xPercent*xSteps)
@@ -170,7 +170,9 @@ while True:
     elif yNum > 335:
         yNum = 335
 
+    print (xPercent, yPercent, randomNumx, randomNumy)
+
     #translation(xNum, xdir, yNum, ydir)
-    translation(xNum+randomNum, yNum+randomNum)
+    translation(xNum+randomNumx, yNum+randomNumy)
     while runNext == False:
         print("wait")
