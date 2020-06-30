@@ -20,7 +20,7 @@ while True:
         time.sleep(120)
     GPIO.output(channel, GPIO.HIGH)
     print("charge")
-    time.sleep(120)
+    time.sleep(600)
     GPIO.output(channel, GPIO.LOW)
     time.sleep(60)
 
