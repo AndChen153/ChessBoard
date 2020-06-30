@@ -38,8 +38,8 @@ ySteps = 260 # how many steps across half of the  y axis is on display
 '''
 
 
-xPixels = 430 # how many pixels across x axis is on display
-yPixels = 530 # how many pixels across y axis is on display
+xPixels = 640 # how many pixels across x axis is on display
+yPixels = 720 # how many pixels across y axis is on display
 xSteps = 325 # how many steps across half of the x axis is on display
 ySteps = 390 # how many steps across half of the  y axis is on display
 
