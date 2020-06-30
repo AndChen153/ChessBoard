@@ -13,11 +13,16 @@ def powerToggle():
     time.sleep(5)
 
 
+    
+
 while True:
     GPIO.output(channel, GPIO.LOW)
     print("off")
-    time.sleep(720)
+    for i in range(72)
+        time.sleep(10)
+        print("off")
     GPIO.output(channel, GPIO.HIGH)
     print("charge")
-    time.sleep(300)
-
+    for i in range(30)
+        time.sleep(10)
+        print("charge")
