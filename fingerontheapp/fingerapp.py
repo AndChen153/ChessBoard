@@ -33,8 +33,8 @@ stepDirection = [STEPPER.FORWARD, STEPPER.BACKWARD]
 
 xPixels = 430 # how many pixels across x axis is on display
 yPixels = 530 # how many pixels across y axis is on display
-xSteps = 70 # how many steps across half of the x axis is on display
-ySteps = 110 # how many steps across half of the  y axis is on display
+xSteps = 160 # how many steps across half of the x axis is on display
+ySteps = 240 # how many steps across half of the  y axis is on display
 
 #REPLACE STEP VALUES BEFORE USE
 
@@ -108,7 +108,7 @@ while True:
     pixelInput = input('pixels?')
     pixelCounts = pixelInput.split(" ")
     
-    if int(pixelCounts[0])>265:
+    '''if int(pixelCounts[0])>265:
         xdir = 1
     else:
         xdir = 0
@@ -116,13 +116,13 @@ while True:
     if int(pixelCounts[1])>265:
         ydir = 1
     else:
-        ydir = 0
+        ydir = 0'''
     
-    xdiff = abs(265-int(pixelCounts[0]))
-    ydiff = abs(265-int(pixelCounts[1]))
+    #xdiff = abs(265-int(pixelCounts[0]))
+    #ydiff = abs(265-int(pixelCounts[1]))
 
-    xPercent = xdiff/xPixels 
-    yPercent = ydiff/yPixels
+    xPercent = (int(pixelCounts[0])-100)/xPixels 
+    yPercent = int(pixelCounts[1])/yPixels
 
     xNum = int(xPercent*xSteps)
     yNum = int(yPercent*ySteps)
