@@ -77,27 +77,27 @@ def squaremove():
         #time.sleep(0.1)
 
 # moves in two directions and for differing x,y values 
-def translation(xSteps, xdir, ySteps, ydir):
+def translation(xSteps, ySteps):
     global runNext
-    dirx = stepDirection[int(xdir)]
-    diry = stepDirection[int(ydir)]
-    if int(xdir) == 1:
+    #dirx = stepDirection[int(xdir)]
+    #diry = stepDirection[int(ydir)]
+    '''if int(xdir) == 1:
         dirx2 = stepDirection[0]
     else:
         dirx2 = stepDirection[1]
     if int(ydir) == 1:
         diry2 = stepDirection[0]
     else:
-        diry2 = stepDirection[1]
+        diry2 = stepDirection[1]'''
 
     for i in range(xSteps):
-        kit.stepper1.onestep(direction=dirx, style=STEPPER.DOUBLE)
+        kit.stepper1.onestep(direction=STEPPER.BACKWARD, style=STEPPER.DOUBLE)
     for i in range(ySteps):
-        kit.stepper2.onestep(direction=diry, style=STEPPER.DOUBLE)
+        kit.stepper2.onestep(direction=STEPPER.BACKWARD, style=STEPPER.DOUBLE)
     for i in range(xSteps):
-        kit.stepper1.onestep(direction=dirx2 , style=STEPPER.DOUBLE)
+        kit.stepper1.onestep(direction=STEPPER.FORWARD , style=STEPPER.DOUBLE)
     for i in range(ySteps):
-        kit.stepper2.onestep(direction=diry2 , style=STEPPER.DOUBLE)
+        kit.stepper2.onestep(direction=STEPPER.FORWARD , style=STEPPER.DOUBLE)
 
     turnOffMotors()
     runNext = True
@@ -127,7 +127,8 @@ while True:
     xNum = int(xPercent*xSteps)
     yNum = int(yPercent*ySteps)
 
-    translation(xNum, xdir, yNum, ydir)
+    #translation(xNum, xdir, yNum, ydir)
+    translation(xNuM, yNum)
     while runNext == False:
         print("wait")
 
