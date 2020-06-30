@@ -128,7 +128,7 @@ while True:
     yNum = int(yPercent*ySteps)
 
     #translation(xNum, xdir, yNum, ydir)
-    translation(xNuM, yNum)
+    translation(xNum, yNum)
     while runNext == False:
         print("wait")
 
