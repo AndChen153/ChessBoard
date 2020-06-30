@@ -110,11 +110,8 @@ def translation(xSteps, ySteps):
 
 #squaremove()
 
-'''while True:
-    pixelInput = input('pixels?')
-    pixelCounts = pixelInput.split(" ")
-    
-    '''if int(pixelCounts[0])>265:
+'''
+if int(pixelCounts[0])>265:
         xdir = 1
     else:
         xdir = 0
@@ -122,7 +119,13 @@ def translation(xSteps, ySteps):
     if int(pixelCounts[1])>265:
         ydir = 1
     else:
-        ydir = 0'''
+        ydir = 0
+'''
+
+'''while True:
+    pixelInput = input('pixels?')
+    pixelCounts = pixelInput.split(" ")
+
     
     #xdiff = abs(265-int(pixelCounts[0]))
     #ydiff = abs(265-int(pixelCounts[1]))
@@ -137,7 +140,8 @@ def translation(xSteps, ySteps):
     #translation(xNum, xdir, yNum, ydir)
     translation(xNum, yNum)
     while runNext == False:
-        print("wait")'''
+        print("wait")
+'''
 
 while True:
     pixelInput = input('pixels?')
