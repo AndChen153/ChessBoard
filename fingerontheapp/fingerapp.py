@@ -123,6 +123,7 @@ while True:
 
     xPercent = (int(pixelCounts[0])-100)/xPixels 
     yPercent = int(pixelCounts[1])/yPixels
+    print (xPercent, yPercent)
 
     xNum = int(xPercent*xSteps)
     yNum = int(yPercent*ySteps)
