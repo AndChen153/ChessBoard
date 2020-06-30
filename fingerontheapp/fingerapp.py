@@ -154,8 +154,8 @@ while True:
 
     xNum = int(xPercent*xSteps)
     yNum = int(yPercent*ySteps)
-    xNum -= 55
-    yNum -= 65
+    xNum -= 88
+    yNum -= 100
 
     if xNum < 0:
         xNum = 0
