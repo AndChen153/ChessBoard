@@ -48,8 +48,8 @@ def stepper_worker(stepper, numsteps, direction, style):
 # moves touch input in a square, most basic function
 def squaremove():
     STEP=0
-
-    while True:
+    x=0
+    while x<3:
         if STEP == 0:
             print("300 forward")
             stepper_worker(kit.stepper1, 160, STEPPER.BACKWARD, stepstyles[1],)
@@ -72,6 +72,8 @@ def squaremove():
             print("250 back")
             stepper_worker(kit.stepper2, 240, STEPPER.FORWARD, stepstyles[1],)
             STEP = 0
+        
+        x+=1
         #time.sleep(0.1)
 
 # moves in two directions and for differing x,y values 
@@ -90,6 +92,8 @@ def translation(xSteps, ySteps):
 
     turnOffMotors()
     runNext = True
+
+squaremove()
 
 while True:
     pixelInput = input('pixels?')
