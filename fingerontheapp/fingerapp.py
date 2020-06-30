@@ -169,6 +169,11 @@ while True:
     xNum -= 55
     yNum -= 55
 
+    if xNum < 0:
+        xNum = 0
+    if yNum < 0:
+        yNum = 0
+
     #translation(xNum, xdir, yNum, ydir)
     translation(xNum, yNum)
     while runNext == False:
