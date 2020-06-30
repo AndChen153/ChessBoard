@@ -171,8 +171,12 @@ while True:
 
     if xNum < 0:
         xNum = 0
+    elif xNum > 270:
+        xNum = 270
     if yNum < 0:
         yNum = 0
+    elif yNum > 335:
+        yNum = 335
 
     #translation(xNum, xdir, yNum, ydir)
     translation(xNum, yNum)
