@@ -1,3 +1,4 @@
+# used to completely turn off motors and relay because sometimes after ctrl-c the motors do not completely quit and are stuck holding one step
 from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor, Adafruit_StepperMotor
 import RPi.GPIO as GPIO
 

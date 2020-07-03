@@ -17,25 +17,13 @@ def turnOffMotors():
     kit.stepper1.release()
     kit.stepper2.release()
 
-# create empty threads (these will hold the stepper 1 and 2 threads) so both motors can be ran at the same time
-#st1 = threading.Thread()
-#st2 = threading.Thread()
-
-runNext = False
-
+# releases motors at the closing of the program
 atexit.register(turnOffMotors)
 
 stepstyles = [STEPPER.SINGLE, STEPPER.DOUBLE, STEPPER.INTERLEAVE, STEPPER.MICROSTEP]
 #                   0               1                2                   3
 stepDirection = [STEPPER.FORWARD, STEPPER.BACKWARD]
 #                   0                      1
-
-'''
-xPixels = 430 # how many pixels across x axis is on display
-yPixels = 530 # how many pixels across y axis is on display
-xSteps = 180 # how many steps across half of the x axis is on display
-ySteps = 260 # how many steps across half of the  y axis is on display
-'''
 
 
 xPixels = 640 # how many pixels across x axis is on display
@@ -44,12 +32,11 @@ xSteps = 325 # how many steps across half of the x axis is on display
 ySteps = 390 # how many steps across half of the  y axis is on display
 
 
-
+# function to move stepper motors
+# kit.stepper1 is the x axis motor and kit.stepper2 is the y axis motor
 def stepper_worker(stepper, numsteps, direction, style):
-    # print("Steppin!")
     for i in range(numsteps):
         stepper.onestep(direction=direction, style=style)
-    # print("Done")
 
 # moves touch input in a square, most basic function
 def squaremove():
@@ -82,19 +69,9 @@ def squaremove():
         x+=1
         #time.sleep(0.1)
 
-# moves in two directions and for differing x,y values 
+# moves touchscreen stylus to a button and then back to the same spot
+# this movement pattern was used to save time in coding since I only finished the image recognition program 2 days before the challenge started
 def translation(xSteps, ySteps):
-    global runNext
-    #dirx = stepDirection[int(xdir)]
-    #diry = stepDirection[int(ydir)]
-    '''if int(xdir) == 1:
-        dirx2 = stepDirection[0]
-    else:
-        dirx2 = stepDirection[1]
-    if int(ydir) == 1:
-        diry2 = stepDirection[0]
-    else:
-        diry2 = stepDirection[1]'''
 
     for i in range(xSteps):
         kit.stepper1.onestep(direction=STEPPER.BACKWARD, style=STEPPER.DOUBLE)
@@ -106,9 +83,8 @@ def translation(xSteps, ySteps):
         kit.stepper1.onestep(direction=STEPPER.FORWARD , style=STEPPER.DOUBLE)
 
     turnOffMotors()
-    runNext = True
 
-#squaremove()
+
 
 '''
 if int(pixelCounts[0])>265:
@@ -146,17 +122,25 @@ if int(pixelCounts[0])>265:
 while True:
     pixelInput = input('pixels?')
     pixelCounts = pixelInput.split(" ")
-    xPercent = (int(pixelCounts[0])-100)/xPixels 
-    yPercent = int(pixelCounts[1])/yPixels
+
+    # randomizing the amount of distance moved to hopefully throw off any detection of bots
     randomNumx = random.randint(0,30)
     randomNumy = random.randint(0,30)
-    
 
+    # subtract 100 because there is space on the sides of the video feed
+    xPercent = (int(pixelCounts[0])-100)/xPixels 
+    yPercent = int(pixelCounts[1])/yPixels    
+
+    # convert the percentages from video feed into steps for the motors
     xNum = int(xPercent*xSteps)
     yNum = int(yPercent*ySteps)
+
+    # subtract since the pen is not zeroed at the very corner
+    # about 32 steps per block on an iphone 6s plus
     xNum -= 88
     yNum -= 100
 
+    # setting bounds to prevent the pen from going off of the screen
     if xNum < 0:
         xNum = 0
     elif xNum < 30:
@@ -172,7 +156,4 @@ while True:
 
     print (xPercent, yPercent, randomNumx, randomNumy)
 
-    #translation(xNum, xdir, yNum, ydir)
     translation(xNum+randomNumx, yNum+randomNumy)
-    while runNext == False:
-        print("wait")
