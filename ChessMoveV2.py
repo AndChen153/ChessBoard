@@ -8,21 +8,21 @@ stepstyles = [Adafruit_MotorHAT.SINGLE, Adafruit_MotorHAT.DOUBLE, Adafruit_Motor
 
 class MotorMove(object):
     def __init(self):
-        self.STEPSTYLE = Adafruit_MotorHAT.DOUBLE
-        self.FORWARD = Adafruit_MotorHAT.FORWARD
-        self.BACKWARD = Adafruit_MotorHAT.BACKWARD
+        STEPSTYLE = Adafruit_MotorHAT.DOUBLE
+        FORWARD = Adafruit_MotorHAT.FORWARD
+        BACKWARD = Adafruit_MotorHAT.BACKWARD
 
         # create a default object, no changes to I2C address or frequency
-        self.mh = Adafruit_MotorHAT()
+        mh = Adafruit_MotorHAT()
 
         # create empty threads (these will hold the stepper 1 and 2 threads)
-        self.st1 = threading.Thread()
-        self.st2 = threading.Thread()
+        st1 = threading.Thread()
+        st2 = threading.Thread()
 
-        self.myStepper1 = mh.getStepper(200, 1)      # 200 steps/rev, motor port #1
-        self.myStepper2 = mh.getStepper(200, 2)      # 200 steps/rev, motor port #1
-        self.myStepper1.setSpeed(60)          # 30 RPM
-        self.myStepper2.setSpeed(60)          # 30 RPM
+        myStepper1 = mh.getStepper(200, 1)      # 200 steps/rev, motor port #1
+        myStepper2 = mh.getStepper(200, 2)      # 200 steps/rev, motor port #1
+        myStepper1.setSpeed(60)          # 30 RPM
+        myStepper2.setSpeed(60)          # 30 RPM
     
     def stepper_worker(self, stepper, numsteps, direction, style):
         #print("Steppin!")
