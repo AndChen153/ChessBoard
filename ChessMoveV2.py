@@ -44,7 +44,6 @@ while (True):
         st2 = threading.Thread(target=stepper_worker, args=(myStepper2, 500, FORWARD, STEPSTYLE,))
         st2.start()
     
-    time.sleep(5)
     st1.join()
     st2.join()
 
@@ -56,7 +55,6 @@ while (True):
         st2 = threading.Thread(target=stepper_worker, args=(myStepper2, 500, BACKWARD, STEPSTYLE,))
         st2.start()
     
-    time.sleep(5)
     st1.join()
     st2.join()
     break
