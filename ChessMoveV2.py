@@ -44,9 +44,6 @@ def stepper_outandback(distance):
     if not st2.isAlive():
         st2 = threading.Thread(target=stepper_worker, args=(myStepper2, distance, FORWARD, STEPSTYLE,))
         st2.start()
-    
-    st1.join()
-    st2.join()
 
     if not st1.isAlive():
         st1 = threading.Thread(target=stepper_worker, args=(myStepper1, distance, BACKWARD, STEPSTYLE,))
@@ -55,8 +52,6 @@ def stepper_outandback(distance):
     if not st2.isAlive():
         st2 = threading.Thread(target=stepper_worker, args=(myStepper2, distance, BACKWARD, STEPSTYLE,))
         st2.start()
-    
-    st1.join()
-    st2.join()
+
 
 stepper_outandback(500)
