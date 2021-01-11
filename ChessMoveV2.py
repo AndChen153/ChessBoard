@@ -34,27 +34,27 @@ def stepper_worker(stepper, numsteps, direction, style):
     #print("Steppin!")
     stepper.step(numsteps, direction, style)
     #print("Done")
-
-while (True):
+def stepper_outandback(distance):
     if not st1.isAlive():
-        st1 = threading.Thread(target=stepper_worker, args=(myStepper1, 500, FORWARD, STEPSTYLE,))
+        st1 = threading.Thread(target=stepper_worker, args=(myStepper1, distance, FORWARD, STEPSTYLE,))
         st1.start()
 
     if not st2.isAlive():
-        st2 = threading.Thread(target=stepper_worker, args=(myStepper2, 500, FORWARD, STEPSTYLE,))
+        st2 = threading.Thread(target=stepper_worker, args=(myStepper2, distance, FORWARD, STEPSTYLE,))
         st2.start()
     
     st1.join()
     st2.join()
 
     if not st1.isAlive():
-        st1 = threading.Thread(target=stepper_worker, args=(myStepper1, 500, BACKWARD, STEPSTYLE,))
+        st1 = threading.Thread(target=stepper_worker, args=(myStepper1, distance, BACKWARD, STEPSTYLE,))
         st1.start()
 
     if not st2.isAlive():
-        st2 = threading.Thread(target=stepper_worker, args=(myStepper2, 500, BACKWARD, STEPSTYLE,))
+        st2 = threading.Thread(target=stepper_worker, args=(myStepper2, distance, BACKWARD, STEPSTYLE,))
         st2.start()
     
     st1.join()
     st2.join()
-    break
+
+stepper_outandback(500)
