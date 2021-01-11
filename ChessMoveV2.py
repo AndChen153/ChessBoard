@@ -35,6 +35,8 @@ def stepper_worker(stepper, numsteps, direction, style):
     stepper.step(numsteps, direction, style)
     #print("Done")
 def stepper_outandback(distance):
+    global st1
+    global st2
     if not st1.isAlive():
         st1 = threading.Thread(target=stepper_worker, args=(myStepper1, distance, FORWARD, STEPSTYLE,))
         st1.start()
