@@ -45,6 +45,8 @@ while (True):
         st2.start()
     
     time.sleep(5)
+    st1.join()
+    st2.join()
 
     if not st1.isAlive():
         st1 = threading.Thread(target=stepper_worker, args=(myStepper1, 200, BACKWARD, STEPSTYLE,))
@@ -55,4 +57,5 @@ while (True):
         st2.start()
     
     time.sleep(5)
-    
+    st1.join()
+    st2.join()
