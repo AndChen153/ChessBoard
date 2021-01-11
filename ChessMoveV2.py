@@ -4,58 +4,50 @@ import atexit
 import threading
 import random
 
-STEPSTYLE = Adafruit_MotorHAT.DOUBLE
-FORWARD = Adafruit_MotorHAT.FORWARD
-BACKWARD = Adafruit_MotorHAT.BACKWARD
-
-# create a default object, no changes to I2C address or frequency
-mh = Adafruit_MotorHAT()
-
-# create empty threads (these will hold the stepper 1 and 2 threads)
-st1 = threading.Thread()
-st2 = threading.Thread()
-
-def turnOffMotors():
-    mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
-    mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
-    mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
-    mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
-
-atexit.register(turnOffMotors)
-
-myStepper1 = mh.getStepper(200, 1)      # 200 steps/rev, motor port #1
-myStepper2 = mh.getStepper(200, 2)      # 200 steps/rev, motor port #1
-myStepper1.setSpeed(60)          # 30 RPM
-myStepper2.setSpeed(60)          # 30 RPM
-
 stepstyles = [Adafruit_MotorHAT.SINGLE, Adafruit_MotorHAT.DOUBLE, Adafruit_MotorHAT.INTERLEAVE, Adafruit_MotorHAT.MICROSTEP]
 
-def stepper_worker(stepper, numsteps, direction, style):
-    #print("Steppin!")
-    stepper.step(numsteps, direction, style)
-    #print("Done")
-def stepper_outandback(distance):
-    global st1
-    global st2
-    if not st1.isAlive():
-        st1 = threading.Thread(target=stepper_worker, args=(myStepper1, distance, FORWARD, STEPSTYLE,))
-        st1.start()
+class MotorMove(object):
+    def __init(self):
+        self.STEPSTYLE = Adafruit_MotorHAT.DOUBLE
+        self.FORWARD = Adafruit_MotorHAT.FORWARD
+        self.BACKWARD = Adafruit_MotorHAT.BACKWARD
 
-    if not st2.isAlive():
-        st2 = threading.Thread(target=stepper_worker, args=(myStepper2, distance, FORWARD, STEPSTYLE,))
-        st2.start()
+        # create a default object, no changes to I2C address or frequency
+        self.mh = Adafruit_MotorHAT()
 
-    st1.join()
-    st2.join()
+        # create empty threads (these will hold the stepper 1 and 2 threads)
+        self.st1 = threading.Thread()
+        self.st2 = threading.Thread()
 
-    if not st1.isAlive():
-        st1 = threading.Thread(target=stepper_worker, args=(myStepper1, distance, BACKWARD, STEPSTYLE,))
-        st1.start()
-
-    if not st2.isAlive():
-        st2 = threading.Thread(target=stepper_worker, args=(myStepper2, distance, BACKWARD, STEPSTYLE,))
-        st2.start()
+        self.myStepper1 = mh.getStepper(200, 1)      # 200 steps/rev, motor port #1
+        self.myStepper2 = mh.getStepper(200, 2)      # 200 steps/rev, motor port #1
+        self.myStepper1.setSpeed(60)          # 30 RPM
+        self.myStepper2.setSpeed(60)          # 30 RPM
     
+    def stepper_worker(self, stepper, numsteps, direction, style):
+        #print("Steppin!")
+        stepper.step(numsteps, direction, style)
+        #print("Done")
 
+    def stepper_outandback(self, distance):
+        if not self.st1.isAlive():
+            self.st1 = threading.Thread(target=stepper_worker, args=(self.myStepper1, distance, self.FORWARD, self.STEPSTYLE,))
+            self.st1.start()
 
-stepper_outandback(500)
+        if not self.st2.isAlive():
+            self.st2 = threading.Thread(target=stepper_worker, args=(self.myStepper2, distance, self.FORWARD, self.STEPSTYLE,))
+            self.st2.start()
+
+        self.st1.join()
+        self.st2.join()
+
+        if not self.st1.isAlive():
+            self.st1 = threading.Thread(target=stepper_worker, args=(self.myStepper1, distance, self.BACKWARD, self.STEPSTYLE,))
+            self.st1.start()
+
+        if not self.st2.isAlive():
+            self.st2 = threading.Thread(target=stepper_worker, args=(self.myStepper2, distance, self.BACKWARD, self.STEPSTYLE,))
+            self.st2.start()
+
+Chess = MotorMove()
+Chess.stepper_outandback(450)
