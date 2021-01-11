@@ -44,7 +44,7 @@ while (True):
         st2 = threading.Thread(target=stepper_worker, args=(myStepper2, 200, FORWARD, STEPSTYLE,))
         st2.start()
     
-    time.sleep(0.1)
+    time.sleep(5)
 
     if not st1.isAlive():
         st1 = threading.Thread(target=stepper_worker, args=(myStepper1, 200, BACKWARD, STEPSTYLE,))
@@ -54,5 +54,5 @@ while (True):
         st2 = threading.Thread(target=stepper_worker, args=(myStepper2, 200, BACKWARD, STEPSTYLE,))
         st2.start()
     
-    time.sleep(0.1)
+    time.sleep(5)
     
