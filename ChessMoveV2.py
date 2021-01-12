@@ -59,38 +59,34 @@ def stepper_outandback(distance):
 def stepper_outandside(xdistance, ydistance, direction):
     global st1
     global st2
-    run = True
-    while run:
-        if not st1.isAlive() and not st2.isAlive():
-            run = False
-            if xdistance < ydistance:
-                distance = xdistance
-                remain = ydistance - xdistance
-                xfirst = True
-            else:
-                distance = ydistance
-                remain = xdistance - ydistance
-                xfirst = False
-            
-            if not st1.isAlive():
-                st1 = threading.Thread(target=stepper_worker, args=(myStepper1, distance, direction, STEPSTYLE,))
-                st1.start()
+    if xdistance < ydistance:
+        distance = xdistance
+        remain = ydistance - xdistance
+        xfirst = True
+    else:
+        distance = ydistance
+        remain = xdistance - ydistance
+        xfirst = False
+    
+    if not st1.isAlive():
+        st1 = threading.Thread(target=stepper_worker, args=(myStepper1, distance, direction, STEPSTYLE,))
+        st1.start()
 
-            if not st2.isAlive():
-                st2 = threading.Thread(target=stepper_worker, args=(myStepper2, distance, direction, STEPSTYLE,))
-                st2.start()
+    if not st2.isAlive():
+        st2 = threading.Thread(target=stepper_worker, args=(myStepper2, distance, direction, STEPSTYLE,))
+        st2.start()
 
-            st1.join()
-            st2.join()
+    st1.join()
+    st2.join()
 
-            if xfirst and not st1.isAlive():
-                st1 = threading.Thread(target=stepper_worker, args=(myStepper1, remain, direction, STEPSTYLE,))
-                st1.start()
+    if xfirst and not st1.isAlive():
+        st1 = threading.Thread(target=stepper_worker, args=(myStepper1, remain, direction, STEPSTYLE,))
+        st1.start()
 
-            if not xfirst and not st2.isAlive():
-                st2 = threading.Thread(target=stepper_worker, args=(myStepper2, remain, direction, STEPSTYLE,))
-                st2.start()
+    if not xfirst and not st2.isAlive():
+        st2 = threading.Thread(target=stepper_worker, args=(myStepper2, remain, direction, STEPSTYLE,))
+        st2.start()
 
 stepper_outandside(800, 400, FORWARD)
-
+time.sleep(20)
 stepper_outandside(800, 400, BACKWARD)
