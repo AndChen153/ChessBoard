@@ -87,6 +87,6 @@ def stepper_outandside(xdistance, ydistance, direction):
         st2 = threading.Thread(target=stepper_worker, args=(myStepper2, remain, direction, STEPSTYLE,))
         st2.start()
 
-stepper_outandside(800, 400, FORWARD)
+stepper_outandside(0, 1000, FORWARD)
 time.sleep(30)
-stepper_outandside(800, 400, BACKWARD)
+stepper_outandside(0, 1000, BACKWARD)
