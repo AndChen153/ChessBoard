@@ -61,7 +61,7 @@ def stepper_outandside(xdistance, ydistance, direction):
     global st2
     run = True
     while run:
-        if not st1.isAlive() or not st2.isAlive():
+        if not st1.isAlive() and not st2.isAlive():
             run = False
             if xdistance < ydistance:
                 distance = xdistance
@@ -92,4 +92,5 @@ def stepper_outandside(xdistance, ydistance, direction):
                 st2.start()
 
 stepper_outandside(800, 400, FORWARD)
+
 stepper_outandside(800, 400, BACKWARD)
