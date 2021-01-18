@@ -31,25 +31,25 @@ class ChessMove:
         GPIO.output(self.MODE, self.RESOLUTION["1/32"])    # 6400 steps per revolution
         self.delay = 0.0025 / 32
     
-    def move_stepper1(self, steps, dir):
-        GPIO.output(self.DIR1, self.direction_dict[dir])
+    def move_stepper1(self, steps, direction):
+        GPIO.output(self.DIR1, self.direction_dict[direction])
         for x in range(steps):
             GPIO.output(self.STEP1, self.HIGH)
             sleep(self.delay)
             GPIO.output(self.STEP1, self.LOW)
             sleep(self.delay)
     
-    def move_stepper2(self, steps, dir):
-        GPIO.output(self.DIR2, self.direction_dict[dir])
+    def move_stepper2(self, steps, direction):
+        GPIO.output(self.DIR2, self.direction_dict[direction])
         for x in range(steps):
             GPIO.output(self.STEP2, self.HIGH)
             sleep(self.delay)
             GPIO.output(self.STEP2, self.LOW)
             sleep(self.delay)
     
-    def move_steppers(self, steps, xdir, ydir):
-        GPIO.output(self.DIR1, self.direction_dict[dir])
-        GPIO.output(self.DIR2, self.direction_dict[dir])
+    def move_steppers(self, steps, xdirection, ydirection):
+        GPIO.output(self.DIR1, self.direction_dict[xdirection])
+        GPIO.output(self.DIR2, self.direction_dict[ydirection])
 
         for x in range(steps):
             GPIO.output(self.STEP1, self.HIGH)
