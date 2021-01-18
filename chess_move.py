@@ -38,6 +38,8 @@ class ChessMove:
             sleep(self.delay)
             GPIO.output(self.STEP1, self.LOW)
             sleep(self.delay)
+
+        GPIO.cleanup()
     
     def move_stepper2(self, steps, direction):
         GPIO.output(self.DIR2, self.direction_dict[direction])
@@ -46,6 +48,8 @@ class ChessMove:
             sleep(self.delay)
             GPIO.output(self.STEP2, self.LOW)
             sleep(self.delay)
+
+        GPIO.cleanup()
     
     def move_steppers(self, steps, xdirection, ydirection):
         GPIO.output(self.DIR1, self.direction_dict[xdirection])
@@ -58,6 +62,8 @@ class ChessMove:
             GPIO.output(self.STEP1, self.LOW)
             GPIO.output(self.STEP2, self.LOW)
             sleep(self.delay)
+
+        GPIO.cleanup()
         
     '''def stepper_outandside(self, xSteps, ySteps, xDir, yDir):
         global st1
