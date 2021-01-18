@@ -19,7 +19,7 @@ GPIO.setup(DIR2, GPIO.OUT)
 GPIO.setup(STEP2, GPIO.OUT)
 
 GPIO.output(DIR1, CW)
-GPIO.output(DIR2, CW)
+GPIO.output(DIR2, CCW)
 
 MODE = (14, 15, 18)
 GPIO.setup(MODE, GPIO.OUT)
@@ -47,7 +47,7 @@ for x in range(step_count):
 
 sleep(1)
 GPIO.output(DIR1, CCW)
-GPIO.output(DIR2, CCW)
+GPIO.output(DIR2, CW)
 
 for x in range(step_count):
     GPIO.output(STEP1, GPIO.HIGH)
