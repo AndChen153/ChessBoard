@@ -8,21 +8,19 @@ class ChessMove:
         self.STEP1 = 20                             # Step GPIO Pin
         self.DIR2 = 16                              # Directional GPIO Pin
         self.STEP2 = 12                             # Step GPIO Pin
-        self.CW = self.HIGH = self.GPIO.HIGH        # CLockwise Rotation
-        self.CCW = self.LOW =  self.GPIO.LOW        # Counter Clockwise Rotation
+        self.CW = self.HIGH = GPIO.HIGH        # CLockwise Rotation
+        self.CCW = self.LOW =  GPIO.LOW        # Counter Clockwise Rotation
         self.SPR = 6400                             # Steps per Rotation (360/1.8)*32
-        self.direction_dict = {"positive": self.GPIO.HIGH, "negative": self.GPIO.LOW}
+        self.direction_dict = {"positive": GPIO.HIGH, "negative": GPIO.LOW}
 
         self.GPIO.setmode(GPIO.BCM)                 # Setup GPIO pins
-        self.GPIO.setup(self.DIR1, self.GPIO.OUT)
-        self.GPIO.setup(self.STEP1, self.GPIO.OUT)
-        self.GPIO.setup(self.DIR2, self.GPIO.OUT)
-        self.GPIO.setup(self.STEP2, self.GPIO.OUT)
-        self.GPIO.output(self.DIR1, self.CW)
-        self.GPIO.output(self.DIR2, self.CCW)
+        self.GPIO.setup(self.DIR1, GPIO.OUT)
+        self.GPIO.setup(self.STEP1, GPIO.OUT)
+        self.GPIO.setup(self.DIR2, GPIO.OUT)
+        self.GPIO.setup(self.STEP2, GPIO.OUT)
 
         self.MODE = (14, 15, 18)                    # Setup for different modes of stepping
-        self.GPIO.setup(self.MODE, self.GPIO.OUT)   # Specific values for pololu DRV8825 Stepper motor controller
+        self.GPIO.setup(self.MODE, GPIO.OUT)   # Specific values for pololu DRV8825 Stepper motor controller
         self.RESOLUTION = {'Full': (self.LOW, self.LOW, self.LOW),  
                     'Half': (self.HIGH, self.LOW, self.LOW),
                     '1/4': (self.LOW, self.HIGH, self.LOW),
