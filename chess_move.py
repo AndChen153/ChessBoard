@@ -49,7 +49,7 @@ class ChessMove:
             self.GPIO.output(self.STEP2, self.LOW)
             sleep(delay)
     
-    def move_steppers(self, steps, xdir, ydir)
+    def move_steppers(self, steps, xdir, ydir):
         self.GPIO.output(self.DIR1, self.direction_dict[dir])
         self.GPIO.output(self.DIR2, self.direction_dict[dir])
 
