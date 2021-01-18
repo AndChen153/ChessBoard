@@ -24,12 +24,12 @@ RESOLUTION = {'Full': (LOW, LOW, LOW),
               '1/16': (LOW, LOW, HIGH),
               '1/32': (HIGH, LOW, HIGH)}
 
-GPIO.output(MODE, RESOLUTION["Full"])
+GPIO.output(MODE, RESOLUTION["1/32"])
 
-step_count = SPR
-delay = 0.005
+step_count = 200 * 32
+delay = 0.005 / 32
 
-for x in range(200):
+for x in range(step_count):
     GPIO.output(STEP, GPIO.HIGH)
     sleep(delay)
     GPIO.output(STEP, GPIO.LOW)
@@ -38,7 +38,7 @@ for x in range(200):
 sleep(1)
 GPIO.output(DIR, CCW)
 
-for x in range(200):
+for x in range(step_count):
     GPIO.output(STEP, GPIO.HIGH)
     sleep(delay)
     GPIO.output(STEP, GPIO.LOW)
