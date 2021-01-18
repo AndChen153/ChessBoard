@@ -5,12 +5,26 @@ DIR = 21 # Directional GPIO Pin
 STEP = 20 # Step GPIO Pin
 CW = GPIO.HIGH # CLockwise Rotation
 CCW = GPIO.LOW # Counter Clockwise Rotation
+LOW = GPIO.LOW
+HIGH = GPIO.HIGH
 SPR = 200  # Steps per Rotation (360/1.8)
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(DIR, GPIO.OUT)
 GPIO.setup(STEP, GPIO.OUT)
 GPIO.output(DIR, CW)
+
+MODE = (14, 15, 18)
+GPIO.setup(MODE, GPIO.OUT)
+
+RESOLUTION = {'Full': (LOW, LOW, LOW),
+              'Half': (HIGH, LOW, LOW),
+              '1/4': (LOW, HIGH, LOW),
+              '1/8': (HIGH, HIGH, LOW),
+              '1/16': (LOW, LOW, HIGH),
+              '1/32': (HIGH, LOW, HIGH)}
+
+GPIO.output(MODE, RESOLUTION["Half"])
 
 step_count = SPR
 delay = 0.005
