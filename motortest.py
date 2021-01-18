@@ -53,7 +53,7 @@ for x in range(step_count):
     GPIO.output(STEP1, GPIO.HIGH)
     GPIO.output(STEP2, GPIO.HIGH)
     sleep(delay)
-    GPIO.output(STEP, GPIO.LOW)
+    GPIO.output(STEP1, GPIO.LOW)
     GPIO.output(STEP2, GPIO.LOW)
     sleep(delay)
 
