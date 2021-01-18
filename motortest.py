@@ -10,7 +10,7 @@ SPR = 200  # Steps per Rotation (360/1.8)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(DIR, GPIO.OUT)
 GPIO.setup(STEP, GPIO.OUT)
-GPIO.output(DIR,CW)
+GPIO.output(DIR,CCW)
 
 step_count = SPR
 delay = 0.005
