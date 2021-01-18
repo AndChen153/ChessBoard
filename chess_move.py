@@ -13,14 +13,14 @@ class ChessMove:
         self.SPR = 6400                             # Steps per Rotation (360/1.8)*32
         self.direction_dict = {"positive": GPIO.HIGH, "negative": GPIO.LOW}
 
-        self.GPIO.setmode(GPIO.BCM)                 # Setup GPIO pins
-        self.GPIO.setup(self.DIR1, GPIO.OUT)
-        self.GPIO.setup(self.STEP1, GPIO.OUT)
-        self.GPIO.setup(self.DIR2, GPIO.OUT)
-        self.GPIO.setup(self.STEP2, GPIO.OUT)
+        GPIO.setmode(GPIO.BCM)                 # Setup GPIO pins
+        GPIO.setup(self.DIR1, GPIO.OUT)
+        GPIO.setup(self.STEP1, GPIO.OUT)
+        GPIO.setup(self.DIR2, GPIO.OUT)
+        GPIO.setup(self.STEP2, GPIO.OUT)
 
         self.MODE = (14, 15, 18)                    # Setup for different modes of stepping
-        self.GPIO.setup(self.MODE, GPIO.OUT)   # Specific values for pololu DRV8825 Stepper motor controller
+        GPIO.setup(self.MODE, GPIO.OUT)   # Specific values for pololu DRV8825 Stepper motor controller
         self.RESOLUTION = {'Full': (self.LOW, self.LOW, self.LOW),  
                     'Half': (self.HIGH, self.LOW, self.LOW),
                     '1/4': (self.LOW, self.HIGH, self.LOW),
@@ -28,36 +28,36 @@ class ChessMove:
                     '1/16': (self.LOW, self.LOW, self.HIGH),
                     '1/32': (self.HIGH, self.LOW, self.HIGH)}
 
-        self.GPIO.output(self.MODE, self.RESOLUTION["1/32"])    # 6400 steps per revolution
+        GPIO.output(self.MODE, self.RESOLUTION["1/32"])    # 6400 steps per revolution
         self.delay = 0.0025 / 32
     
     def move_stepper1(self, steps, dir):
-        self.GPIO.output(self.DIR1, self.direction_dict[dir])
+        GPIO.output(self.DIR1, self.direction_dict[dir])
         for x in range(steps):
-            self.GPIO.output(self.STEP1, self.HIGH)
-            sleep(delay)
-            self.GPIO.output(self.STEP1, self.LOW)
-            sleep(delay)
+            GPIO.output(self.STEP1, self.HIGH)
+            sleep(self.delay)
+            GPIO.output(self.STEP1, self.LOW)
+            sleep(self.delay)
     
     def move_stepper2(self, steps, dir):
-        self.GPIO.output(self.DIR2, self.direction_dict[dir])
+        GPIO.output(self.DIR2, self.direction_dict[dir])
         for x in range(steps):
-            self.GPIO.output(self.STEP2, self.HIGH)
-            sleep(delay)
-            self.GPIO.output(self.STEP2, self.LOW)
-            sleep(delay)
+            GPIO.output(self.STEP2, self.HIGH)
+            sleep(self.delay)
+            GPIO.output(self.STEP2, self.LOW)
+            sleep(self.delay)
     
     def move_steppers(self, steps, xdir, ydir):
-        self.GPIO.output(self.DIR1, self.direction_dict[dir])
-        self.GPIO.output(self.DIR2, self.direction_dict[dir])
+        GPIO.output(self.DIR1, self.direction_dict[dir])
+        GPIO.output(self.DIR2, self.direction_dict[dir])
 
         for x in range(steps):
-            self.GPIO.output(self.STEP1, self.HIGH)
-            self.GPIO.output(self.STEP2, self.HIGH)
-            sleep(delay)
-            self.GPIO.output(self.STEP1, self.LOW)
-            self.GPIO.output(self.STEP2, self.LOW)
-            sleep(delay)
+            GPIO.output(self.STEP1, self.HIGH)
+            GPIO.output(self.STEP2, self.HIGH)
+            sleep(self.delay)
+            GPIO.output(self.STEP1, self.LOW)
+            GPIO.output(self.STEP2, self.LOW)
+            sleep(self.delay)
         
     '''def stepper_outandside(self, xSteps, ySteps, xDir, yDir):
         global st1
