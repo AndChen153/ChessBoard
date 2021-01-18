@@ -100,12 +100,7 @@ for x in range(steps):
 '''
 
 chess = ChessMove()
-chess.move_stepper1(19200, "positive")
-chess.move_stepper1(19200, "negative")
-chess.move_stepper2(19200, "positive")
-chess.move_stepper2(19200, "negative")
-chess.move_steppers(12800, "positive", "negative")
-chess.move_steppers(12800, "positive", "positive")
-chess.move_steppers(12800, "negative", "negative")
+chess.move_stepper2(30000, "positive")
+chess.move_stepper2(30000, "negative")
 
 GPIO.cleanup()
