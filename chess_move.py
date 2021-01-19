@@ -1,6 +1,7 @@
 from time import sleep
 import RPi.GPIO as GPIO
 
+# 7000 steps per block
 
 class ChessMove:
     def __init__(self):
@@ -96,7 +97,7 @@ class ChessMove:
 
 chess = ChessMove()
 for i in range(1):
-    chess.move_stepper2(28000, "positive")
-    chess.move_stepper2(28000, "negative")
+    chess.move_stepper1(28000, "positive")
+    chess.move_stepper1(28000, "negative")
 
 GPIO.cleanup()
