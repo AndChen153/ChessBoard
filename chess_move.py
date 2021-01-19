@@ -11,7 +11,8 @@ class ChessMove:
         self.CW = self.HIGH = GPIO.HIGH        # CLockwise Rotation
         self.CCW = self.LOW =  GPIO.LOW        # Counter Clockwise Rotation
         self.SPR = 6400                             # Steps per Rotation (360/1.8)*32
-        self.direction_dict = {"positive": GPIO.HIGH, "negative": GPIO.LOW}
+        self.direction_xdict = {"negative": GPIO.HIGH, "positive": GPIO.LOW}
+        self.direction_ydict = {"positive": GPIO.HIGH, "negative": GPIO.LOW}
 
         GPIO.setmode(GPIO.BCM)                 # Setup GPIO pins
         GPIO.setup(self.DIR1, GPIO.OUT)
@@ -32,7 +33,7 @@ class ChessMove:
         self.delay = 0.0025 / 32
     
     def move_stepper1(self, steps, direction):
-        GPIO.output(self.DIR1, self.direction_dict[direction])
+        GPIO.output(self.DIR1, self.direction_xdict[direction])
         for x in range(steps):
             GPIO.output(self.STEP1, self.HIGH)
             sleep(self.delay)
@@ -40,7 +41,7 @@ class ChessMove:
             sleep(self.delay)
     
     def move_stepper2(self, steps, direction):
-        GPIO.output(self.DIR2, self.direction_dict[direction])
+        GPIO.output(self.DIR2, self.direction_ydict[direction])
         for x in range(steps):
             GPIO.output(self.STEP2, self.HIGH)
             sleep(self.delay)
@@ -48,8 +49,8 @@ class ChessMove:
             sleep(self.delay)
     
     def move_steppers(self, steps, xdirection, ydirection):
-        GPIO.output(self.DIR1, self.direction_dict[xdirection])
-        GPIO.output(self.DIR2, self.direction_dict[ydirection])
+        GPIO.output(self.DIR1, self.direction_xdict[xdirection])
+        GPIO.output(self.DIR2, self.direction_ydict[ydirection])
 
         for x in range(steps):
             GPIO.output(self.STEP1, self.HIGH)
@@ -101,7 +102,9 @@ for x in range(steps):
 
 chess = ChessMove()
 for i in range(30):
+    chess.move_stepper1(45000, "positive")
     chess.move_stepper2(45000, "positive")
+    chess.move_stepper1(45000, "negative")
     chess.move_stepper2(45000, "negative")
 
 GPIO.cleanup()
