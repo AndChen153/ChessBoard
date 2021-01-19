@@ -60,53 +60,43 @@ class ChessMove:
             GPIO.output(self.STEP2, self.LOW)
             sleep(self.delay)
         
-    '''def stepper_outandside(self, xSteps, ySteps, xDir, yDir):
-        global st1
-        global st2
-        if xdistance < ydistance:
-            distance = xdistance
-            remain = ydistance - xdistance
+    def move_steppers_uneven(self, xSteps, ySteps, xdirection, ydirection):
+        GPIO.output(self.DIR1, self.direction_xdict[xdirection])
+        GPIO.output(self.DIR2, self.direction_ydict[ydirection])
+
+        if xSteps < ySteps:
+            steps = xSteps
+            remain = ySteps - xSteps
             xfirst = True
         else:
-            distance = ydistance
-            remain = xdistance - ydistance
+            steps = ySteps
+            remain = xSteps - ySteps
             xfirst = False
         
-        if not st1.isAlive():
-            st1 = threading.Thread(target=stepper_worker, args=(myStepper1, distance, direction, STEPSTYLE,))
-            st1.start()
+        for x in range(steps):
+            GPIO.output(self.STEP1, self.HIGH)
+            GPIO.output(self.STEP2, self.HIGH)
+            sleep(self.delay)
+            GPIO.output(self.STEP1, self.LOW)
+            GPIO.output(self.STEP2, self.LOW)
+            sleep(self.delay)
 
-        if not st2.isAlive():
-            st2 = threading.Thread(target=stepper_worker, args=(myStepper2, distance, direction, STEPSTYLE,))
-            st2.start()
-
-        st1.join()
-        st2.join()
-
-        if xfirst and not st1.isAlive():
-            st1 = threading.Thread(target=stepper_worker, args=(myStepper1, remain, direction, STEPSTYLE,))
-            st1.start()
-
-        if not xfirst and not st2.isAlive():
-            st2 = threading.Thread(target=stepper_worker, args=(myStepper2, remain, direction, STEPSTYLE,))
-            st2.start()
-
-for x in range(steps):
-    self.GPIO.output(self.STEP1, self.HIGH)
-    self.GPIO.output(self.STEP2, self.HIGH)
-    sleep(delay)
-    self.GPIO.output(self.STEP1, self.LOW)
-    self.GPIO.output(self.STEP2, self.LOW)
-    sleep(delay)
-'''
+        if xfirst:
+            for x in range(remain):
+                GPIO.output(self.STEP1, self.HIGH)
+                sleep(self.delay)
+                GPIO.output(self.STEP1, self.LOW)
+                sleep(self.delay)
+        else:
+            for x in range(remain):
+                GPIO.output(self.STEP2, self.HIGH)
+                sleep(self.delay)
+                GPIO.output(self.STEP2, self.LOW)
+                sleep(self.delay)
 
 chess = ChessMove()
 for i in range(30):
-    chess.move_stepper1(45000, "positive")
-    chess.move_stepper2(45000, "positive")
-    chess.move_stepper1(45000, "negative")
-    chess.move_stepper2(45000, "negative")
-    chess.move_steppers(45000, "positive", "positive")
-    chess.move_steppers(45000, "negative", "negative")
+    chess.move_steppers_uneven(20000, 10000 , "positive", "positive")
+    chess.move_steppers_uneven(20000, 10000 , "negative", "negative")
 
 GPIO.cleanup()
