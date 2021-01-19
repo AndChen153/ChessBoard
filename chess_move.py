@@ -96,7 +96,7 @@ class ChessMove:
 
 chess = ChessMove()
 for i in range(30):
-    chess.move_steppers_uneven(20000, 10000 , "positive", "positive")
-    chess.move_steppers_uneven(20000, 10000 , "negative", "negative")
+    chess.move_stepper2(17000, "positive")
+    chess.move_stepper2(17000, "negative")
 
 GPIO.cleanup()
