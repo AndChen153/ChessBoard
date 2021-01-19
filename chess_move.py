@@ -95,7 +95,7 @@ class ChessMove:
                 sleep(self.delay)
 
 chess = ChessMove()
-for i in range(30):
+for i in range(2):
     chess.move_stepper2(6000, "positive")
     chess.move_stepper2(6000, "negative")
 
