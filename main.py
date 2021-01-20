@@ -49,6 +49,6 @@ while (True):
         directionY = "negative"
         current_position[1] -= deltaY
 
-    print(deltaX, deltaY, directionX, directionY)
+    print(current_position, abs(deltaX), abs(deltaY), directionX, directionY)
 
 
