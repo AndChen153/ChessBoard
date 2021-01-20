@@ -47,6 +47,11 @@ while (True):
         else:
             magnet = "off"
 
+        if temp == 3 or temp == 9:
+            knight = True
+        else:
+            knight = False
+
         if deltaX > 0:
             directionX = "positive"
             current_position[0] += deltaX
@@ -64,8 +69,8 @@ while (True):
         if magnet:
             board[current_position[0]][current_position[1]]=temp
 
-        print(current_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet)
-        move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, magnet)
+        print(current_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
+        move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
 
         print(board)
 

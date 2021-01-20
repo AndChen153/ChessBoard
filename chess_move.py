@@ -10,6 +10,7 @@ class ChessMove:
         self.DIR2 = 16                              # Directional GPIO Pin
         self.STEP2 = 12                             # Step GPIO Pin
         self.MAGNET = 17                            # Electromagnet relay pin
+        self.POWER = 23                             # Relay for turning power on an off to motor controllers to prevent overheating
         self.CW = self.HIGH = GPIO.HIGH             # CLockwise Rotation
         self.CCW = self.LOW =  GPIO.LOW             # Counter Clockwise Rotation
         self.SPR = 6400                             # Steps per Rotation (360/1.8)*32
@@ -76,7 +77,8 @@ class ChessMove:
             GPIO.output(self.STEP2, self.LOW)
             sleep(self.delay)
         
-    def move_steppers_uneven(self, xSquares, ySquares, xdirection, ydirection, mag):
+    def move_steppers_uneven(self, xSquares, ySquares, xdirection, ydirection, mag, knight):
+        GPIO.output(self.POWER, GPIO.HIGH)
         GPIO.output(self.DIR1, self.direction_xdict[xdirection])
         GPIO.output(self.DIR2, self.direction_ydict[ydirection])
         GPIO.output(self.MAGNET, self.magnet_dict[mag])
@@ -112,6 +114,7 @@ class ChessMove:
                 sleep(self.delay)
 
         GPIO.output(self.MAGNET, GPIO.LOW)
+        GPIO.output(self.POWER, GPIO.LOW)
 '''
 move = ChessMove()
 
