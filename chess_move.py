@@ -78,10 +78,10 @@ class ChessMove:
             sleep(self.delay)
         
     def move_steppers_uneven(self, xSquares, ySquares, xdirection, ydirection, mag, knight):
-        GPIO.output(self.POWER, GPIO.HIGH)
         GPIO.output(self.DIR1, self.direction_xdict[xdirection])
         GPIO.output(self.DIR2, self.direction_ydict[ydirection])
         GPIO.output(self.MAGNET, self.magnet_dict[mag])
+        GPIO.output(self.POWER, GPIO.HIGH)
 
         if xSquares < ySquares:
             squares = xSquares
