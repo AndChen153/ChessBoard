@@ -41,22 +41,20 @@ class ChessMove:
         GPIO.output(self.MODE, self.RESOLUTION["1/32"])    # same speed as full step but much quieter
         self.delay = 0.0025 / 32
     
-    def move_stepper1(self, squares, direction):
+    def move_stepper1(self, squares):
         '''
         moves x axis stepper in one direction
         '''
-        GPIO.output(self.DIR1, self.direction_xdict[direction])     #set direction of drive
         for x in range(squares*self.SPS):
             GPIO.output(self.STEP1, self.HIGH)
             sleep(self.delay)
             GPIO.output(self.STEP1, self.LOW)
             sleep(self.delay)
     
-    def move_stepper2(self, squares, direction):
+    def move_stepper2(self, squares):
         '''
         moves y axis stepper in one direction
         '''
-        GPIO.output(self.DIR2, self.direction_ydict[direction])
         for x in range(squares*self.SPS):
             GPIO.output(self.STEP2, self.HIGH)
             sleep(self.delay)
@@ -80,9 +78,9 @@ class ChessMove:
         sleep(0.3)
 
     def move_steppers_uneven(self, xSquares, ySquares, xdirection, ydirection, mag, knight):
-        GPIO.output(self.DIR1, self.direction_xdict[xdirection])
+        GPIO.output(self.DIR1, self.direction_xdict[xdirection])    # set stepper direction
         GPIO.output(self.DIR2, self.direction_ydict[ydirection])
-        GPIO.output(self.MAGNET, self.magnet_dict[mag])
+        GPIO.output(self.MAGNET, self.magnet_dict[mag])             # set electromagnet position
 
         if xSquares < ySquares:
             squares = xSquares
