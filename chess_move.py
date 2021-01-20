@@ -26,6 +26,7 @@ class ChessMove:
         GPIO.setup(self.DIR2, GPIO.OUT)
         GPIO.setup(self.STEP2, GPIO.OUT)
         GPIO.setup(self.MAGNET, GPIO.OUT)
+        GPIO.setup(self.POWER, GPIO.OUT)
 
         self.MODE = (14, 15, 18)                    # Setup for different modes of stepping
         GPIO.setup(self.MODE, GPIO.OUT)             # Specific values for pololu DRV8825 Stepper motor controller
@@ -75,15 +76,13 @@ class ChessMove:
             sleep(self.delay)
             GPIO.output(self.STEP1, self.LOW)
             GPIO.output(self.STEP2, self.LOW)
-            sleep(self.delay)
-    
-    def power_on(self):
-        GPIO.output(self.POWER, GPIO.HIGH)
+            sleep(self.delay)     
 
     def move_steppers_uneven(self, xSquares, ySquares, xdirection, ydirection, mag, knight):
         GPIO.output(self.DIR1, self.direction_xdict[xdirection])
         GPIO.output(self.DIR2, self.direction_ydict[ydirection])
         GPIO.output(self.MAGNET, self.magnet_dict[mag])
+        GPIO.output(self.POWER, GPIO.HIGH)
 
         if xSquares < ySquares:
             squares = xSquares

@@ -66,7 +66,7 @@ while (True):
             directionY = "negative"
             current_position[1] += deltaY       # negative number
 
-        if magnet:
+        if magnet == "on":
             board[current_position[0]][current_position[1]]=temp
 
         print(current_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
