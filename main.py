@@ -40,14 +40,14 @@ while (True):
         current_position[0] += deltaX
     else:
         directionX = "negative"
-        current_position[0] -= deltaX
+        current_position[0] += deltaX
 
     if deltaY > 0:
         directionY = "positive"
         current_position[1] += deltaY
     else:
         directionY = "negative"
-        current_position[1] -= deltaY
+        current_position[1] += deltaY
 
     print(current_position, abs(deltaX), abs(deltaY), directionX, directionY)
 
