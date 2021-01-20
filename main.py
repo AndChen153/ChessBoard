@@ -29,24 +29,26 @@ move = ChessMove()
 while (True):
     moveTo = input("enter ending position (lower case letters)")  #intake ending position and split into letter and number
     print(moveTo)
+    try:
+        deltaX = reference[moveTo[0]] - current_position[0]
+        deltaY = reference[moveTo[1]] - current_position[1]
 
-    deltaX = reference[moveTo[0]] - current_position[0]
-    deltaY = reference[moveTo[1]] - current_position[1]
+        if deltaX > 0:
+            directionX = "positive"
+            current_position[0] += deltaX
+        else:
+            directionX = "negative"
+            current_position[0] += deltaX       # negative number
 
-    if deltaX > 0:
-        directionX = "positive"
-        current_position[0] += deltaX
-    else:
-        directionX = "negative"
-        current_position[0] += deltaX       # negative number
+        if deltaY > 0:
+            directionY = "positive"
+            current_position[1] += deltaY
+        else:
+            directionY = "negative"
+            current_position[1] += deltaY       # negative number
 
-    if deltaY > 0:
-        directionY = "positive"
-        current_position[1] += deltaY
-    else:
-        directionY = "negative"
-        current_position[1] += deltaY       # negative number
-
-    print(current_position, abs(deltaX), abs(deltaY), directionX, directionY)
-    move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY)
+        print(current_position, abs(deltaX), abs(deltaY), directionX, directionY)
+        move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY)
+    except IndexError:
+        print("please enter valid integer")
 
