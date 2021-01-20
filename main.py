@@ -70,12 +70,12 @@ while (True):
             board[current_position[0]][current_position[1]]=temp
 
         print(current_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
-        move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
-
         for r in board:
             for c in r:
                 print(c,end = " ")
             print()
+        move.power_on()
+        move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
 
     except:
         print("please enter valid integer")
