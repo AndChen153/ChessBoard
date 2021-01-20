@@ -49,6 +49,6 @@ while (True):
 
         print(current_position, abs(deltaX), abs(deltaY), directionX, directionY)
         move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY)
-    except IndexError:
+    except:
         print("please enter valid integer")
 
