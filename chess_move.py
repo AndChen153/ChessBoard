@@ -116,7 +116,8 @@ class ChessMove:
                 sleep(self.delay)
                 GPIO.output(self.STEP2, self.LOW)
                 sleep(self.delay)
-
+        
+        sleep(0.3)
         GPIO.output(self.MAGNET, GPIO.LOW)
         GPIO.output(self.POWER, GPIO.LOW)
 '''
