@@ -24,10 +24,13 @@ board = [[2,3,4,5,6,4,3,2], \
          [7,7,7,7,7,7,7,7],\
          [8,9,10,11,12,10,9,8]]
 
-move = ChessMove()
+#move = ChessMove()
+
+print("start")
 
 while (True):
-    moveTo=input("enter ending position (lower case letters)")  #intake ending position and split into letter and number
+    moveTo = input("enter ending position (lower case letters)")  #intake ending position and split into letter and number
+    print(moveTo)
 
     deltaX = reference[moveTo[0]] - current_position[0]
     deltaY = reference[moveTo[1]] - current_position[1]
