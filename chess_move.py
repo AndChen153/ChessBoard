@@ -9,7 +9,7 @@ class ChessMove:
         self.STEP1 = 20                             # Step GPIO Pin
         self.DIR2 = 16                              # Directional GPIO Pin
         self.STEP2 = 12                             # Step GPIO Pin
-        self.MAGNET = 26                            # Electromagnet relay pin
+        self.MAGNET = 17                            # Electromagnet relay pin
         self.CW = self.HIGH = GPIO.HIGH             # CLockwise Rotation
         self.CCW = self.LOW =  GPIO.LOW             # Counter Clockwise Rotation
         self.SPR = 6400                             # Steps per Rotation (360/1.8)*32
