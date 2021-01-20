@@ -41,31 +41,31 @@ class ChessMove:
         GPIO.output(self.MODE, self.RESOLUTION["1/32"])    # same speed as full step but much quieter
         self.delay = 0.0025 / 32
     
-    def move_stepper1(self, squares):
+    def move_stepper1(self, steps):
         '''
         moves x axis stepper in one direction
         '''
-        for x in range(squares*self.SPS):
+        for x in range(steps):
             GPIO.output(self.STEP1, self.HIGH)
             sleep(self.delay)
             GPIO.output(self.STEP1, self.LOW)
             sleep(self.delay)
     
-    def move_stepper2(self, squares):
+    def move_stepper2(self, steps):
         '''
         moves y axis stepper in one direction
         '''
-        for x in range(squares*self.SPS):
+        for x in range(steps):
             GPIO.output(self.STEP2, self.HIGH)
             sleep(self.delay)
             GPIO.output(self.STEP2, self.LOW)
             sleep(self.delay)
     
-    def move_steppers(self, squares):
+    def move_steppers(self, steps):
         '''
         moves both steppers
         '''
-        for x in range(squares*self.SPS):
+        for x in range(steps):
             GPIO.output(self.STEP1, self.HIGH)
             GPIO.output(self.STEP2, self.HIGH)
             sleep(self.delay)
