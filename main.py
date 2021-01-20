@@ -1,5 +1,5 @@
 from array import *
-from chess_move import ChessMove
+#from chess_move import ChessMove
 
 
 #define pieces
