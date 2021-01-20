@@ -106,10 +106,3 @@ class ChessMove:
                 sleep(self.delay)
                 GPIO.output(self.STEP2, self.LOW)
                 sleep(self.delay)
-
-chess = ChessMove()
-for i in range(1):
-    chess.move_stepper1(28000, "positive")
-    chess.move_stepper1(28000, "negative")
-
-GPIO.cleanup()
