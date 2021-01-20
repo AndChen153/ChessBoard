@@ -117,8 +117,9 @@ class ChessMove:
         GPIO.output(self.POWER, GPIO.LOW)
 
 move = ChessMove()
-move.power_on()
+
 while (True):
+    move.power_on()
     x = int(input())    # 1
     y = int(input())    # 0
     move.move_steppers_uneven(x,y,"positive","positive","off",True)
