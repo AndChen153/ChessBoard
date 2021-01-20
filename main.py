@@ -42,6 +42,6 @@ while (True):
     else:
         direcitonY = "negative"
 
-    move.move_steppers_uneven(deltaX, deltaY, directionX, direcitonY)
+    print(deltaX, deltaY, directionX, direcitonY)
 
 
