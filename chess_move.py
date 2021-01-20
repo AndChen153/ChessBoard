@@ -14,8 +14,8 @@ class ChessMove:
         self.SPR = 6400                             # Steps per Rotation (360/1.8)*32
         self.SPS = 7000                             # Steps per Chess Square
 
-        self.direction_xdict = {"positive": GPIO.HIGH, "negative": GPIO.LOW}
-        self.direction_ydict = {"negative": GPIO.HIGH, "positive": GPIO.LOW}
+        self.direction_xdict = {"negative": GPIO.HIGH, "positive": GPIO.LOW}
+        self.direction_ydict = {"positive": GPIO.HIGH, "negative": GPIO.LOW}
 
         GPIO.setmode(GPIO.BCM)                 # Setup GPIO pins
         GPIO.setup(self.DIR1, GPIO.OUT)
