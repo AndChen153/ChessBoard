@@ -27,7 +27,7 @@ board = [[2,3,4,5,6,4,3,2], \
 move = ChessMove()
 
 while (True):
-    moveTo = input("enter ending position (lower case letters)")  #intake ending position and split into letter and number
+    moveTo = input("enter ending position (lower case letters) and o or f for electromagnet")  #intake ending position and split into letter and number
     print(moveTo)
     try:
         deltaX = reference[moveTo[0]] - current_position[0]
@@ -47,8 +47,13 @@ while (True):
             directionY = "negative"
             current_position[1] += deltaY       # negative number
 
-        print(current_position, abs(deltaX), abs(deltaY), directionX, directionY)
-        move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY)
+        if moveTo[2] == "o":
+            magnet = "on"
+        else:
+            magnet = "off"
+
+        print(current_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet)
+        move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, magnet)
     except:
         print("please enter valid integer")
 
