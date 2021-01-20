@@ -15,6 +15,7 @@ class ChessMove:
         self.CCW = self.LOW =  GPIO.LOW             # Counter Clockwise Rotation
         self.SPR = 6400                             # Steps per Rotation (360/1.8)*32
         self.SPS = 6950                             # Steps per Chess Square
+        self.HALFSPS = 3475                         # Steps per half Chess Square
 
         self.direction_xdict = {"negative": GPIO.HIGH, "positive": GPIO.LOW}  # Motors have to turn opposite directions to go positive x and positive y
         self.direction_ydict = {"positive": GPIO.HIGH, "negative": GPIO.LOW}
@@ -62,14 +63,10 @@ class ChessMove:
             GPIO.output(self.STEP2, self.LOW)
             sleep(self.delay)
     
-    def move_steppers(self, squares, xdirection, ydirection):
+    def move_steppers(self, squares):
         '''
-        moves both steppers in same or separate directions
+        moves both steppers
         '''
-
-        GPIO.output(self.DIR1, self.direction_xdict[xdirection])
-        GPIO.output(self.DIR2, self.direction_ydict[ydirection])
-
         for x in range(squares*self.SPS):
             GPIO.output(self.STEP1, self.HIGH)
             GPIO.output(self.STEP2, self.HIGH)
@@ -82,42 +79,38 @@ class ChessMove:
         GPIO.output(self.POWER, GPIO.HIGH)
         sleep(0.3)
 
-    def move_steppers_uneven(self, xSquares, ySquares, xdirection, ydirection, mag, knight):
+    def move_steppers_uneven(self, xSquares, ySquares, xdirection, ydirection, mag, knight, offsetDirection):
         GPIO.output(self.DIR1, self.direction_xdict[xdirection])
         GPIO.output(self.DIR2, self.direction_ydict[ydirection])
         GPIO.output(self.MAGNET, self.magnet_dict[mag])
 
         if xSquares < ySquares:
             squares = xSquares
+            squareSteps = squares*self.SPS
             remain = ySquares - xSquares
             xfirst = False
         else:
             squares = ySquares
             remain = xSquares - ySquares
+            remainSteps = remain*self.SPS
             xfirst = True
-        
-        for x in range(squares*self.SPS):
-            GPIO.output(self.STEP1, self.HIGH)
-            GPIO.output(self.STEP2, self.HIGH)
-            sleep(self.delay)
-            GPIO.output(self.STEP1, self.LOW)
-            GPIO.output(self.STEP2, self.LOW)
-            sleep(self.delay)
-
+            
         if xfirst:
-            for x in range(remain*self.SPS):
-                GPIO.output(self.STEP1, self.HIGH)
-                sleep(self.delay)
-                GPIO.output(self.STEP1, self.LOW)
-                sleep(self.delay)
+            if knight:
+                self.move_stepper2(self.HALFSPS)
+                remainSteps += self.HALFSPS
+                squareSteps -= self.HALFSPS
+            self.move_stepper1(remainSteps)
         else:
-            for x in range(remain*self.SPS):
-                GPIO.output(self.STEP2, self.HIGH)
-                sleep(self.delay)
-                GPIO.output(self.STEP2, self.LOW)
-                sleep(self.delay)
+            if knight:
+                self.move_stepper1(self.HALFSPS)
+                remainSteps += self.HALFSPS
+                squareSteps -= self.HALFSPS
+            self.move_stepper2(remainSteps)
         
-        sleep(0.3)
+        self.move_steppers(squareSteps)
+        
+        sleep(0.5)
         GPIO.output(self.MAGNET, GPIO.LOW)
         GPIO.output(self.POWER, GPIO.LOW)
 '''
