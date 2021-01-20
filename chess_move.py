@@ -110,8 +110,8 @@ class ChessMove:
 move = ChessMove()
 
 while (True):
-    x = input()
-    y = input()
+    x = int(input())
+    y = int(input())
     xd = input()
     yd = input()
     move.move_steppers_uneven(x,y,xd,yd)
