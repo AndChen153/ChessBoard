@@ -80,11 +80,11 @@ class ChessMove:
         if xSquares < ySquares:
             squares = xSquares
             remain = ySquares - xSquares
-            xfirst = True
+            xfirst = False
         else:
             squares = ySquares
             remain = xSquares - ySquares
-            xfirst = False
+            xfirst = True
         
         for x in range(squares*self.SPS):
             GPIO.output(self.STEP1, self.HIGH)
@@ -110,8 +110,8 @@ class ChessMove:
 move = ChessMove()
 
 while (True):
-    x = int(input())
-    y = int(input())
-    xd = input()
+    x = int(input())    # 1
+    y = int(input())    # 0
+    xd = input()        # positive
     yd = input()
     move.move_steppers_uneven(x,y,xd,yd)
