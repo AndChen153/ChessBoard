@@ -89,6 +89,7 @@ class ChessMove:
             xfirst = False
         else:
             squares = ySquares
+            squareSteps = squares*self.SPS
             remain = xSquares - ySquares
             remainSteps = remain*self.SPS
             xfirst = True
@@ -113,7 +114,7 @@ class ChessMove:
         sleep(0.5)
         GPIO.output(self.MAGNET, GPIO.LOW)
         GPIO.output(self.POWER, GPIO.LOW)
-
+'''
 move = ChessMove()
 move.power_on()
 while (True):
@@ -122,3 +123,4 @@ while (True):
     xd = input()        # positive
     yd = input()
     move.move_steppers_uneven(x,y,xd,yd,"off",False)
+'''
