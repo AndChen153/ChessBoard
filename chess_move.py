@@ -12,7 +12,7 @@ class ChessMove:
         self.CW = self.HIGH = GPIO.HIGH             # CLockwise Rotation
         self.CCW = self.LOW =  GPIO.LOW             # Counter Clockwise Rotation
         self.SPR = 6400                             # Steps per Rotation (360/1.8)*32
-        self.SPS = 7000                             # Steps per Chess Square
+        self.SPS = 6900                             # Steps per Chess Square
 
         self.direction_xdict = {"negative": GPIO.HIGH, "positive": GPIO.LOW}
         self.direction_ydict = {"positive": GPIO.HIGH, "negative": GPIO.LOW}
