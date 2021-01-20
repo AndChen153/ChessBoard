@@ -72,7 +72,10 @@ while (True):
         print(current_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
         move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
 
-        print(board)
+        for r in board:
+            for c in r:
+                print(c,end = " ")
+            print()
 
     except:
         print("please enter valid integer")
