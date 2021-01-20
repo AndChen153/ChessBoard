@@ -48,5 +48,5 @@ while (True):
         current_position[1] += deltaY       # negative number
 
     print(current_position, abs(deltaX), abs(deltaY), directionX, directionY)
-    move.move_steppers_uneven(1, 0, "positive", "negative")
+    move.move_steppers_uneven(1, 0, "positive", "positive")
 

@@ -106,3 +106,12 @@ class ChessMove:
                 sleep(self.delay)
                 GPIO.output(self.STEP2, self.LOW)
                 sleep(self.delay)
+
+move = ChessMove()
+
+while (True):
+    x = input()
+    y = input()
+    xd = input()
+    yd = input()
+    move.move_steppers_uneven(x,y,xd,yd)
