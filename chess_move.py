@@ -115,7 +115,7 @@ class ChessMove:
         GPIO.output(self.POWER, GPIO.LOW)
 
 move = ChessMove()
-
+move.power_on()
 while (True):
     x = int(input())    # 1
     y = int(input())    # 0
