@@ -21,19 +21,19 @@ create board array
 letters go left to right starting from a
 numbers go down staring from 1
 '''
-board = [[2,3,4,5,6,4,3,2], \
-         [1,1,1,1,1,1,1,1],\
-         [0,0,0,0,0,0,0,0],\
-         [0,0,0,0,0,0,0,0],\
-         [0,0,0,0,0,0,0,0],\
-         [0,0,0,0,0,0,0,0],\
+board = [[8,9,10,11,12,10,9,8], \
          [7,7,7,7,7,7,7,7],\
-         [8,9,10,11,12,10,9,8]]
+         [0,0,0,0,0,0,0,0],\
+         [0,0,0,0,0,0,0,0],\
+         [0,0,0,0,0,0,0,0],\
+         [0,0,0,0,0,0,0,0],\
+         [1,1,1,1,1,1,1,1],\
+         [2,3,4,5,6,4,3,2]]
 
 move = ChessMove()
 
 while (True):
-    moveTo = input("enter ending position (lower case letters) and o or f for electromagnet")  #intake ending position and split into letter and number
+    moveTo = input("enter ending position (lower case letters) and o or f for electromagnet  ")  #intake ending position and split into letter and number
     print(moveTo)
     temp = 0
     try:
@@ -67,13 +67,17 @@ while (True):
             current_position[1] += deltaY       # negative number
 
         if magnet == "on":
-            board[current_position[0]][current_position[1]]=temp
+            print("moved")
+            board[current_position[1]][current_position[0]]=temp
 
         print(current_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
+
         for r in board:
             for c in r:
                 print(c,end = " ")
             print()
+
+
         move.power_on()
         move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
 

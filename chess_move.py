@@ -20,7 +20,7 @@ class ChessMove:
         self.direction_ydict = {"positive": GPIO.HIGH, "negative": GPIO.LOW}
         self.magnet_dict = {"on":GPIO.HIGH, "off":GPIO.LOW}
 
-        GPIO.setmode(GPIO.BCM)                 # Setup GPIO pins
+        GPIO.setmode(GPIO.BCM)                      # Setup GPIO pins
         GPIO.setup(self.DIR1, GPIO.OUT)
         GPIO.setup(self.STEP1, GPIO.OUT)
         GPIO.setup(self.DIR2, GPIO.OUT)
@@ -76,13 +76,15 @@ class ChessMove:
             sleep(self.delay)
             GPIO.output(self.STEP1, self.LOW)
             GPIO.output(self.STEP2, self.LOW)
-            sleep(self.delay)     
+            sleep(self.delay)
+
+    def power_on(self):
+        GPIO.output(self.POWER, GPIO.HIGH)
 
     def move_steppers_uneven(self, xSquares, ySquares, xdirection, ydirection, mag, knight):
         GPIO.output(self.DIR1, self.direction_xdict[xdirection])
         GPIO.output(self.DIR2, self.direction_ydict[ydirection])
         GPIO.output(self.MAGNET, self.magnet_dict[mag])
-        GPIO.output(self.POWER, GPIO.HIGH)
 
         if xSquares < ySquares:
             squares = xSquares
