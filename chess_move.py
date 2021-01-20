@@ -100,14 +100,19 @@ class ChessMove:
                 self.move_stepper2(self.HALFSPS)
                 remainSteps += self.HALFSPS
                 squareSteps -= self.HALFSPS
+
             self.move_stepper1(remainSteps)
+
             print("movingx" , remainSteps)
+
         else:
             if knight:
                 self.move_stepper1(self.HALFSPS)
                 remainSteps += self.HALFSPS
                 squareSteps -= self.HALFSPS
+
             self.move_stepper2(remainSteps)
+
             print("movingy" , remainSteps)
         
         self.move_steppers(squareSteps)
