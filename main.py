@@ -34,7 +34,7 @@ move = ChessMove()
 
 while (True):
     moveTo = input("enter ending position (lower case letters) and o or f for electromagnet  ")  #intake ending position and split into letter and number
-    print(moveTo)
+    # print(moveTo)
     temp = 0
     try:
         deltaX = reference[moveTo[0]] - current_position[0]
@@ -43,6 +43,7 @@ while (True):
         if moveTo[2] == "o":
             magnet = "on"
             temp = board[current_position[0]][current_position[1]]
+            print("temp = " , temp)
             board[current_position[0]][current_position[1]] = 0
         else:
             magnet = "off"
@@ -67,7 +68,6 @@ while (True):
             current_position[1] += deltaY       # negative number
 
         if magnet == "on":
-            print("moved")
             board[current_position[1]][current_position[0]]=temp
 
         print(current_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
