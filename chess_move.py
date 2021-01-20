@@ -9,19 +9,22 @@ class ChessMove:
         self.STEP1 = 20                             # Step GPIO Pin
         self.DIR2 = 16                              # Directional GPIO Pin
         self.STEP2 = 12                             # Step GPIO Pin
+        self.MAGNET = 26                            # Electromagnet relay pin
         self.CW = self.HIGH = GPIO.HIGH             # CLockwise Rotation
         self.CCW = self.LOW =  GPIO.LOW             # Counter Clockwise Rotation
         self.SPR = 6400                             # Steps per Rotation (360/1.8)*32
         self.SPS = 6950                             # Steps per Chess Square
 
-        self.direction_xdict = {"negative": GPIO.HIGH, "positive": GPIO.LOW}
+        self.direction_xdict = {"negative": GPIO.HIGH, "positive": GPIO.LOW}  # Motors have to turn opposite directions to go positive x and positive y
         self.direction_ydict = {"positive": GPIO.HIGH, "negative": GPIO.LOW}
+        self.magnet_dict = {"on":GPIO.HIGH, "off":GPIO.LOW}
 
         GPIO.setmode(GPIO.BCM)                 # Setup GPIO pins
         GPIO.setup(self.DIR1, GPIO.OUT)
         GPIO.setup(self.STEP1, GPIO.OUT)
         GPIO.setup(self.DIR2, GPIO.OUT)
         GPIO.setup(self.STEP2, GPIO.OUT)
+        GPIO.setup(self.MAGNET, GPIO.OUT)
 
         self.MODE = (14, 15, 18)                    # Setup for different modes of stepping
         GPIO.setup(self.MODE, GPIO.OUT)             # Specific values for pololu DRV8825 Stepper motor controller
@@ -73,7 +76,7 @@ class ChessMove:
             GPIO.output(self.STEP2, self.LOW)
             sleep(self.delay)
         
-    def move_steppers_uneven(self, xSquares, ySquares, xdirection, ydirection):
+    def move_steppers_uneven(self, xSquares, ySquares, xdirection, ydirection, mag):
         GPIO.output(self.DIR1, self.direction_xdict[xdirection])
         GPIO.output(self.DIR2, self.direction_ydict[ydirection])
 
