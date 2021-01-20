@@ -86,6 +86,7 @@ class ChessMove:
             squares = xSquares
             squareSteps = squares*self.SPS
             remain = ySquares - xSquares
+            remainSteps = remain*self.SPS
             xfirst = False
         else:
             squares = ySquares
