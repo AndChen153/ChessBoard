@@ -80,7 +80,7 @@ class ChessMove:
 
     def power_on(self):
         GPIO.output(self.POWER, GPIO.HIGH)
-        sleep(0.1)
+        sleep(0.3)
 
     def move_steppers_uneven(self, xSquares, ySquares, xdirection, ydirection, mag, knight):
         GPIO.output(self.DIR1, self.direction_xdict[xdirection])

@@ -42,9 +42,9 @@ while (True):
 
         if moveTo[2] == "o":
             magnet = "on"
-            temp = board[current_position[0]][current_position[1]]
+            temp = board[current_position[1]][current_position[0]]
             print("temp = " , temp)
-            board[current_position[0]][current_position[1]] = 0
+            board[current_position[1]][current_position[0]] = 0
         else:
             magnet = "off"
 
@@ -70,7 +70,7 @@ while (True):
         if magnet == "on":
             board[current_position[1]][current_position[0]]=temp
 
-        print(current_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
+        print(current_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight, board[current_position[1]][current_position[0]])
 
         for r in board:
             for c in r:
