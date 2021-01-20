@@ -43,8 +43,8 @@ while (True):
     if deltaY > 0:
         directionY = "positive"
     else:
-        direcitonY = "negative"
+        directionY = "negative"
 
-    print(deltaX, deltaY, directionX, direcitonY)
+    print(deltaX, deltaY, directionX, directionY)
 
 
