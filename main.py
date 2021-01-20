@@ -3,10 +3,16 @@ from chess_move import ChessMove
 
 
 #define pieces
-pieces = {"bpawn":1,"brook":2,'bknight':3,'bbishop':4,'bqueen':5,'bking':6,     'wpawn':7,'wrook':8,'wknight':9,'wbishop':10,'wqueen':11,'wking':12}
+pieces = {
+    "bpawn":1,"brook":2,'bknight':3,'bbishop':4,'bqueen':5,'bking':6,
+    'wpawn':7,'wrook':8,'wknight':9,'wbishop':10,'wqueen':11,'wking':12
+    }
 
 #create reference for board letters and numbers so actual numbers on the board(1-8) work with array(0-7)
-reference = {'a' : 0 , 'b' : 1 , 'c' : 2 , 'd': 3 , 'e': 4 , 'f': 5 , 'g': 6 , 'h': 7 , '1': 0 , '2': 1  ,'3': 2  ,'4': 3  ,'5': 4  ,'6' : 5  ,'7': 6  ,'8': 7}
+reference = {
+    'a' : 0 , 'b' : 1 , 'c' : 2 , 'd': 3 , 'e': 4 , 'f': 5 , 'g': 6 , 'h': 7,
+    '1': 0 , '2': 1  ,'3': 2  ,'4': 3  ,'5': 4  ,'6' : 5  ,'7': 6  ,'8': 7
+    }
 
 current_position = [0,0]
 
@@ -29,9 +35,17 @@ move = ChessMove()
 while (True):
     moveTo = input("enter ending position (lower case letters) and o or f for electromagnet")  #intake ending position and split into letter and number
     print(moveTo)
+    temp = 0
     try:
         deltaX = reference[moveTo[0]] - current_position[0]
         deltaY = reference[moveTo[1]] - current_position[1]
+
+        if moveTo[2] == "o":
+            magnet = "on"
+            temp = board[current_position[0]][current_position[1]]
+            board[current_position[0]][current_position[1]] = 0
+        else:
+            magnet = "off"
 
         if deltaX > 0:
             directionX = "positive"
@@ -47,13 +61,14 @@ while (True):
             directionY = "negative"
             current_position[1] += deltaY       # negative number
 
-        if moveTo[2] == "o":
-            magnet = "on"
-        else:
-            magnet = "off"
+        if magnet:
+            board[current_position[0]][current_position[1]]=temp
 
         print(current_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet)
         move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, magnet)
+
+        print(board)
+
     except:
         print("please enter valid integer")
 
