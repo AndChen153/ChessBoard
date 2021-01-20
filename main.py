@@ -1,5 +1,5 @@
 from array import *
-#from chess_move import ChessMove
+from chess_move import ChessMove
 
 
 #define pieces
@@ -24,9 +24,7 @@ board = [[2,3,4,5,6,4,3,2], \
          [7,7,7,7,7,7,7,7],\
          [8,9,10,11,12,10,9,8]]
 
-#move = ChessMove()
-
-print("start")
+move = ChessMove()
 
 while (True):
     moveTo = input("enter ending position (lower case letters)")  #intake ending position and split into letter and number
@@ -40,15 +38,15 @@ while (True):
         current_position[0] += deltaX
     else:
         directionX = "negative"
-        current_position[0] += deltaX
+        current_position[0] += deltaX       # negative number
 
     if deltaY > 0:
         directionY = "positive"
         current_position[1] += deltaY
     else:
         directionY = "negative"
-        current_position[1] += deltaY
+        current_position[1] += deltaY       # negative number
 
     print(current_position, abs(deltaX), abs(deltaY), directionX, directionY)
-
+    move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY)
 
