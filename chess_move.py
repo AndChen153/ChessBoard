@@ -133,12 +133,14 @@ class ChessMove:
             squareSteps = squares*self.SPS
             remain = ySquares - xSquares
             remainSteps = remain*self.SPS
+            print ("y bigger", remainSteps)
             xfirst = False
         else:
             squares = ySquares
             squareSteps = squares*self.SPS
             remain = xSquares - ySquares
             remainSteps = remain*self.SPS
+            print ("x bigger",remainSteps)
             xfirst = True
             
         if xfirst:
@@ -167,7 +169,7 @@ class ChessMove:
             self.move_stepper2(self.SPR)
         else:
             self.move_stepper1(self.HALFSPS)
-            self.move_stepper2(steps-remainSteps)
+            self.move_stepper2(steps-self.SPR)
         
         self.move_steppers(squareSteps)
 
