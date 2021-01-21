@@ -54,49 +54,51 @@ while (True):
     temp = 0
     knight = False
     
-    deltaX = reference[moveTo[0]] - current_position[0]
-    deltaY = reference[moveTo[1]] - current_position[1]
-    print(deltaX, deltaY)
+    try:
+        deltaX = reference[moveTo[0]] - current_position[0]
+        deltaY = reference[moveTo[1]] - current_position[1]
+        print(deltaX, deltaY)
 
-    if deltaX > 0:
-        directionX = "positive"
-        move_position[0] += deltaX
-    else:
-        directionX = "negative"
-        move_position[0] += deltaX       # negative number
-
-    if deltaY > 0:
-        directionY = "positive"
-        move_position[1] += deltaY
-    else:
-        directionY = "negative"
-        move_position[1] += deltaY       # negative number
-        
-    if moveTo[2] == "o":
-        magnet = "on"
-        temp = board[current_position[1]][current_position[0]]
-        board[current_position[1]][current_position[0]] = 0
-
-        if temp == 3 or temp == 9:
-            knight = True
+        if deltaX > 0:
+            directionX = "positive"
+            move_position[0] += deltaX
         else:
-            knight = False
+            directionX = "negative"
+            move_position[0] += deltaX       # negative number
 
-    else:
-        magnet = "off"    
+        if deltaY > 0:
+            directionY = "positive"
+            move_position[1] += deltaY
+        else:
+            directionY = "negative"
+            move_position[1] += deltaY       # negative number
+            
+        if moveTo[2] == "o":
+            magnet = "on"
+            temp = board[current_position[1]][current_position[0]]
+            board[current_position[1]][current_position[0]] = 0
 
-    if take_piece(temp,move_position) and magnet == "on":
-        move.take_piece(abs(deltaX), abs(deltaY), directionX, directionY, move_position)
-    
-    print(current_position, move_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight, board[current_position[1]][current_position[0]])
+            if temp == 3 or temp == 9:
+                knight = True
+            else:
+                knight = False
 
-    move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
+        else:
+            magnet = "off"    
 
-    
-    current_position[0] = move_position[0]
-    current_position[1] = move_position[1]
-    if moveTo[2] == "o":
-        board[current_position[1]][current_position[0]] = temp
+        if take_piece(temp,move_position) and magnet == "on":
+            move.take_piece(abs(deltaX), abs(deltaY), directionX, directionY, move_position)
+        
+        print(current_position, move_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight, board[current_position[1]][current_position[0]])
 
-    print_board()
+        move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
 
+        
+        current_position[0] = move_position[0]
+        current_position[1] = move_position[1]
+        if moveTo[2] == "o":
+            board[current_position[1]][current_position[0]] = temp
+
+        print_board()
+    except:
+        print("invalid entry")
