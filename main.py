@@ -93,7 +93,8 @@ while (True):
     
     current_position[0] = move_position[0]
     current_position[1] = move_position[1]
-    board[current_position[1]][current_position[0]] = temp
+    if moveTo[2] == "o":
+        board[current_position[1]][current_position[0]] = temp
 
     print_board()
 
