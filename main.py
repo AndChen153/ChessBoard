@@ -52,9 +52,6 @@ while (True):
     # print(moveTo)
     temp = 0
     
-    
-    print(reference[moveTo[0]], current_position[0])
-    print(reference[moveTo[1]], current_position[1])
     deltaX = reference[moveTo[0]] - current_position[0]
     deltaY = reference[moveTo[1]] - current_position[1]
 
@@ -95,8 +92,6 @@ while (True):
     
     print(current_position, move_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight, board[current_position[1]][current_position[0]])
 
-    
-    move.power_on()
     move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
 
     
