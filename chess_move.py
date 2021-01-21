@@ -144,11 +144,11 @@ class ChessMove:
         GPIO.output(self.DIR2, self.direction_ydict[ydirection])
 
         if xSteps < ySteps:
-            steps = xSteps
+            squareSteps = xSteps
             remainSteps = ySteps - xSteps
             xfirst = False
         else:
-            steps = ySteps
+            squareSteps = ySteps
             remainSteps = xSteps - ySteps
             xfirst = True
             
@@ -156,7 +156,8 @@ class ChessMove:
             self.move_stepper1(remainSteps)
         else:
             self.move_stepper2(remainSteps)
-        self.move_steppers(steps)
+        
+        self.move_steppers(squareSteps)
         
         sleep(0.3)
         GPIO.output(self.POWER, GPIO.LOW)
@@ -215,7 +216,7 @@ class ChessMove:
             ydirection = "positive"
         else:
             ydirection = "negative"
-        self.move_steppers_uneven(xSteps, ySteps, xdirection, ydirection, "off", False)
+        self.move_steps_uneven(xSteps, ySteps, xdirection, ydirection)
 
         '''GPIO.output(self.DIR1, self.direction_xdict["negative"])  
         GPIO.output(self.DIR2, self.direction_ydict["positive"])
