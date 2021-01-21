@@ -82,10 +82,10 @@ while (True):
             magnet = "off"
         
 
-        if take_piece(current_position,move_position) and magnet == "on":
+        '''if take_piece(current_position,move_position) and magnet == "on":
             print("take piece")
             move.power_on()
-            move.take_piece(abs(deltaX), abs(deltaY), directionX, directionY, move_position)
+            move.take_piece(abs(deltaX), abs(deltaY), directionX, directionY, move_position)'''
         
         print(current_position, move_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight, board[current_position[1]][current_position[0]])
 
