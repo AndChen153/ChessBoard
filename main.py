@@ -70,21 +70,17 @@ while (True):
         directionY = "negative"
         move_position[1] += deltaY       # negative number
         
-    '''if moveTo[2] == "o":
+    if moveTo[2] == "o":
         magnet = "on"
         temp = board[current_position[1]][current_position[0]]
         board[current_position[1]][current_position[0]] = 0
-        board[move_position[1]][move_position[0]]=temp
 
         if temp == 3 or temp == 9:
             knight = True
         else:
             knight = False
     else:
-        magnet = "off"'''
-    magnet = "off"
-    knight = False
-    
+        magnet = "off"    
 
     '''if take_piece(current_position,move_position) and magnet == "on":
         print("take piece")
@@ -97,6 +93,7 @@ while (True):
     
     current_position[0] = move_position[0]
     current_position[1] = move_position[1]
+    board[current_position[1]][current_position[0]] = temp
 
     print_board()
 

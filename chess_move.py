@@ -123,7 +123,7 @@ class ChessMove:
         GPIO.output(self.MAGNET, GPIO.LOW)
         GPIO.output(self.POWER, GPIO.LOW)
 
-    '''def take_piece(self, xSquares, ySquares, xdirection, ydirection, move_position):
+    def take_piece(self, xSquares, ySquares, xdirection, ydirection, move_position):
         self.power_on()
         GPIO.output(self.DIR1, self.direction_xdict[xdirection])    # set stepper direction
         GPIO.output(self.DIR2, self.direction_ydict[ydirection])
@@ -149,7 +149,7 @@ class ChessMove:
         
         self.move_steppers(squareSteps)
         
-        if move_position[0] == 7:
+        '''if move_position[0] == 7:
             GPIO.output(self.DIR1, self.direction_xdict["negative"])    # set stepper direction
             return_dir = "positive"
         else:
@@ -171,10 +171,10 @@ class ChessMove:
         else:
             self.move_stepper2(steps-remainSteps-self.SPR)
         
-        self.move_steppers(squareSteps)
+        self.move_steppers(squareSteps)'''
 
         sleep(0.5)
-        GPIO.output(self.POWER, GPIO.LOW)'''
+        GPIO.output(self.POWER, GPIO.LOW)
 
 '''
 move = ChessMove()
