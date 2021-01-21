@@ -206,6 +206,7 @@ class ChessMove:
 
         xSteps = origX - self.CURRENTX
         ySteps = origY - self.CURRENTY
+        print (xSteps, ySteps)
         if xSteps > 0:
             xdirection = "positive"
         else:
