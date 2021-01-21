@@ -95,7 +95,8 @@ while (True):
     move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
 
     
-    current_position = move_position
+    current_position[0] = move_position[0]
+    current_position[1] = move_position[1]
 
     print_board()
 
