@@ -166,6 +166,7 @@ class ChessMove:
             self.move_stepper1(remainSteps+self.HALFSPS)
             self.move_stepper2(self.SPR)
         else:
+            self.move_stepper1(self.HALFSPS)
             self.move_stepper2(steps-remainSteps-self.SPR)
         
         self.move_steppers(squareSteps)
