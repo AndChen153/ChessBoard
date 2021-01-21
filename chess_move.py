@@ -16,6 +16,8 @@ class ChessMove:
         self.SPR = 6400                             # Steps per Rotation (360/1.8)*32
         self.SPS = 6950                             # Steps per Chess Square
         self.HALFSPS = 3475                         # Steps per half Chess Square
+        self.CURRENTX = 0                           # current x position in steps
+        self.CURRENTY = 0                           # current y position in steps
 
         self.direction_xdict = {"negative": GPIO.HIGH, "positive": GPIO.LOW}  # Motors have to turn opposite directions to go positive x and positive y
         self.direction_ydict = {"positive": GPIO.HIGH, "negative": GPIO.LOW}
@@ -73,12 +75,23 @@ class ChessMove:
             GPIO.output(self.STEP2, self.LOW)
             sleep(self.delay)
 
+    def track_location(self, xSteps, ySteps, xdirection, ydirection):
+        if xdirection == "positive":
+            self.CURRENTX += xSteps
+        else:
+            self.CURRENTX -= xSteps
+        if ydirection == "positive":
+            self.CURRENTY += ySteps
+        else:
+            self.CURRENTY -= ySteps
+
     def power_on(self):
         GPIO.output(self.POWER, GPIO.HIGH)
         sleep(0.3)
 
     def move_steppers_uneven(self, xSquares, ySquares, xdirection, ydirection, mag, knight):
         self.power_on()
+        self.track_location(xSquares*self.SPS, ySquares*self.SPS, xdirection, ydirection)
 
         GPIO.output(self.DIR1, self.direction_xdict[xdirection])    # set stepper direction
         GPIO.output(self.DIR2, self.direction_ydict[ydirection])
@@ -123,8 +136,37 @@ class ChessMove:
         GPIO.output(self.MAGNET, GPIO.LOW)
         GPIO.output(self.POWER, GPIO.LOW)
 
+    def move_steps_uneven(self, xSteps, ySteps, xdirection, ydirection):
+        self.power_on()
+        self.track_location(xSteps, ySteps, xdirection, ydirection)
+
+        GPIO.output(self.DIR1, self.direction_xdict[xdirection])    # set stepper direction
+        GPIO.output(self.DIR2, self.direction_ydict[ydirection])
+
+        if xSteps < ySteps:
+            steps = xSteps
+            remainSteps = ySteps - xSteps
+            xfirst = False
+        else:
+            steps = ySteps
+            remainSteps = xSteps - ySteps
+            xfirst = True
+            
+        if xfirst:
+            self.move_stepper1(remainSteps)
+        else:
+            self.move_stepper2(remainSteps)
+        self.move_steppers(steps)
+        
+        sleep(0.3)
+        GPIO.output(self.POWER, GPIO.LOW)
+
     def take_piece(self, xSquares, ySquares, xdirection, ydirection, move_position):
         self.power_on()
+        origX = self.CURRENTX
+        origY = self.CURRENTY
+        self.track_location(xSquares*self.SPS, ySquares*self.SPS, xdirection, ydirection)
+
         GPIO.output(self.DIR1, self.direction_xdict[xdirection])    # set stepper direction
         GPIO.output(self.DIR2, self.direction_ydict[ydirection])
 
@@ -133,14 +175,14 @@ class ChessMove:
             squareSteps = squares*self.SPS
             remain = ySquares - xSquares
             remainSteps = remain*self.SPS
-            print ("y bigger", remainSteps)
+            #print ("y bigger", remainSteps)
             xfirst = False
         else:
             squares = ySquares
             squareSteps = squares*self.SPS
             remain = xSquares - ySquares
             remainSteps = remain*self.SPS
-            print ("x bigger",remainSteps)
+            #print ("x bigger",remainSteps)
             xfirst = True
             
         if xfirst:
@@ -158,10 +200,23 @@ class ChessMove:
         steps = move_position[1]*self.SPS+self.SPR
         self.move_stepper1(self.HALFSPS)
         self.move_stepper2(steps)
+        self.CURRENTX += self.HALFSPS                               # update location
+        self.CURRENTY -= steps                                      # update location
         GPIO.output(self.MAGNET, self.magnet_dict["off"])
 
+        xSteps = origX - self.CURRENTX
+        ySteps = origY - self.CURRENTY
+        if xSteps > 0:
+            xdirection = "positive"
+        else:
+            xdirection = "negative"
+        if ySteps > 0:
+            ydirection = "positive"
+        else:
+            ydirection = "negative"
+        self.move_steppers_uneven(xSteps, ySteps, xdirection, ydirection, "off", False)
 
-        GPIO.output(self.DIR1, self.direction_xdict["negative"])  
+        '''GPIO.output(self.DIR1, self.direction_xdict["negative"])  
         GPIO.output(self.DIR2, self.direction_ydict["positive"])
 
         if xfirst and ydirection == "positive" and xdirection == "positive":
@@ -170,11 +225,24 @@ class ChessMove:
         elif xfirst and ydirection == "negative" and xdirection == "positive":
             self.move_stepper1(remainSteps+self.HALFSPS)
             self.move_stepper2(steps)
-        else:
+        elif xfirst and ydirection == "positive" and xdirection == "negative":
+            self.move_stepper1(remainSteps-self.HALFSPS)
+            self.move_stepper2(steps-2*squareSteps)
+        elif xfirst and ydirection == "negative" and xdirection == "negative":
+            self.move_stepper1(remainSteps-self.HALFSPS)
+            self.move_stepper2(steps)
+
+        elif not xfirst and ydirection == "positive" and xdirection == "positive":
             self.move_stepper1(self.HALFSPS)
-            self.move_stepper2(steps-remainSteps+squareSteps)
+            self.move_stepper2(steps-remainSteps-2*squareSteps)
+        elif not xfirst and ydirection == "negative" and xdirection == "positive":
+            self.move_stepper1(self.HALFSPS)
+            self.move_stepper2(steps+remainSteps)
+        elif not xfirst and ydirection == "positive" and xdirection == "negative":
+            self.move_stepper1(self.HALFSPS)
+            self.move_stepper2(steps+remainSteps)
         
-        self.move_steppers(squareSteps)
+        self.move_steppers(squareSteps)'''
 
         sleep(0.5)
         GPIO.output(self.POWER, GPIO.LOW)
