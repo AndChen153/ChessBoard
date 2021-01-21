@@ -15,6 +15,7 @@ reference = {
     }
 
 current_position = [0,0]
+move_position = [0,0]
 
 '''
 create board array
@@ -30,6 +31,20 @@ board = [[8,9,10,11,12,10,9,8], \
          [1,1,1,1,1,1,1,1],\
          [2,3,4,5,6,4,3,2]]
 
+def take_piece(current_position, move_position):
+    if board[current_position[1]][current_position[0]] > 6 and board[move_position[1]][move_position[0]] < 7:
+        return True
+    elif board[current_position[1]][current_position[0]] < 7 and board[move_position[1]][move_position[0]] > 6:
+        return True
+    else:
+        return False
+
+def print_board():
+    for r in board:
+            for c in r:
+                print(c,end = " ")
+            print()
+
 move = ChessMove()
 
 while (True):
@@ -40,47 +55,49 @@ while (True):
     try:
         deltaX = reference[moveTo[0]] - current_position[0]
         deltaY = reference[moveTo[1]] - current_position[1]
-
-        if moveTo[2] == "o":
-            magnet = "on"
-            temp = board[current_position[1]][current_position[0]]
-            print("temp = " , temp)
-            board[current_position[1]][current_position[0]] = 0
-        else:
-            magnet = "off"
-
-        if temp == 3 or temp == 9:
-            knight = True
-        else:
-            knight = False
-
         if deltaX > 0:
             directionX = "positive"
-            current_position[0] += deltaX
+            move_position[0] += deltaX
         else:
             directionX = "negative"
-            current_position[0] += deltaX       # negative number
+            move_position[0] += deltaX       # negative number
 
         if deltaY > 0:
             directionY = "positive"
-            current_position[1] += deltaY
+            move_position[1] += deltaY
         else:
             directionY = "negative"
-            current_position[1] += deltaY       # negative number
+            move_position[1] += deltaY       # negative number
+        
+        if moveTo[2] == "o":
+            magnet = "on"
+            temp = board[current_position[1]][current_position[0]]
+            board[current_position[1]][current_position[0]] = 0
+            board[move_position[1]][move_position[0]]=temp
 
-        if magnet == "on":
-            board[current_position[1]][current_position[0]]=temp
+            if temp == 3 or temp == 9:
+                knight = True
+            else:
+                knight = False
+        else:
+            magnet = "off"
+        
 
-        print(current_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight, board[current_position[1]][current_position[0]])
+        if take_piece(current_position,move_position):
+            print("take piece")
+            move.power_on()
+            move.take_piece(abs(deltaX), abs(deltaY), directionX, directionY, move_position)
 
-        for r in board:
-            for c in r:
-                print(c,end = " ")
-            print()
+        print(current_position, move_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight, board[current_position[1]][current_position[0]])
 
-
+        
         move.power_on()
         move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
+
+        current_position = move_position
+
+        print_board()
+
 
     except:
         print("please enter valid integer")
