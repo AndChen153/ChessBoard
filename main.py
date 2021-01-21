@@ -51,6 +51,7 @@ while (True):
     moveTo = input("enter ending position (lower case letters) and o or f for electromagnet  ")  #intake ending position and split into letter and number
     # print(moveTo)
     temp = 0
+    knight = False
     
     deltaX = reference[moveTo[0]] - current_position[0]
     deltaY = reference[moveTo[1]] - current_position[1]
@@ -79,6 +80,7 @@ while (True):
             knight = True
         else:
             knight = False
+
     else:
         magnet = "off"    
 
