@@ -73,7 +73,6 @@ while (True):
             magnet = "on"
             temp = board[current_position[1]][current_position[0]]
             board[current_position[1]][current_position[0]] = 0
-            board[move_position[1]][move_position[0]]=temp
 
             if temp == 3 or temp == 9:
                 knight = True
@@ -83,17 +82,18 @@ while (True):
             magnet = "off"
         
 
-        if take_piece(current_position,move_position):
+        if take_piece(current_position,move_position) and magnet == "on":
             print("take piece")
             move.power_on()
             move.take_piece(abs(deltaX), abs(deltaY), directionX, directionY, move_position)
-
+        
         print(current_position, move_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight, board[current_position[1]][current_position[0]])
 
         
         move.power_on()
         move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
 
+        board[move_position[1]][move_position[0]]=temp
         current_position = move_position
 
         print_board()
