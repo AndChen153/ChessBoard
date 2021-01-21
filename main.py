@@ -52,57 +52,55 @@ while (True):
     # print(moveTo)
     temp = 0
     
-    try:
-        print(reference[moveTo[0]], current_position[0])
-        print(reference[moveTo[1]], current_position[1])
-        deltaX = reference[moveTo[0]] - current_position[0]
-        deltaY = reference[moveTo[1]] - current_position[1]
+    
+    print(reference[moveTo[0]], current_position[0])
+    print(reference[moveTo[1]], current_position[1])
+    deltaX = reference[moveTo[0]] - current_position[0]
+    deltaY = reference[moveTo[1]] - current_position[1]
+
+    if deltaX > 0:
+        directionX = "positive"
+        move_position[0] += deltaX
+    else:
+        directionX = "negative"
+        move_position[0] += deltaX       # negative number
+
+    if deltaY > 0:
+        directionY = "positive"
+        move_position[1] += deltaY
+    else:
+        directionY = "negative"
+        move_position[1] += deltaY       # negative number
         
-        if deltaX > 0:
-            directionX = "positive"
-            move_position[0] += deltaX
+    '''if moveTo[2] == "o":
+        magnet = "on"
+        temp = board[current_position[1]][current_position[0]]
+        board[current_position[1]][current_position[0]] = 0
+        board[move_position[1]][move_position[0]]=temp
+
+        if temp == 3 or temp == 9:
+            knight = True
         else:
-            directionX = "negative"
-            move_position[0] += deltaX       # negative number
+            knight = False
+    else:
+        magnet = "off"'''
+    magnet = "off"
+    knight = False
+    
 
-        if deltaY > 0:
-            directionY = "positive"
-            move_position[1] += deltaY
-        else:
-            directionY = "negative"
-            move_position[1] += deltaY       # negative number
-        
-        if moveTo[2] == "o":
-            magnet = "on"
-            temp = board[current_position[1]][current_position[0]]
-            board[current_position[1]][current_position[0]] = 0
-            board[move_position[1]][move_position[0]]=temp
-
-            if temp == 3 or temp == 9:
-                knight = True
-            else:
-                knight = False
-        else:
-            magnet = "off"
-        
-
-        '''if take_piece(current_position,move_position) and magnet == "on":
-            print("take piece")
-            move.power_on()
-            move.take_piece(abs(deltaX), abs(deltaY), directionX, directionY, move_position)'''
-        
-        print(current_position, move_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight, board[current_position[1]][current_position[0]])
-
-        
+    '''if take_piece(current_position,move_position) and magnet == "on":
+        print("take piece")
         move.power_on()
-        move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
+        move.take_piece(abs(deltaX), abs(deltaY), directionX, directionY, move_position)'''
+    
+    print(current_position, move_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight, board[current_position[1]][current_position[0]])
 
-        
-        current_position = move_position
+    
+    move.power_on()
+    move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
 
-        print_board()
+    
+    current_position = move_position
 
-
-    except:
-        print("please enter valid integer")
+    print_board()
 
