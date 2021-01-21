@@ -124,6 +124,7 @@ class ChessMove:
         GPIO.output(self.POWER, GPIO.LOW)
 
     '''def take_piece(self, xSquares, ySquares, xdirection, ydirection, move_position):
+        self.power_on()
         GPIO.output(self.DIR1, self.direction_xdict[xdirection])    # set stepper direction
         GPIO.output(self.DIR2, self.direction_ydict[ydirection])
 

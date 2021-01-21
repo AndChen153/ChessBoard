@@ -54,6 +54,7 @@ while (True):
     
     deltaX = reference[moveTo[0]] - current_position[0]
     deltaY = reference[moveTo[1]] - current_position[1]
+    print(deltaX, deltaY)
 
     if deltaX > 0:
         directionX = "positive"
@@ -87,7 +88,6 @@ while (True):
 
     '''if take_piece(current_position,move_position) and magnet == "on":
         print("take piece")
-        move.power_on()
         move.take_piece(abs(deltaX), abs(deltaY), directionX, directionY, move_position)'''
     
     print(current_position, move_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight, board[current_position[1]][current_position[0]])
