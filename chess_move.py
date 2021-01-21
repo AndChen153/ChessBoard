@@ -123,12 +123,12 @@ class ChessMove:
 
 
 
-
+'''
 move = ChessMove()
 
 while (True):
     move.power_on()
     x = int(input())    # 1
     y = int(input())    # 0
-    move.move_steppers_uneven(x,y,"positive","positive","off",False)
+    move.move_steppers_uneven(x,y,"positive","positive","off",False)'''
 
