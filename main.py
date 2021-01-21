@@ -32,6 +32,7 @@ board = [[8,9,10,11,12,10,9,8], \
          [2,3,4,5,6,4,3,2]]
 
 def take_piece(current_position, move_position):
+    print("take piece", board[current_position[1]][current_position[0]], board[move_position[1]][move_position[0]])
     if board[current_position[1]][current_position[0]] > 6 and board[move_position[1]][move_position[0]] < 7:
         return True
     elif board[current_position[1]][current_position[0]] < 7 and board[move_position[1]][move_position[0]] > 6:
@@ -85,7 +86,6 @@ while (True):
         magnet = "off"    
 
     if take_piece(current_position,move_position) and magnet == "on":
-        print("take piece", board[current_position[1]][current_position[0]], board[move_position[1]][move_position[0]])
         move.take_piece(abs(deltaX), abs(deltaY), directionX, directionY, move_position)
     
     print(current_position, move_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight, board[current_position[1]][current_position[0]])
