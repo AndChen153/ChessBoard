@@ -164,12 +164,12 @@ class ChessMove:
         GPIO.output(self.DIR1, self.direction_xdict["negative"])  
         GPIO.output(self.DIR2, self.direction_ydict["positive"])
 
-        if xfirst:
+        if xfirst and ydirection == "positive":
             self.move_stepper1(remainSteps+self.HALFSPS)
-            self.move_stepper2(self.SPR)
+            self.move_stepper2(self.SPR+steps-squareSteps-squareSteps)
         else:
             self.move_stepper1(self.HALFSPS)
-            self.move_stepper2(steps-remainSteps)
+            self.move_stepper2(steps-remainSteps+squareSteps)
         
         self.move_steppers(squareSteps)
 
