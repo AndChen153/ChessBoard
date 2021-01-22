@@ -6,7 +6,9 @@ running on raspberry pi 3 and adafruit stepper motor hat with nema 17 stepper mo
 Prototype stage [video](https://youtu.be/2joaITZlWBY)
 
 # Photos
-
+Created a custom circuit board for motor controllers that allow for replacement if one burns out.
+![](Circuit_Back.jpg)
+![](Circuit_Front.jpg)
 
 ## Automated Chess Board Controlled
 * uses stepper motors to control x and y axis and an electromagnet to move pieces
