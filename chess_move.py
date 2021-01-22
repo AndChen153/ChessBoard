@@ -134,7 +134,7 @@ class ChessMove:
         
         sleep(0.1)
         GPIO.output(self.MAGNET, GPIO.LOW)
-        #GPIO.output(self.POWER, GPIO.LOW)
+        GPIO.output(self.POWER, GPIO.LOW)
 
     def move_steps_uneven(self, xSteps, ySteps, xdirection, ydirection):
         self.power_on()
@@ -221,7 +221,7 @@ class ChessMove:
 
 
         sleep(0.1)
-        #GPIO.output(self.POWER, GPIO.LOW)
+        GPIO.output(self.POWER, GPIO.LOW)
 
 '''
 move = ChessMove()
