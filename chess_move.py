@@ -13,14 +13,14 @@ class ChessMove:
         self.POWER = 23                             # Relay for turning power on an off to motor controllers to prevent overheating
         self.CW = self.HIGH = GPIO.HIGH             # CLockwise Rotation
         self.CCW = self.LOW =  GPIO.LOW             # Counter Clockwise Rotation
-        self.SPR = 6400                             # Steps per Rotation (360/1.8)*32
-        self.SPS = 6950                             # Steps per Chess Square
-        self.HALFSPS = 3475                         # Steps per half Chess Square
+        self.SPR = 3200                             # Steps per Rotation (360/1.8)*32
+        self.SPS = 3475                             # Steps per Chess Square
+        self.HALFSPS = 1737                         # Steps per half Chess Square
         self.CURRENTX = 0                           # current x position in steps
         self.CURRENTY = 0                           # current y position in steps
 
         self.direction_xdict = {"negative": GPIO.HIGH, "positive": GPIO.LOW}  # Motors have to turn opposite directions to go positive x and positive y
-        self.direction_ydict = {"positive": GPIO.HIGH, "negative": GPIO.LOW}
+        self.direction_ydict = {"negative": GPIO.HIGH, "positive": GPIO.LOW}
         self.magnet_dict = {"on":GPIO.HIGH, "off":GPIO.LOW}
 
         GPIO.setmode(GPIO.BCM)                      # Setup GPIO pins
