@@ -13,12 +13,9 @@ class ChessMove:
         self.POWER = 23                             # Relay for turning power on an off to motor controllers to prevent overheating
         self.CW = self.HIGH = GPIO.HIGH             # CLockwise Rotation
         self.CCW = self.LOW =  GPIO.LOW             # Counter Clockwise Rotation
-        #self.SPR = 400*2                            # Steps per Rotation (360/1.8)*32
-        #self.SPS = 434*2                            # Steps per Chess Square
-        #self.HALFSPS = 217*2                        # Steps per half Chess Square
-        self.SPR = 400                            # Steps per Rotation (360/1.8)*32
-        self.SPS = 434                            # Steps per Chess Square
-        self.HALFSPS = 217                        # Steps per half Chess Square
+        self.SPR = 400*2                            # Steps per Rotation (360/1.8)*32
+        self.SPS = 434*2                            # Steps per Chess Square
+        self.HALFSPS = 217*2                        # Steps per half Chess Square
         self.CURRENTX = 0                           # current x position in steps
         self.CURRENTY = 0                           # current y position in steps
 
@@ -43,7 +40,7 @@ class ChessMove:
                     '1/16': (self.LOW, self.LOW, self.HIGH),
                     '1/32': (self.HIGH, self.LOW, self.HIGH)}
 
-        GPIO.output(self.MODE, self.RESOLUTION["Half"])    # same speed as full step but much quieter
+        GPIO.output(self.MODE, self.RESOLUTION["1/4"])    # same speed as full step but much quieter
         self.delay = 0.0025 / 32
     
     def move_stepper1(self, steps):
