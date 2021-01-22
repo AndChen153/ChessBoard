@@ -13,9 +13,9 @@ class ChessMove:
         self.POWER = 23                             # Relay for turning power on an off to motor controllers to prevent overheating
         self.CW = self.HIGH = GPIO.HIGH             # CLockwise Rotation
         self.CCW = self.LOW =  GPIO.LOW             # Counter Clockwise Rotation
-        self.SPR = 400*2                             # Steps per Rotation (360/1.8)*32
-        self.SPS = 434*2                            # Steps per Chess Square
-        self.HALFSPS = 217*2                         # Steps per half Chess Square
+        self.SPR = 400/2                            # Steps per Rotation (360/1.8)*32
+        self.SPS = 434/2                            # Steps per Chess Square
+        self.HALFSPS = int(217/2)                   # Steps per half Chess Square
         self.CURRENTX = 0                           # current x position in steps
         self.CURRENTY = 0                           # current y position in steps
 
@@ -40,7 +40,7 @@ class ChessMove:
                     '1/16': (self.LOW, self.LOW, self.HIGH),
                     '1/32': (self.HIGH, self.LOW, self.HIGH)}
 
-        GPIO.output(self.MODE, self.RESOLUTION["1/4"])    # same speed as full step but much quieter
+        GPIO.output(self.MODE, self.RESOLUTION["Full"])    # same speed as full step but much quieter
         self.delay = 0.0025 / 32
     
     def move_stepper1(self, steps):
@@ -221,35 +221,7 @@ class ChessMove:
             ydirection = "negative"
         self.move_steps_uneven(abs(xSteps), abs(ySteps), xdirection, ydirection)
 
-        '''GPIO.output(self.DIR1, self.direction_xdict["negative"])  
-        GPIO.output(self.DIR2, self.direction_ydict["positive"])
-
-        if xfirst and ydirection == "positive" and xdirection == "positive":
-            self.move_stepper1(remainSteps+self.HALFSPS)
-            self.move_stepper2(steps-2*squareSteps)
-        elif xfirst and ydirection == "negative" and xdirection == "positive":
-            self.move_stepper1(remainSteps+self.HALFSPS)
-            self.move_stepper2(steps)
-        elif xfirst and ydirection == "positive" and xdirection == "negative":
-            self.move_stepper1(remainSteps-self.HALFSPS)
-            self.move_stepper2(steps-2*squareSteps)
-        elif xfirst and ydirection == "negative" and xdirection == "negative":
-            self.move_stepper1(remainSteps-self.HALFSPS)
-            self.move_stepper2(steps)
-
-        elif not xfirst and ydirection == "positive" and xdirection == "positive":
-            self.move_stepper1(self.HALFSPS)
-            self.move_stepper2(steps-remainSteps-2*squareSteps)
-        elif not xfirst and ydirection == "negative" and xdirection == "positive":
-            self.move_stepper1(self.HALFSPS)
-            self.move_stepper2(steps+remainSteps)
-        elif not xfirst and ydirection == "positive" and xdirection == "negative":
-            self.move_stepper1(self.HALFSPS)
-            self.move_stepper2(steps+remainSteps)
-        
-        self.move_steppers(squareSteps)'''
-
-        sleep(0.5)
+        sleep(0.3)
         GPIO.output(self.POWER, GPIO.LOW)
 
 '''
