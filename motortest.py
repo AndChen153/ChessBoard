@@ -32,7 +32,7 @@ RESOLUTION = {'Full': (LOW, LOW, LOW),
               '1/16': (LOW, LOW, HIGH),
               '1/32': (HIGH, LOW, HIGH)}
 
-GPIO.output(MODE, RESOLUTION["1/32"])
+GPIO.output(MODE, RESOLUTION["Half"])
 
 step_count = 200 * 32
 delay = 0.0025 / 32
