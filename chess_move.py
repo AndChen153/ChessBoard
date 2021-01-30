@@ -41,7 +41,7 @@ class ChessMove:
                     '1/32': (self.HIGH, self.LOW, self.HIGH)}
 
         GPIO.output(self.MODE, self.RESOLUTION["1/4"])    # same speed as full step but much quieter
-        self.delay = 0.0025 / 32
+        self.delay = 0.005 / 4
     
     def move_stepper1(self, steps):
         '''
