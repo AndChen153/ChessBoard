@@ -6,6 +6,7 @@ channel2 = 17
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(channel, GPIO.OUT)
+GPIO.setup(channel2, GPIO.OUT)
 
 
 while True:
