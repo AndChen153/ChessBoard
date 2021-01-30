@@ -2,13 +2,14 @@ import RPi.GPIO as GPIO
 import time
 
 channel = 23
+channel2 = 17
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(channel, GPIO.OUT)
 
 
 while True:
-    y=input("a or b")
+    y=input("a or b or c or d")
 
     if y == "a":
         GPIO.output(channel, GPIO.HIGH)
@@ -16,6 +17,12 @@ while True:
 
     elif y == "b":
         GPIO.output(channel, GPIO.LOW)
+
+    elif y == "c":
+        GPIO.output(channel2, GPIO.HIGH)
+
+    elif y == "d":
+        GPIO.output(channel2, GPIO.LOW)
 
 GPIO.cleanup()
 
