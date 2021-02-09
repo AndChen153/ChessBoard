@@ -1,7 +1,8 @@
 from array import *
 from chess_move import ChessMove
-
-
+'''
+Move to one space at a time.
+'''
 #define pieces
 pieces = {
     "bpawn":1,"brook":2,'bknight':3,'bbishop':4,'bqueen':5,'bking':6,
