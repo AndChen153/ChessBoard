@@ -50,7 +50,7 @@ def print_board():
 move = ChessMove()
 
 while (True):
-    moveTo = input("enter ending position (lower case letters) and o or f for electromagnet  ")  #intake ending position and split into letter and number
+    moveTo = input("enter move from and move to ex. a4b2")  #intake ending position and split into letter and number
     # print(moveTo)
     temp = 0
     knight = False
@@ -73,33 +73,51 @@ while (True):
         else:
             directionY = "negative"
             move_position[1] += deltaY       # negative number
-            
-        if moveTo[2] == "o":
-            magnet = "on"
-            temp = board[current_position[1]][current_position[0]]
-            board[current_position[1]][current_position[0]] = 0
 
-            if temp == 3 or temp == 9:
-                knight = True
-            else:
-                knight = False
-
-        else:
-            magnet = "off"    
-
-        if take_piece(temp,move_position) and magnet == "on":
-            move.take_piece(abs(deltaX), abs(deltaY), directionX, directionY, move_position)
-        
-        print(current_position, move_position, abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight, board[current_position[1]][current_position[0]])
-
-        move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, magnet, knight)
-        
-        
         current_position[0] = move_position[0]
         current_position[1] = move_position[1]
-        if moveTo[2] == "o":
-            board[current_position[1]][current_position[0]] = temp
+        print(current_position, move_position, abs(deltaX), abs(deltaY), directionX, directionY, "off", knight, board[current_position[1]][current_position[0]])
+        move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)           
+
+
+
+
+        deltaX2 = reference[moveTo[2]] - current_position[0]
+        deltaY2 = reference[moveTo[3]] - current_position[1]
+        print(deltaX2, deltaY2)
+
+        if deltaX > 0:
+            directionX = "positive"
+            move_position[0] += deltaX
+        else:
+            directionX = "negative"
+            move_position[0] += deltaX       # negative number
+
+        if deltaY > 0:
+            directionY = "positive"
+            move_position[1] += deltaY
+        else:
+            directionY = "negative"
+            move_position[1] += deltaY       # negative number
+
+        temp = board[current_position[1]][current_position[0]]
+        board[current_position[1]][current_position[0]] = 0
+        if temp == 3 or temp == 9:
+            knight = True
+        else:
+            knight = False 
+
+
+        if take_piece(temp,move_position):
+            move.take_piece(abs(deltaX2), abs(deltaY2), directionX, directionY, move_position)
+        print(current_position, move_position, abs(deltaX), abs(deltaY), directionX, directionY, "on", knight, board[current_position[1]][current_position[0]])
+        move.move_steppers_uneven(abs(deltaX2), abs(deltaY2), directionX, directionY, "on", knight)
+
+        current_position[0] = move_position[0]
+        current_position[1] = move_position[1]
+        board[current_position[1]][current_position[0]] = temp
 
         print_board()
+
     except:
         print("invalid entry")
