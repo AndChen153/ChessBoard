@@ -196,8 +196,8 @@ while (True):
         move.move_steppers_uneven(abs(deltaX2), abs(deltaY2), directionX, directionY, "on", KNIGHT)
 
         board[current_position[1]][current_position[0]] = TEMP      # moving pieces in virtual chessboard
-        turn += 1                                                   # keeping track of whose turn it is
-        print_board()
+    turn += 1                                                   # keeping track of whose turn it is
+    print_board()
 
         #except:
         #    print("invalid entry")
