@@ -128,8 +128,6 @@ while (True):
         board[0][0] = 0
         board[0][3] = 8
         move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)
-        sleep(0.1)
-        print("moving)")
         move.queenside_castle()
 
     elif moveTo == "kc" and find_turn(turn):

@@ -106,6 +106,7 @@ class ChessMove:
         sleep(0.1)
 
     def queenside_castle(self):
+        self.power_on()
         GPIO.output(self.DIR1, self.direction_xdict["negative"])    # set stepper direction
         GPIO.output(self.DIR2, self.direction_ydict["positive"])
 
@@ -123,8 +124,10 @@ class ChessMove:
         self.move_stepper2(self.HALFSPS)
         GPIO.output(self.MAGNET, self.magnet_dict["off"])
         self.move_stepper1(self.SPS)
+        self.power_off()
 
     def kingside_castle(self):
+        self.power_on()
         GPIO.output(self.DIR1, self.direction_xdict["positive"])    # set stepper direction
         GPIO.output(self.DIR2, self.direction_ydict["positive"])
 
@@ -142,8 +145,9 @@ class ChessMove:
         self.move_stepper2(self.HALFSPS)
         GPIO.output(self.MAGNET, self.magnet_dict["off"])
         self.move_stepper1(self.SPS)                                # move back to king original position
+        self.power_off()
 
-    def return_0_0(self):
+    def return_origin(self):
         '''
         moves the electromagnet back to square a1
         '''
