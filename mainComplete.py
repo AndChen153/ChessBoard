@@ -61,7 +61,7 @@ def print_board():
                 print(c,end = " ")
             print()
 
-def knight(temp):
+def find_knight(temp):
     '''
     figure out if a piece is a knight or not, telling the chess_move program to initiate the algorithm that moves pieces on the lines
     '''
@@ -116,7 +116,7 @@ while (True):
     moveTo = input("INPUT: ")  #intake ending position and split into letter and number
     # print(moveTo)
     TEMP = 0
-    knight = False
+    KNIGHT = False
 
     if moveTo == "qc" and find_turn(turn):
         deltaX = 4 - current_position[0]
@@ -148,11 +148,13 @@ while (True):
         calculate_moves(deltaX, deltaY)
 
         board[7][4] = 0
-        board[7][2] = 12
+        board[7][2] = 6
         board[7][0] = 0
-        board[7][3] = 8
+        board[7][3] = 2
         move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)
         move.queenside_castle()
+
+        move.move_steps_uneven(0,40,"positive", "positive")     # temporary workaround to topping out
 
     elif moveTo == "kc" and not find_turn(turn):
         deltaX = 4 - current_position[0]
@@ -160,11 +162,13 @@ while (True):
         calculate_moves(deltaX, deltaY)
 
         board[7][4] = 0
-        board[7][6] = 12
+        board[7][6] = 6
         board[7][7] = 0
-        board[7][5] = 8
+        board[7][5] = 2
         move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)
         move.kingside_castle()
+
+        move.move_steps_uneven(0,40,"positive", "positive")     # temporary workaround to topping out
 
     elif moveTo == "home":
         move.return_origin()
@@ -178,7 +182,7 @@ while (True):
 
         TEMP = board[current_position[1]][current_position[0]]
         board[current_position[1]][current_position[0]] = 0
-        KNIGHT = knight(TEMP)
+        KNIGHT = find_knight(TEMP)
 
 
         #print(current_position, move_position, abs(deltaX), abs(deltaY), directionX, directionY, "off", board[current_position[1]][current_position[0]])

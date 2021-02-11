@@ -230,6 +230,7 @@ class ChessMove:
         
         #print(squareSteps)
         self.move_steppers(squareSteps)
+        self.power_off()
 
     def take_piece(self, xSquares, ySquares, xdirection, ydirection, move_position):
         '''
