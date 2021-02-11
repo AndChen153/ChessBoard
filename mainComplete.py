@@ -155,7 +155,7 @@ while (True):
         move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)
         move.kingside_castle()
 
-    elif moveTo == "qkc" and not find_turn(turn):
+    elif moveTo == "qc" and not find_turn(turn):
         deltaX = 4 - current_position[0]
         deltaY = 7 - current_position[1]
         calculate_moves(deltaX, deltaY)
