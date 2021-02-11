@@ -1,5 +1,6 @@
 from array import *
 from chess_move import ChessMove
+from time import sleep
 
 '''
 assign variables and create objects
@@ -109,7 +110,7 @@ def find_turn(numTurn):
     else:
         return False
 
-print("e2e4 to move pawn to e4 at start \n kc:kingside castle \n qc:queenside castle \n HOME to return to a1")
+print("e2e4: move pawn to e4 \nkc:kingside castle \nqc:queenside castle \nhome:return to a1")
 
 while (True):
     moveTo = input("INPUT: ")  #intake ending position and split into letter and number
@@ -127,6 +128,8 @@ while (True):
         board[0][0] = 0
         board[0][3] = 8
         move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)
+        sleep(0.1)
+        print("moving)")
         move.queenside_castle()
 
     elif moveTo == "kc" and find_turn(turn):
@@ -164,6 +167,9 @@ while (True):
         board[7][5] = 8
         move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)
         move.kingside_castle()
+
+    elif moveTo == "home":
+        move.return_origin()
 
     else:
         #try:
