@@ -296,9 +296,11 @@ class ChessMove:
         sleep(0.1)
         self.power_off()
 
+'''
+# for testing
 move = ChessMove()
 
 while (True):
     move.power_on()
-    move.kingside_castle()
+    move.kingside_castle()'''
 
