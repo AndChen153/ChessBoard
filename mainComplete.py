@@ -1,5 +1,15 @@
 from array import *
 from chess_move import ChessMove
+
+'''
+assign variables and create objects
+'''
+move = ChessMove()
+current_position = [0,0]
+directionX = ""
+directionY = ""
+turn = 1                    # evens are black moves, odds are white move
+
 '''
 Move to one space at a time.
 '''
@@ -14,9 +24,6 @@ reference = {
     'a' : 0 , 'b' : 1 , 'c' : 2 , 'd': 3 , 'e': 4 , 'f': 5 , 'g': 6 , 'h': 7,
     '1': 0 , '2': 1  ,'3': 2  ,'4': 3  ,'5': 4  ,'6' : 5  ,'7': 6  ,'8': 7
     }
-
-current_position = [0,0]
-move_position = [0,0]
 
 '''
 create board array
@@ -33,6 +40,9 @@ board = [[8,9,10,11,12,10,9,8], \
          [2,3,4,5,6,4,3,2]]
 
 def take_piece(current, move_position):
+    '''
+    figure out of moving to a space will take a piece, telling the chess_move program to initiate the algorithm that moves pieces off of the board
+    '''
     print("take piece", current, board[move_position[1]][move_position[0]])
     if current > 6 and board[move_position[1]][move_position[0]] < 7 and current != 0 and board[move_position[1]][move_position[0]] != 0:
         return True
@@ -42,82 +52,148 @@ def take_piece(current, move_position):
         return False
 
 def print_board():
+    '''
+    prints the board out
+    '''
     for r in board:
             for c in r:
                 print(c,end = " ")
             print()
 
-move = ChessMove()
+def knight(temp):
+    '''
+    figure out if a piece is a knight or not, telling the chess_move program to initiate the algorithm that moves pieces on the lines
+    '''
+    if temp == 3 or temp == 9:
+        return True
+    else:
+        return False
+
+def calculate_moves(x, y):
+    '''
+    calculate the number of steps needed to move to a certain square
+    '''
+    global directionX
+    global directionY
+    global current_position
+    
+    if x > 0:
+        directionX = "positive"
+        current_position[0] += x
+    else:
+        directionX = "negative"
+        current_position[0] += x       # negative number
+
+    if y > 0:
+        directionY = "positive"
+        current_position[1] += y
+    else:
+        directionY = "negative"
+        current_position[1] += y       # negative number
+
+def piece_color(piece):
+    '''
+    determine color of a piece, white will return True
+    '''
+    if piece > 6:
+        return True
+    else:
+        return False
+
+def find_turn(numTurn):
+    '''
+    determine whose turn it is, white will return True
+    '''
+    if numTurn%2 == 1:
+        return True
+    else:
+        return False
+
+print("e2e4 to move pawn to e4 at start \n kc:kingside castle \n qc:queenside castle \n HOME to return to a1")
 
 while (True):
-    moveTo = input("enter move from and move to   ")  #intake ending position and split into letter and number
+    moveTo = input("INPUT: ")  #intake ending position and split into letter and number
     # print(moveTo)
-    temp = 0
+    TEMP = 0
     knight = False
-    
-    #try:
-    deltaX = reference[moveTo[0]] - current_position[0]
-    deltaY = reference[moveTo[1]] - current_position[1]
-    print(deltaX, deltaY)
 
-    if deltaX > 0:
-        directionX = "positive"
-        move_position[0] += deltaX
+    if moveTo == "qkc" and find_turn(turn):
+        deltaX = 4 - current_position[0]
+        deltaY = 0 - current_position[1]
+        calculate_moves(deltaX, deltaY)
+
+        board[0][4] = 0
+        board[0][2] = 12
+        board[0][0] = 0
+        board[0][3] = 8
+        move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)
+        move.queenside_castle()
+
+    elif moveTo == "kc" and find_turn(turn):
+        deltaX = 4 - current_position[0]
+        deltaY = 0 - current_position[1]
+        calculate_moves(deltaX, deltaY)
+
+        board[0][4] = 0
+        board[0][6] = 12
+        board[0][7] = 0
+        board[0][5] = 8
+        move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)
+        move.kingside_castle()
+
+    elif moveTo == "qkc" and not find_turn(turn):
+        deltaX = 4 - current_position[0]
+        deltaY = 7 - current_position[1]
+        calculate_moves(deltaX, deltaY)
+
+        board[7][4] = 0
+        board[7][2] = 12
+        board[7][0] = 0
+        board[7][3] = 8
+        move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)
+        move.queenside_castle()
+
+    elif moveTo == "kc" and not find_turn(turn):
+        deltaX = 4 - current_position[0]
+        deltaY = 7 - current_position[1]
+        calculate_moves(deltaX, deltaY)
+
+        board[7][4] = 0
+        board[7][6] = 12
+        board[7][7] = 0
+        board[7][5] = 8
+        move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)
+        move.kingside_castle()
+
     else:
-        directionX = "negative"
-        move_position[0] += deltaX       # negative number
+        #try:
+        deltaX = reference[moveTo[0]] - current_position[0]
+        deltaY = reference[moveTo[1]] - current_position[1]
+        print(deltaX, deltaY)
+        calculate_moves(deltaX, deltaY)
 
-    if deltaY > 0:
-        directionY = "positive"
-        move_position[1] += deltaY
-    else:
-        directionY = "negative"
-        move_position[1] += deltaY       # negative number
-
-    current_position[0] = move_position[0]
-    current_position[1] = move_position[1]
-    print(current_position, move_position, abs(deltaX), abs(deltaY), directionX, directionY, "off", board[current_position[1]][current_position[0]])
-    move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)           
+        TEMP = board[current_position[1]][current_position[0]]
+        board[current_position[1]][current_position[0]] = 0
+        KNIGHT = knight(TEMP)
 
 
+        #print(current_position, move_position, abs(deltaX), abs(deltaY), directionX, directionY, "off", board[current_position[1]][current_position[0]])
+        move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)           
 
+        deltaX2 = reference[moveTo[2]] - current_position[0]
+        deltaY2 = reference[moveTo[3]] - current_position[1]
+        print(deltaX2, deltaY2)
+        calculate_moves(deltaX2, deltaY2)
 
-    deltaX2 = reference[moveTo[2]] - current_position[0]
-    deltaY2 = reference[moveTo[3]] - current_position[1]
-    print(deltaX2, deltaY2)
+        
+        if take_piece(TEMP,current_position):
+            move.take_piece(abs(deltaX2), abs(deltaY2), directionX, directionY, current_position)
+        #print(current_position, move_position, abs(deltaX2), abs(deltaY2), directionX, directionY, "on", KNIGHT, board[current_position[1]][current_position[0]])
+        move.move_steppers_uneven(abs(deltaX2), abs(deltaY2), directionX, directionY, "on", KNIGHT)
 
-    if deltaX2 > 0:
-        directionX = "positive"
-        move_position[0] += deltaX2
-    else:
-        directionX = "negative"
-        move_position[0] += deltaX2       # negative number
+        board[current_position[1]][current_position[0]] = TEMP      # moving pieces in virtual chessboard
+        turn += 1                                                   # keeping track of whose turn it is
+        print_board()
 
-    if deltaY2 > 0:
-        directionY = "positive"
-        move_position[1] += deltaY2
-    else:
-        directionY = "negative"
-        move_position[1] += deltaY2       # negative number
-
-    temp = board[current_position[1]][current_position[0]]
-    board[current_position[1]][current_position[0]] = 0
-    if temp == 3 or temp == 9:
-        knight = True
-    else:
-        knight = False 
-
-
-    if take_piece(temp,move_position):
-        move.take_piece(abs(deltaX2), abs(deltaY2), directionX, directionY, move_position)
-    print(current_position, move_position, abs(deltaX2), abs(deltaY2), directionX, directionY, "on", knight, board[current_position[1]][current_position[0]])
-    move.move_steppers_uneven(abs(deltaX2), abs(deltaY2), directionX, directionY, "on", knight)
-
-    current_position[0] = move_position[0]
-    current_position[1] = move_position[1]
-    board[current_position[1]][current_position[0]] = temp
-
-    print_board()
-
-    #except:
-    #    print("invalid entry")
+        #except:
+        #    print("invalid entry")

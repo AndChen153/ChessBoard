@@ -13,9 +13,9 @@ class ChessMove:
         self.POWER = 23                             # Relay for turning power on an off to motor controllers to prevent overheating
         self.CW = self.HIGH = GPIO.HIGH             # CLockwise Rotation
         self.CCW = self.LOW =  GPIO.LOW             # Counter Clockwise Rotation
-        self.SPR = 400                            # Steps per Rotation (360/1.8)*32
-        self.SPS = 434                            # Steps per Chess Square
-        self.HALFSPS = 217                        # Steps per half Chess Square
+        self.SPR = 400                              # Steps per Rotation (360/1.8)*32
+        self.SPS = 434                              # Steps per Chess Square
+        self.HALFSPS = 217                          # Steps per half Chess Square
         self.CURRENTX = 0                           # current x position in steps
         self.CURRENTY = 0                           # current y position in steps
 
@@ -76,6 +76,9 @@ class ChessMove:
             sleep(self.delay)
 
     def track_location(self, xSteps, ySteps, xdirection, ydirection):
+        '''
+        tracks location of electromagnet in steps from (0,0)
+        '''
         if xdirection == "positive":
             self.CURRENTX += xSteps
         else:
@@ -84,12 +87,72 @@ class ChessMove:
             self.CURRENTY += ySteps
         else:
             self.CURRENTY -= ySteps
-
+            
     def power_on(self):
+        '''
+        flips relay that controls power to the motor controllers and electromagnet, this prevents the controllers from overheating
+        because they stay on to hold motor position
+        '''
         GPIO.output(self.POWER, GPIO.HIGH)
         sleep(0.1)
 
+    def power_off(self):
+        '''
+        flips relay that controls power to the motor controllers and electromagnet, this prevents the controllers from overheating
+        because they stay on to hold motor position
+        '''
+        GPIO.output(self.POWER, GPIO.LOW)
+        GPIO.output(self.MAGNET, GPIO.LOW)
+        sleep(0.1)
+
+    def queenside_castle(self):
+        GPIO.output(self.DIR1, self.direction_xdict["negative"])    # set stepper direction
+        GPIO.output(self.DIR2, self.direction_ydict["positive"])
+
+        GPIO.output(self.MAGNET, self.magnet_dict["on"])            # move king
+        self.move_stepper1(self.SPS*2)
+        GPIO.output(self.MAGNET, self.magnet_dict["off"])
+
+        self.move_stepper1(self.SPS*2)                              # move rook
+        GPIO.output(self.MAGNET, self.magnet_dict["on"])
+        self.move_stepper2(self.HALFSPS)
+
+        GPIO.output(self.DIR1, self.direction_xdict["positive"])
+        GPIO.output(self.DIR2, self.direction_ydict["negative"])
+        self.move_stepper1(self.SPS*3)
+        self.move_stepper2(self.HALFSPS)
+        GPIO.output(self.MAGNET, self.magnet_dict["off"])
+        self.move_stepper1(self.SPS)
+
+    def kingside_castle(self):
+        GPIO.output(self.DIR1, self.direction_xdict["positive"])    # set stepper direction
+        GPIO.output(self.DIR2, self.direction_ydict["positive"])
+
+        GPIO.output(self.MAGNET, self.magnet_dict["on"])            # move king
+        self.move_stepper1(self.SPS*2)
+        GPIO.output(self.MAGNET, self.magnet_dict["off"])
+
+        self.move_stepper1(self.SPS)                                # move rook
+        GPIO.output(self.MAGNET, self.magnet_dict["on"])
+        self.move_stepper2(self.HALFSPS)
+
+        GPIO.output(self.DIR1, self.direction_xdict["negative"])
+        GPIO.output(self.DIR2, self.direction_ydict["negative"])
+        self.move_stepper1(self.SPS*2)
+        self.move_stepper2(self.HALFSPS)
+        GPIO.output(self.MAGNET, self.magnet_dict["off"])
+        self.move_stepper1(self.SPS)                                # move back to king original position
+
+    def return_0_0(self):
+        '''
+        moves the electromagnet back to square a1
+        '''
+        self.move_steps_uneven(self.CURRENTX, self.CURRENTY, "negative", "negative")
+
     def move_steppers_uneven(self, xSquares, ySquares, xdirection, ydirection, mag, knight):
+        '''
+        moves electromagnet to squares that are an uneven number of x and y CHESS SQUARES away
+        '''
         self.power_on()
         self.track_location(xSquares*self.SPS, ySquares*self.SPS, xdirection, ydirection)
 
@@ -97,9 +160,9 @@ class ChessMove:
         GPIO.output(self.DIR2, self.direction_ydict[ydirection])
         GPIO.output(self.MAGNET, self.magnet_dict[mag])             # set electromagnet position
 
-        if xSquares < ySquares:
+        if xSquares < ySquares:                       # determines which direction needs to be moved first, moves that direction until both can be moved at once
             squares = xSquares
-            squareSteps = squares*self.SPS
+            squareSteps = squares*self.SPS            # multiplies squares by steps per square to find number of steps
             remain = ySquares - xSquares
             remainSteps = remain*self.SPS
             xfirst = False
@@ -111,7 +174,7 @@ class ChessMove:
             xfirst = True
             
         if xfirst:
-            if knight:
+            if knight:                              # moves knights on the lines so they dont run into any other pieces
                 self.move_stepper2(self.HALFSPS)
                 remainSteps += self.HALFSPS
                 squareSteps -= self.HALFSPS
@@ -133,17 +196,19 @@ class ChessMove:
         self.move_steppers(squareSteps)
         
         sleep(0.1)
-        GPIO.output(self.MAGNET, GPIO.LOW)
-        GPIO.output(self.POWER, GPIO.LOW)
+        self.power_off()
 
     def move_steps_uneven(self, xSteps, ySteps, xdirection, ydirection):
+        '''
+        moves electromagnet in an uneven number of x and y STEPS
+        '''
         self.power_on()
         self.track_location(xSteps, ySteps, xdirection, ydirection)
 
         GPIO.output(self.DIR1, self.direction_xdict[xdirection])    # set stepper direction
         GPIO.output(self.DIR2, self.direction_ydict[ydirection])
 
-        if xSteps < ySteps:
+        if xSteps < ySteps:                         # determines which direction needs to be moved first, moves that direction until both can be moved at once
             squareSteps = xSteps
             remainSteps = ySteps - xSteps
             xfirst = False
@@ -153,25 +218,28 @@ class ChessMove:
             xfirst = True
             
         if xfirst:
-            print(remainSteps)
+            #print(remainSteps)
             self.move_stepper1(remainSteps)
         else:
-            print(remainSteps)
+            #print(remainSteps)
             self.move_stepper2(remainSteps)
         
-        print(squareSteps)
+        #print(squareSteps)
         self.move_steppers(squareSteps)
 
     def take_piece(self, xSquares, ySquares, xdirection, ydirection, move_position):
+        '''
+        moves pieces off the board that are being taken
+        '''
         self.power_on()
-        origX = self.CURRENTX
+        origX = self.CURRENTX                           # saves original piece position so it can be moved back to after taking piece off of board
         origY = self.CURRENTY
         self.track_location(xSquares*self.SPS, ySquares*self.SPS, xdirection, ydirection)
 
         GPIO.output(self.DIR1, self.direction_xdict[xdirection])    # set stepper direction
         GPIO.output(self.DIR2, self.direction_ydict[ydirection])
 
-        if xSquares < ySquares:
+        if xSquares < ySquares:                     # determines which direction needs to be moved first, moves that direction until both can be moved at once
             squares = xSquares
             squareSteps = squares*self.SPS
             remain = ySquares - xSquares
@@ -198,16 +266,20 @@ class ChessMove:
         GPIO.output(self.DIR2, self.direction_ydict["negative"])
         GPIO.output(self.MAGNET, self.magnet_dict["on"])            # set electromagnet position
 
-        steps = move_position[1]*self.SPS+self.SPR
-        self.move_stepper1(self.HALFSPS)
-        self.move_stepper2(steps)
+        steps = move_position[1]*self.SPS+self.SPR                  # add one full rotation to get off of the board in the negative y direction
+        self.move_stepper1(self.HALFSPS)                            # move piece in the positive x direction to be on the lines
+        self.move_stepper2(steps)                                   # takes the piece off of the board
         self.CURRENTX += self.HALFSPS                               # update location
         self.CURRENTY -= steps                                      # update location
-        GPIO.output(self.MAGNET, self.magnet_dict["off"])
+        GPIO.output(self.MAGNET, self.magnet_dict["off"])           # turn magnet off
+        
 
-        xSteps = origX - self.CURRENTX
+        '''
+        moving electromagnet back to original position
+        '''
+        xSteps = origX - self.CURRENTX                              # finds distance back to original spot
         ySteps = origY - self.CURRENTY
-        print (xSteps, ySteps, self.CURRENTX, self.CURRENTY)
+        #print (xSteps, ySteps, self.CURRENTX, self.CURRENTY)
         if xSteps > 0:
             xdirection = "positive"
         else:
@@ -216,13 +288,13 @@ class ChessMove:
             ydirection = "positive"
         else:
             ydirection = "negative"
+        
         self.move_steps_uneven(abs(xSteps), abs(ySteps), xdirection, ydirection)
 
 
 
         sleep(0.1)
-        GPIO.output(self.POWER, GPIO.LOW)
-
+        self.power_off()
 '''
 move = ChessMove()
 
