@@ -295,12 +295,10 @@ class ChessMove:
 
         sleep(0.1)
         self.power_off()
-'''
+
 move = ChessMove()
 
 while (True):
     move.power_on()
-    x = int(input())    # 1
-    y = int(input())    # 0
-    move.move_steppers_uneven(x,y,"positive","positive","off",False)'''
+    move.queenside_castle()
 
