@@ -117,7 +117,7 @@ while (True):
     TEMP = 0
     knight = False
 
-    if moveTo == "qkc" and find_turn(turn):
+    if moveTo == "qc" and find_turn(turn):
         deltaX = 4 - current_position[0]
         deltaY = 0 - current_position[1]
         calculate_moves(deltaX, deltaY)
