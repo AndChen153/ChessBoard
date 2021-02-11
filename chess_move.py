@@ -300,5 +300,5 @@ move = ChessMove()
 
 while (True):
     move.power_on()
-    move.queenside_castle()
+    move.kingside_castle()
 
