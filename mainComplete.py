@@ -42,7 +42,7 @@ board = [[8,9,10,11,12,10,9,8], \
 
 # garry kasparov v veselin topalov
 # https://www.chessgames.com/perl/chessgame?gid=1011478
-moveset = ["e2e4", "d7d6", "d2d4", "g8f6", "b1c3", "g7g6", "c1e3", "f8g7", "d1d2", "c7c6", "f2f3"]
+moveset = ["e2e4", "d7d6", "d2d4", "g8f6", "b1c3", "g7g6", "c1e3", "f8g7", "d1d2", "c7c6", "f2f3", "b7b5"]
 
 def take_piece(current, move_position):
     '''
