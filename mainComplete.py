@@ -40,6 +40,10 @@ board = [[8,9,10,11,12,10,9,8], \
          [1,1,1,1,1,1,1,1],\
          [2,3,4,5,6,4,3,2]]
 
+# garry kasparov v veselin topalov
+# https://www.chessgames.com/perl/chessgame?gid=1011478
+moveset = ["e2e4", "d7d6", "d2d4", "g8f6", "b1c3", "g7g6", "c1e3", "f8g7", "d1d2", "c7c6", "f2f3"]
+
 def take_piece(current, move_position):
     '''
     figure out of moving to a space will take a piece, telling the chess_move program to initiate the algorithm that moves pieces off of the board
@@ -113,7 +117,8 @@ def find_turn(numTurn):
 print("e2e4: move pawn to e4 \nkc:kingside castle \nqc:queenside castle \nhome:return to a1")
 
 while (True):
-    moveTo = input("INPUT: ")  #intake ending position and split into letter and number
+    #moveTo = input("INPUT: ")  #intake ending position and split into letter and number
+    moveTo = moveset[turn - 1]
     # print(moveTo)
     TEMP = 0
     KNIGHT = False
@@ -154,7 +159,7 @@ while (True):
         move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)
         move.queenside_castle()
 
-        move.move_steps_uneven(0,40,"positive", "positive")     # temporary workaround to topping out
+        move.move_steps_uneven(0,60,"positive", "positive")     # temporary workaround to topping out
 
     elif moveTo == "kc" and not find_turn(turn):
         deltaX = 4 - current_position[0]
@@ -168,7 +173,7 @@ while (True):
         move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)
         move.kingside_castle()
 
-        move.move_steps_uneven(0,40,"positive", "positive")     # temporary workaround to topping out
+        move.move_steps_uneven(0,60,"positive", "positive")     # temporary workaround to topping out
 
     elif moveTo == "home":
         move.return_origin()
