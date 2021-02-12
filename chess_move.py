@@ -105,10 +105,13 @@ class ChessMove:
         GPIO.output(self.MAGNET, GPIO.LOW)
         sleep(0.1)
 
-    def queenside_castle(self):
+    def queenside_castle(self, color_side):
         self.power_on()
         GPIO.output(self.DIR1, self.direction_xdict["negative"])    # set stepper direction
-        GPIO.output(self.DIR2, self.direction_ydict["positive"])
+        if color_side:
+            GPIO.output(self.DIR2, self.direction_ydict["positive"])
+        else:
+            GPIO.output(self.DIR2, self.direction_ydict["negative"])
 
         GPIO.output(self.MAGNET, self.magnet_dict["on"])            # move king
         self.move_stepper1(self.SPS*2)
@@ -119,17 +122,23 @@ class ChessMove:
         self.move_stepper2(self.HALFSPS)
 
         GPIO.output(self.DIR1, self.direction_xdict["positive"])
-        GPIO.output(self.DIR2, self.direction_ydict["negative"])
+        if color_side:
+            GPIO.output(self.DIR2, self.direction_ydict["negative"])
+        else:
+            GPIO.output(self.DIR2, self.direction_ydict["positive"])
         self.move_stepper1(self.SPS*3)
         self.move_stepper2(self.HALFSPS)
         GPIO.output(self.MAGNET, self.magnet_dict["off"])
         self.move_stepper1(self.SPS)
         self.power_off()
 
-    def kingside_castle(self):
+    def kingside_castle(self, color_side):
         self.power_on()
         GPIO.output(self.DIR1, self.direction_xdict["positive"])    # set stepper direction
-        GPIO.output(self.DIR2, self.direction_ydict["positive"])
+        if color_side:
+            GPIO.output(self.DIR2, self.direction_ydict["positive"])
+        else:
+            GPIO.output(self.DIR2, self.direction_ydict["negative"])
 
         GPIO.output(self.MAGNET, self.magnet_dict["on"])            # move king
         self.move_stepper1(self.SPS*2)
@@ -140,7 +149,10 @@ class ChessMove:
         self.move_stepper2(self.HALFSPS)
 
         GPIO.output(self.DIR1, self.direction_xdict["negative"])
-        GPIO.output(self.DIR2, self.direction_ydict["negative"])
+        if color_side:
+            GPIO.output(self.DIR2, self.direction_ydict["negative"])
+        else:
+            GPIO.output(self.DIR2, self.direction_ydict["positive"])
         self.move_stepper1(self.SPS*2)
         self.move_stepper2(self.HALFSPS)
         GPIO.output(self.MAGNET, self.magnet_dict["off"])

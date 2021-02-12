@@ -141,7 +141,7 @@ while (True):
         board[0][0] = 0
         board[0][3] = 8
         move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)
-        move.queenside_castle()
+        move.queenside_castle(find_turn(turn))
 
     elif moveTo == "kc" and find_turn(turn):
         deltaX = 4 - current_position[0]
@@ -153,7 +153,7 @@ while (True):
         board[0][7] = 0
         board[0][5] = 8
         move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)
-        move.kingside_castle()
+        move.kingside_castle(find_turn(turn))
 
     elif moveTo == "qc" and not find_turn(turn):
         deltaX = 4 - current_position[0]
@@ -165,9 +165,9 @@ while (True):
         board[7][0] = 0
         board[7][3] = 2
         move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)
-        move.queenside_castle()
+        move.queenside_castle(find_turn(turn))
 
-        move.move_steps_uneven(0,60,"positive", "positive")     # temporary workaround to topping out
+        #move.move_steps_uneven(0,60,"positive", "positive")     # temporary workaround to topping out
 
     elif moveTo == "kc" and not find_turn(turn):
         deltaX = 4 - current_position[0]
@@ -179,9 +179,9 @@ while (True):
         board[7][7] = 0
         board[7][5] = 2
         move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)
-        move.kingside_castle()
+        move.kingside_castle(find_turn(turn))
 
-        move.move_steps_uneven(0,60,"positive", "positive")     # temporary workaround to topping out
+        #move.move_steps_uneven(0,60,"positive", "positive")     # temporary workaround to topping out
 
     elif moveTo == "home":
         move.return_origin()
