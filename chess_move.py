@@ -283,7 +283,7 @@ class ChessMove:
         GPIO.output(self.DIR2, self.direction_ydict["negative"])
         GPIO.output(self.MAGNET, self.magnet_dict["on"])            # set electromagnet position
 
-        steps = move_position[1]*self.SPS+self.SPR                  # add one full rotation to get off of the board in the negative y direction
+        steps = move_position[1]*self.SPS+self.SPS                  # add one full rotation to get off of the board in the negative y direction
         self.move_stepper1(self.HALFSPS)                            # move piece in the positive x direction to be on the lines
         self.move_stepper2(steps)                                   # takes the piece off of the board
         self.CURRENTX += self.HALFSPS                               # update location
