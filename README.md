@@ -5,6 +5,8 @@ running on raspberry pi 3 and DRV8825 motor controllerswith nema 17 stepper moto
 # Videos
 Prototype stage 1.21.21 [video](https://youtu.be/2joaITZlWBY)
 
+Prototype stage 2.10.21 [video](https://www.youtube.com/watch?v=23EdfVoHuEU&feature=youtu.be&ab_channel=AndrewChen)
+
 Test with real chess pieces after tuning magnet size and electromagnet voltage [video](https://youtu.be/bjvCjh__WXg)
 
 # Photos
