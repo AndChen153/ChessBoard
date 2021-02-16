@@ -3,11 +3,11 @@ I am building a automated chess board that moves pieces by itself through voice 
 running on raspberry pi 3 and DRV8825 motor controllerswith nema 17 stepper motors
 
 # Videos
-Prototype stage 1.21.21 [video](https://youtu.be/2joaITZlWBY)
-
 Prototype stage 2.10.21 [video](https://www.youtube.com/watch?v=23EdfVoHuEU&feature=youtu.be&ab_channel=AndrewChen)
 
-Test with real chess pieces after tuning magnet size and electromagnet voltage [video](https://youtu.be/bjvCjh__WXg)
+Prototype stage 1.30.21 [video](https://youtu.be/bjvCjh__WXg)
+
+Prototype stage 1.21.21 [video](https://youtu.be/2joaITZlWBY)
 
 # Photos
 Created a custom circuit board for motor controllers that allow for replacement if one burns out.
