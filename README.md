@@ -20,4 +20,4 @@ Created a custom circuit board for motor controllers that allow for replacement 
 * google voice api to use voice control
 * [motor set up (old version)](https://learn.adafruit.com/adafruit-dc-and-stepper-motor-hat-for-raspberry-pi/powering-motors)
 * Switched to [Pololu DRV8825 Stepper motor controller](https://www.youtube.com/watch?v=LUbhPKBL_IU&t=1412s&ab_channel=rdagger68)
-* [possible chess program for playing against cpu](https://code-projects.org/simple-chess-game-in-python-with-source-code/)
+* [possible chess program for playing against cpu](https://github.com/Dirk94/ChessAI/blob/master/main.py)
