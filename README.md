@@ -11,8 +11,8 @@ Prototype stage 1.21.21 [video](https://youtu.be/2joaITZlWBY)
 
 # Photos
 Created a custom circuit board for motor controllers that allow for replacement if one burns out.
-![](Circuit_Back.jpg)
-![](Circuit_Front.jpg)
+![](https://github.com/AndChen153/ChessBoard/blob/master/images/Circuit_Back.jpg)
+![](https://github.com/AndChen153/ChessBoard/blob/master/images/Circuit_Front.jpg)
 
 ## Automated Chess Board Controlled
 * uses stepper motors to control x and y axis and an electromagnet to move pieces
