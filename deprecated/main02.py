@@ -1,3 +1,7 @@
+'''
+Allows for replaying of chess games given the input of every move. 
+'''
+
 from array import *
 from chess_move import ChessMove
 from time import sleep
