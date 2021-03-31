@@ -13,7 +13,7 @@ move = ChessMove()
 current_position = [0,0]
 directionX = ""
 directionY = ""
-turn = 1                    # evens are black moves, odds are white move
+#turn = 1                    # evens are black moves, odds are white move
 
 '''
 Move to one space at a time.
@@ -43,17 +43,6 @@ board = [[8,9,10,11,12,10,9,8], \
          [0,0,0,0,0,0,0,0],\
          [1,1,1,1,1,1,1,1],\
          [2,3,4,5,6,4,3,2]]
-
-# garry kasparov v veselin topalov
-# https://www.chessgames.com/perl/chessgame?gid=1011478
-moveset = ["e2e4", "d7d6", "d2d4", "g8f6", "b1c3", "g7g6", "c1e3", "f8g7", "d1d2", "c7c6", "f2f3", "b7b5", \
-            "g1e2", "b8d7", "e3h6", "g7h6", "d2h6", "c8b7", "a2a3", "e7e5", "qc", "d8e7", "c1b1", "a7a6", \
-            "e2c1", "qc", "c1b3", "e5d4", "d1d4", "c6c5", "d4d1", "d7b6", "g2g3", "c8b8", "b3a5", "b7a8",\
-            "f1h3", "d6d5", "h6f4", "b8a7", "h1e1", "d5d4", "c3d5", "b6d5", "e4d5", "e7d6", "d1d4", "c5d4",\
-            "e1e7", "a7b6", "f4d4", "b6a5", "b2b4", "a5a4", "d4c3", "d6d5", "e7a7", "a8b7", "a7b7", "d5c4",\
-            "c3f6", "a4a3", "f6a6", "a3b4", "c2c3", "b4c3", "a6a1", "c3d2", "a1b2", "d2d1", "h3f1", "d8d2",\
-            "b7d7", "d2d7", "f1c4", "b5c4", "b2h8", "d7d3", "h8a8", "c4c3", "a8a4", "d1e1", "f3f4", "f7f5",\
-            "b1c2", "d3d2", "a4a7"]
 
 def take_piece(current, move_position):
     '''
@@ -127,8 +116,8 @@ def find_turn(numTurn):
 
 print("e2e4: move pawn to e4 \nkc:kingside castle \nqc:queenside castle \nhome:return to a1")
 
-while (True):
-    moveTo = input("INPUT: ")  #intake ending position and split into letter and number
+def move_pieces(moveTo, turn):
+    #moveTo = input("INPUT: ")  #intake ending position and split into letter and number
     #moveTo = moveset[turn - 1] #auto run game
     print(moveTo, turn)
     # print(moveTo)
@@ -191,10 +180,9 @@ while (True):
         move.return_origin()
 
     else:
-        #try:
         deltaX = reference[moveTo[0]] - current_position[0]
         deltaY = reference[moveTo[1]] - current_position[1]
-        print(deltaX, deltaY)
+        #print(deltaX, deltaY)
         calculate_moves(deltaX, deltaY)
 
         TEMP = board[current_position[1]][current_position[0]]
@@ -207,7 +195,7 @@ while (True):
 
         deltaX2 = reference[moveTo[2]] - current_position[0]
         deltaY2 = reference[moveTo[3]] - current_position[1]
-        print(deltaX2, deltaY2)
+        #print(deltaX2, deltaY2)
         calculate_moves(deltaX2, deltaY2)
 
         
@@ -216,9 +204,5 @@ while (True):
         #print(current_position, move_position, abs(deltaX2), abs(deltaY2), directionX, directionY, "on", KNIGHT, board[current_position[1]][current_position[0]])
         move.move_steppers_uneven(abs(deltaX2), abs(deltaY2), directionX, directionY, "on", KNIGHT)
 
-        board[current_position[1]][current_position[0]] = TEMP      # moving pieces in virtual chessboard
-    turn += 1                                                   # keeping track of whose turn it is
-    print_board()
-
-        #except:
-        #    print("invalid entry")
+        board[current_position[1]][current_position[0]] = TEMP      # moving pieces in virtual chessboard                                              # keeping track of whose turn it is
+    #print_board()
