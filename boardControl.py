@@ -180,8 +180,8 @@ def move_pieces(moveTo, turn):
         move.return_origin()
 
     else:
-        deltaX = reference[moveTo[0]] - current_position[0]
-        deltaY = reference[moveTo[1]] - current_position[1]
+        deltaX = moveTo[0] - current_position[0]
+        deltaY = moveTo[1] - current_position[1]
         #print(deltaX, deltaY)
         calculate_moves(deltaX, deltaY)
 
@@ -193,8 +193,8 @@ def move_pieces(moveTo, turn):
         #print(current_position, move_position, abs(deltaX), abs(deltaY), directionX, directionY, "off", board[current_position[1]][current_position[0]])
         move.move_steppers_uneven(abs(deltaX), abs(deltaY), directionX, directionY, "off", False)           
 
-        deltaX2 = reference[moveTo[2]] - current_position[0]
-        deltaY2 = reference[moveTo[3]] - current_position[1]
+        deltaX2 = moveTo[2] - current_position[0]
+        deltaY2 = moveTo[3] - current_position[1]
         #print(deltaX2, deltaY2)
         calculate_moves(deltaX2, deltaY2)
 

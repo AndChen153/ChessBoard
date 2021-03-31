@@ -3,10 +3,7 @@ Chess Program vs computer
 https://github.com/Dirk94/ChessAI
 '''
 
-import board, pieces, ai
-from array import *
-from chess_move import ChessMove
-from time import sleep
+import board, pieces, ai, boardControl
 
 # Returns a move object based on the users input. Does not check if the move is valid.
 def get_user_move():
@@ -19,7 +16,7 @@ def get_user_move():
         yfrom = 8 - int(move_str[1:2]) # The board is drawn "upside down", so flip the y coordinate.
         xto = letter_to_xpos(move_str[2:3])
         yto = 8 - int(move_str[3:4]) # The board is drawn "upside down", so flip the y coordinate.
-        return ai.Move(xfrom, yfrom, xto, yto, move_str, False)
+        return ai.Move(xfrom, yfrom, xto, yto, False)
     except ValueError:
         print("Invalid format. Example: A2 A4")
         return get_user_move()
@@ -73,7 +70,8 @@ def letter_to_xpos(letter):
 #
 board = board.Board.new()
 print(board.to_string())
-turn = 1
+
+turn = 0
 
 while True:
     move = get_valid_user_move(board)
@@ -85,7 +83,8 @@ while True:
             print("Stalemate.")
             break
 
-    board.perform_move(move, turn)
+    board.perform_move_board(move,turn)
+
 
     print("User move: " + move.to_string())
     print(board.to_string())
@@ -99,7 +98,7 @@ while True:
             print("Stalemate.")
             break
 
-    board.perform_move(ai_move, turn)
+    board.perform_move_board(ai_move,turn)
     print("AI move: " + ai_move.to_string())
     print(board.to_string())
 

@@ -69,44 +69,69 @@ class Board:
 
         return moves
 
-    def perform_move(self, move, turn):
+    def perform_move(self, move):
         piece = self.chesspieces[move.xfrom][move.yfrom]
         piece.x = move.xto
         piece.y = move.yto
+        self.chesspieces[move.xto][move.yto] = piece
+        self.chesspieces[move.xfrom][move.yfrom] = 0
 
         if (piece.piece_type == pieces.Pawn.PIECE_TYPE):
             if (piece.y == 0 or piece.y == Board.HEIGHT-1):
                 self.chesspieces[piece.x][piece.y] = pieces.Queen(piece.x, piece.y, piece.color)
-            if (piece.piece_type == pieces.King.PIECE_TYPE):
-                if (piece.color == pieces.Piece.WHITE):
-                    self.white_king_moved = True
-                else:
-                    self.black_king_moved = True
 
-        elif (move.castling_move):
+        if (move.castling_move):
             if (move.xto < move.xfrom):
                 rook = self.chesspieces[move.xfrom][0]
                 rook.x = 2
                 self.chesspieces[2][0] = rook
                 self.chesspieces[0][0] = 0
-                boardControl.move_pieces("kc", turn)
             if (move.xto > move.xfrom):
                 rook = self.chesspieces[move.xfrom][Board.HEIGHT-1]
                 rook.x = Board.WIDTH-4
                 self.chesspieces[Board.WIDTH-4][Board.HEIGHT-1] = rook
                 self.chesspieces[move.xfrom][Board.HEIGHT-1] = 0
-                boardControl.move_pieces("qc", turn)
 
-            if (piece.piece_type == pieces.King.PIECE_TYPE):
-                if (piece.color == pieces.Piece.WHITE):
-                    self.white_king_moved = True
-                else:
-                    self.black_king_moved = True
-            
-        else:
-            boardControl.move_pieces(str(move.move_str), turn)
-            self.chesspieces[move.xto][move.yto] = piece
-            self.chesspieces[move.xfrom][move.yfrom] = 0
+        if (piece.piece_type == pieces.King.PIECE_TYPE):
+            if (piece.color == pieces.Piece.WHITE):
+                self.white_king_moved = True
+            else:
+                self.black_king_moved = True
+
+    def perform_move_board(self, move, turn):
+        piece = self.chesspieces[move.xfrom][move.yfrom]
+        piece.x = move.xto
+        piece.y = move.yto
+        self.chesspieces[move.xto][move.yto] = piece
+        self.chesspieces[move.xfrom][move.yfrom] = 0
+        try:
+            boardControl.move_pieces([move.xfrom,move.yfrom,move.xto,move.yto], turn)
+        except:
+            pass
+
+        if (piece.piece_type == pieces.Pawn.PIECE_TYPE):
+            if (piece.y == 0 or piece.y == Board.HEIGHT-1):
+                self.chesspieces[piece.x][piece.y] = pieces.Queen(piece.x, piece.y, piece.color)
+
+        if (move.castling_move):
+            if (move.xto < move.xfrom):
+                rook = self.chesspieces[move.xfrom][0]
+                rook.x = 2
+                self.chesspieces[2][0] = rook
+                self.chesspieces[0][0] = 0
+                boardControl.move_pieces["qc", turn]
+            if (move.xto > move.xfrom):
+                rook = self.chesspieces[move.xfrom][Board.HEIGHT-1]
+                rook.x = Board.WIDTH-4
+                self.chesspieces[Board.WIDTH-4][Board.HEIGHT-1] = rook
+                self.chesspieces[move.xfrom][Board.HEIGHT-1] = 0
+                boardControl.move_pieces["kc", turn]
+
+        if (piece.piece_type == pieces.King.PIECE_TYPE):
+            if (piece.color == pieces.Piece.WHITE):
+                self.white_king_moved = True
+            else:
+                self.black_king_moved = True
 
     # Returns if the given color is checked.
     def is_check(self, color):
