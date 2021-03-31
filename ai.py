@@ -206,11 +206,12 @@ class AI:
 
 class Move:
 
-    def __init__(self, xfrom, yfrom, xto, yto, castling_move):
+    def __init__(self, xfrom, yfrom, xto, yto, move_str, castling_move):
         self.xfrom = xfrom
         self.yfrom = yfrom
         self.xto = xto
         self.yto = yto
+        self.move_str = move_str
         self.castling_move = castling_move
 
     # Returns true iff (xfrom,yfrom) and (xto,yto) are the same.
