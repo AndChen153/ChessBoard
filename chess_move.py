@@ -1,3 +1,7 @@
+'''
+program to move the stepper motors depending on how many spaces are inputted
+'''
+
 from time import sleep
 import RPi.GPIO as GPIO
 
@@ -33,7 +37,7 @@ class ChessMove:
 
         self.MODE = (14, 15, 18)                    # Setup for different modes of stepping
         GPIO.setup(self.MODE, GPIO.OUT)             # Specific values for pololu DRV8825 Stepper motor controller
-        self.RESOLUTION = {'Full': (self.LOW, self.LOW, self.LOW),  
+        self.RESOLUTION = {'Full': (self.LOW, self.LOW, self.LOW),
                     'Half': (self.HIGH, self.LOW, self.LOW),
                     '1/4': (self.LOW, self.HIGH, self.LOW),
                     '1/8': (self.HIGH, self.HIGH, self.LOW),
@@ -42,7 +46,7 @@ class ChessMove:
 
         GPIO.output(self.MODE, self.RESOLUTION["Half"])    # same speed as full step but much quieter
         self.delay = 0.005 / 16
-    
+
     def move_stepper1(self, steps):
         '''
         moves x axis stepper in one direction
@@ -52,7 +56,7 @@ class ChessMove:
             sleep(self.delay)
             GPIO.output(self.STEP1, self.LOW)
             sleep(self.delay)
-    
+
     def move_stepper2(self, steps):
         '''
         moves y axis stepper in one direction
@@ -62,7 +66,7 @@ class ChessMove:
             sleep(self.delay)
             GPIO.output(self.STEP2, self.LOW)
             sleep(self.delay)
-    
+
     def move_steppers(self, steps):
         '''
         moves both steppers
@@ -87,7 +91,7 @@ class ChessMove:
             self.CURRENTY += ySteps
         else:
             self.CURRENTY -= ySteps
-            
+
     def power_on(self):
         '''
         flips relay that controls power to the motor controllers and electromagnet, this prevents the controllers from overheating
@@ -188,7 +192,7 @@ class ChessMove:
             remain = xSquares - ySquares
             remainSteps = remain*self.SPS
             xfirst = True
-            
+
         if xfirst:
             if knight:                              # moves knights on the lines so they dont run into any other pieces
                 self.move_stepper2(self.HALFSPS)
@@ -208,9 +212,9 @@ class ChessMove:
             self.move_stepper2(remainSteps)
 
             #print("movingy" , remainSteps)
-        
+
         self.move_steppers(squareSteps)
-        
+
         sleep(0.1)
         self.power_off()
 
@@ -232,14 +236,14 @@ class ChessMove:
             squareSteps = ySteps
             remainSteps = xSteps - ySteps
             xfirst = True
-            
+
         if xfirst:
             #print(remainSteps)
             self.move_stepper1(remainSteps)
         else:
             #print(remainSteps)
             self.move_stepper2(remainSteps)
-        
+
         #print(squareSteps)
         self.move_steppers(squareSteps)
         self.power_off()
@@ -270,15 +274,15 @@ class ChessMove:
             remainSteps = remain*self.SPS
             #print ("x bigger",remainSteps)
             xfirst = True
-            
+
         if xfirst:
             self.move_stepper1(remainSteps)
 
         else:
             self.move_stepper2(remainSteps)
-        
+
         self.move_steppers(squareSteps)
-        
+
         GPIO.output(self.DIR1, self.direction_xdict["positive"])    # set stepper direction
         GPIO.output(self.DIR2, self.direction_ydict["negative"])
         GPIO.output(self.MAGNET, self.magnet_dict["on"])            # set electromagnet position
@@ -289,7 +293,7 @@ class ChessMove:
         self.CURRENTX += self.HALFSPS                               # update location
         self.CURRENTY -= steps                                      # update location
         GPIO.output(self.MAGNET, self.magnet_dict["off"])           # turn magnet off
-        
+
 
         '''
         moving electromagnet back to original position
@@ -305,7 +309,7 @@ class ChessMove:
             ydirection = "positive"
         else:
             ydirection = "negative"
-        
+
         self.move_steps_uneven(abs(xSteps), abs(ySteps), xdirection, ydirection)
 
 

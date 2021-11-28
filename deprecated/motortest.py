@@ -1,3 +1,7 @@
+'''
+test the move functionality of the motors
+'''
+
 from time import sleep
 import RPi.GPIO as GPIO
 

@@ -1,3 +1,6 @@
+'''
+program to turn the electromagnet on or off
+'''
 import RPi.GPIO as GPIO
 import time
 
@@ -14,7 +17,7 @@ while True:
 
     if y == "a":
         GPIO.output(channel, GPIO.HIGH)
-        
+
 
     elif y == "b":
         GPIO.output(channel, GPIO.LOW)
